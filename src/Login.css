@@ -1,0 +1,92 @@
+body {
+    justify-content: center;
+    align-items: center;
+    background-image: url('../public/background.png');
+    background-repeat: repeat;
+  }
+  
+  .Login-box .login-title {
+    display: flex;
+    height: 140px;
+  }
+  
+  .Login-box .login-title img {
+    position: relative;
+    top: 20px;
+    width: 80px;
+    height: 80px;
+  }
+  
+  .Login-box .login-title h2 {
+    position: relative;
+    color: #0a1612;
+    margin-left: 20px;
+    font-size: 35px;
+  }
+  
+  .Login-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    top: 30%;
+    right: 20%;
+    border: 5px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0 0 15px gray;
+  }
+  
+  .Login-box input {
+    display: flex;
+    width: 240px;
+    height: 40px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom:20px;
+    font-size: 16px;
+    border: 1px solid gainsboro;
+    padding: 0 20px;
+  }
+  
+  .Login-box input:focus {
+    background-color: white;
+    box-shadow: 0 0 5px gray;
+    border: 1px solid #0a1612;
+  }
+  
+  .Login-box a {
+    text-decoration: none;
+    color: #0a1612;
+    font-size: 14px;
+    width: 280px;
+    text-align: end;
+    transition: 2s;
+  }
+  
+  .Login-box .button-box {
+    width: 400px;
+    height: 40px;
+    justify-content: center;
+    align-items: start;
+    margin-bottom:5px;
+  }
+  
+  .Login-box button {
+    float: left;
+    width: 110px;
+    height: 40px;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    box-shadow: 0 0 5px gray;
+    background-color: #122930;
+    margin-left: 60px;
+  } 
