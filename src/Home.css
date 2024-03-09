@@ -1,0 +1,95 @@
+.Home-box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 150px;
+    height: 900px;
+    width: 90%;
+    margin-left: 5%;
+    padding: 1%;
+    background-color: white;
+    border-radius: 20px;
+    color: black;
+}
+
+.Home-box .book-box {
+    width: 18%;
+    height: 350px;
+    margin-top: 20px;
+    z-index: top;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid gainsboro;
+    overflow: hidden;
+}
+
+.Home-box .book-box:hover {
+    box-shadow: 0 0 5px gray;
+    cursor: pointer
+}
+
+.Home-box .book-box img {
+    width: auto;
+    height: 65%;
+}
+
+.Home-box .book-box .title {
+    text-align: left;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    margin-left: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 20px;
+}
+
+.Home-box .book-box .author {
+    text-align: right;
+    margin-right: 20px;
+    font-size: 14px;
+    color: gray;
+    line-height: 0px;
+}
+
+.Home-box .book-box .price {
+    text-align: left;
+    margin-left: 20px;
+    font-weight: bold;
+    color: #f7ce3e;
+    font-size: 16px;
+}
+
+.Home-box .page-box {
+    width:100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.Home-box .page-box .page-up, .page-num, .page-down{
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #0a1612;
+    text-align: center;
+    line-height: 30px;
+}
+
+.Home-box .page-box .page-up:hover, .page-num:hover, .page-down:hover {
+    background-color: gainsboro;
+}
+
+.Home-box .page-box .page-up {
+    background-image: url('../public/arrow_left.png');
+    background-size: cover;
+}
+
+.Home-box .page-box .page-down {
+    background-image: url('../public/arrow_right.png');
+    background-size: cover;
+}

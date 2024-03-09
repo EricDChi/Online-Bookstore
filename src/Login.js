@@ -20,28 +20,6 @@ function Login() {
           <input type="text" placeholder="搜索书籍"></input>
           <button>搜索</button>
         </div>
-
-        <div className="icon-box">
-          <img className="round-icon" src="../user.png" alt=""></img>
-        </div>
-
-        <div className="tool-box">
-          <a href="#">
-            <img src="../message.png" alt=""></img>
-            <br/>
-              消息
-          </a>
-          <a href="#">
-            <img src="../cart.png" alt=""></img>
-            <br/>
-              购物车
-          </a>
-          <a href="#">
-            <img src="../order.png" alt=""></img>
-            <br/>
-              订单
-          </a>
-        </div>
       </header>
 
       <div className="Login-box">

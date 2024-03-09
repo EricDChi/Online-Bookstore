@@ -1,16 +1,16 @@
 .Login-header {
     height: 70px;
     background-color: #122930;
-    top: 0;
     overflow: hidden;
+    top: 0;
     color: white;
-  }
+}
   
   .Login-footer {
     height: 70px;
     background-color: rgb(245, 245, 245);
-    bottom: 0;
     color: black;
+    bottom: 0;
     text-align: center;
     padding-top: 0px;
     position: fixed;
@@ -35,8 +35,6 @@
     float: left;
     display: flex;
     width: 300px;
-    align-items: center;
-    justify-content: center;
   }
   
   .tool-box {
@@ -61,13 +59,20 @@
   }
   
   .search-box button {
+    z-index: 1;
     width: 60px;
+    pointer-events: auto;
     height: 42px;
     background-color: gainsboro;
     margin-top: 15px;
     border-radius: 0px 10px 10px 0px;
     font-size: 16px;
     border: none;
+  }
+
+  .search-box button:hover {
+    border: 1px solid #122930;
+    cursor: pointer;
   }
   
   .icon-box {
