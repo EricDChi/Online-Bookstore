@@ -4,7 +4,7 @@ import './global.css';
 function Login() {
   return (
     <div className="Login">
-      <header className="Login-header">
+      <header className="global-header">
         <div className="logo-box">
           <img className ="logo" src="../logo_white.png" alt=""></img>
           <h2>电子书城</h2>
@@ -38,7 +38,7 @@ function Login() {
         </div>
       </div>
 
-      <footer className="Login-footer">
+      <footer className="global-footer">
         <a href = "https://github.com/EricDChi/online-bookstore">github仓库</a>
         <p>online bookstore</p>
       </footer>
