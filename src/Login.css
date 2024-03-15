@@ -12,6 +12,13 @@ body {
   min-height: 84vh;
 }
   
+.Login-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
 .Login-box {
   display: flex;
   flex-direction: column;
@@ -19,9 +26,7 @@ body {
   align-items: center;
   width: 400px;
   height: 400px;
-  position: absolute;
-  top: 30%;
-  right: 20%;
+  margin: auto;
   border: 5px solid rgba(255, 255, 255, 0.5);
   border-radius: 20px;
   background-color: white;
