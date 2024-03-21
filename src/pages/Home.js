@@ -1,5 +1,5 @@
-import './Home.css';
-import './global.css';
+import '../css/Home.css';
+import '../css/global.css';
 
 function Home() {
   return (

@@ -94,11 +94,11 @@
 }
 
 .Home-box .page-box .page-up {
-    background-image: url('../public/arrow_left.png');
+    background-image: url('../../public/arrow_left.png');
     background-size: cover;
 }
 
 .Home-box .page-box .page-down {
-    background-image: url('../public/arrow_right.png');
+    background-image: url('../../public/arrow_right.png');
     background-size: cover;
 }
