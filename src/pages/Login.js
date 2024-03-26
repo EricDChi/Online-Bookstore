@@ -1,5 +1,6 @@
 import '../css/Login.css';
 import '../css/global.css';
+import { Button } from 'antd';
 
 function Login() {
   return (
@@ -34,8 +35,8 @@ function Login() {
         </div>
         <a href="#">忘记密码？</a>
         <div className='button-box'>
-          <button>登录</button>
-          <button>注册</button>
+          <Button>登录</Button>
+          <Button>注册</Button>
         </div>
       </div>
       </div>
