@@ -1,5 +1,6 @@
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Book from './pages/Book';
 import { Route, Routes } from "react-router-dom"
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />}></Route>
           <Route path="/Home" element={<Home />}></Route>
+          <Route path="/Book" element={<Book />}></Route>
         </Routes>
       </header>
     </div>

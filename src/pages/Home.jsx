@@ -1,5 +1,6 @@
 import '../css/Home.css';
 import '../css/global.css';
+import { book_page } from '../service/Home';
 
 function Home() {
   return (
@@ -21,8 +22,8 @@ function Home() {
           <button>搜索</button>
         </div>
 
-        <div className="icon-box">
-          <img className="round-icon" src="../user.png" alt=""></img>
+        <div className="avatar-box">
+          <img className="avatar" src="../user.png" alt=""></img>
         </div>
 
         <div className="tool-box">
@@ -45,7 +46,7 @@ function Home() {
       </header>
 
       <div className="Home-box">
-        <a className="book-box" href="#">
+        <a className="book-box" onClick={book_page}>
           <img src="../book1.png" alt=""></img>
           <p className='title'>C++ Primer 中文版（第 5 版）</p>
           <p className='author'>Stanley B.Lippman</p>

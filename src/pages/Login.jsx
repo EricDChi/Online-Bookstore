@@ -1,5 +1,6 @@
 import '../css/Login.css';
 import '../css/global.css';
+import { login } from '../service/Login';
 
 function Login() {
   return (
@@ -34,7 +35,7 @@ function Login() {
         </div>
         <a href="#">忘记密码？</a>
         <div className='button-box'>
-          <button>登录</button>
+          <button onClick={login}>登录</button>
           <button>注册</button>
         </div>
       </div>
