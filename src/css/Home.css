@@ -32,6 +32,7 @@
 
 .Home-box .book-box:hover {
     box-shadow: 0 0 5px gray;
+    cursor: pointer;
 }
 
 .Home-box .book-box img {
@@ -66,7 +67,7 @@
     text-align: left;
     margin-left: 20px;
     font-weight: bold;
-    color: #f7ce3e;
+    color: rgb(255, 152 , 1);
     font-size: 16px;
 }
 
@@ -86,6 +87,7 @@
     font-size: 16px;
     color: #0a1612;
     text-align: center;
+    border-radius: 5px;
     line-height: 30px;
 }
 

@@ -85,7 +85,7 @@
   cursor: pointer;
 }
   
-.icon-box {
+.avatar-box {
   float: right;
   height: 50px;
   width: 100px;
@@ -96,6 +96,7 @@
   position: relative;
   margin-left: 30px;
   margin-top: 0px;
+  font-size: 20px;
   line-height: 50px;
   text-align: center;
 }
@@ -103,13 +104,12 @@
 .logo-box .logo {
   float: left;
   position: relative;
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   display: flex;
-  top: 5px;
+  top: 10px;
   left: 20px;
 }
-  
   
 .nav-box a {
   float: left;
@@ -136,12 +136,12 @@
   height: 20px;
 }
   
-.round-icon{
+.avatar-box .avatar {
   position:relative;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   display: flex;
-  top: 5px;
+  top: 7px;
   border-radius: 50%;
 }
   
