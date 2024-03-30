@@ -1,9 +1,10 @@
-import { Layout } from "antd";
+import { Layout, Space } from "antd";
+import { Content, Footer, Header } from "antd/es/layout/layout";
 import Navbar, { navbar } from "./navbar";
-import { Content, Header } from "antd/es/layout/layout";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-export default function BasicLayout ({children}) {
+export function BasicLayout ({children}) {
     return (
         <Layout>
             <Header className="header"><Navbar user={null}/></Header>
@@ -20,7 +21,7 @@ export default function BasicLayout ({children}) {
     );
 }
 
-export default function PrivateLayout ({children}) {
+export function PrivateLayout ({children}) {
     const[user, setUser] = useState(null);
 
     return (

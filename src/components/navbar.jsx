@@ -1,5 +1,6 @@
 import { Col, Row, Dropdown, Button, Menu } from 'antd';
 import { Link, useLocation, useNavigate } from "react-router-dom";
+
 import {
     LogoutOutlined,
     UserOutlined,
@@ -23,18 +24,14 @@ export default function Navbar({user}) {
         label: <Link to={item.value}>{item.label}</Link>
     }));
 
-    const usernavMenuItems = [
-        { 
-            key: "/cart", 
-            label: "购物车",
-            icon: <ShoppingCartOutlined /> 
-        },
-        { 
-            key: "/orders",
-            label: "订单",
-            icon: <OrderedListOutlined />
-        }
+    const usernavItems = [
+        { key: "/cart", label: "购物车", icon: <ShoppingCartOutlined /> },
+        { key: "/orders", label: "订单", icon: <OrderedListOutlined />}
     ];
+    const usernavMenuItems = usernavItems.map(item => ({
+        key: item.key,
+        label: <Link to={item.key}>{item.label}</Link>
+    }));
 
     const dropMenuItems = [
         {
@@ -52,12 +49,16 @@ export default function Navbar({user}) {
             label: `余额：${user?.balance / 100}元`,
             icon: <AccountBookOutlined />,
         },
-        { key: "/logout", label: "登出", icon: <LogoutOutlined />, danger: true },
+        {   
+            key: "/logout", 
+            label: "登出", 
+            icon: <LogoutOutlined />, 
+            danger: true 
+        },
     ];
 
     return (
         <Row className="navbar" justify="start"> 
-            {contextHolder}
             <Col>
                 <Link to="/">电子书城</Link>
             </Col>
@@ -68,7 +69,7 @@ export default function Navbar({user}) {
                     selectedKeys={[selectedKey]}
                 />
             </Col>
-            <Col>
+            <Col flex="auto">
                 <Menu mode="horizontal"
                     items={usernavMenuItems}
                     defaultSelectedKeys={[selectedKey]}
@@ -76,11 +77,11 @@ export default function Navbar({user}) {
                 />
             </Col>
             {user && <Col flex="auto">
-                    <input type="text" placeholder="搜索书籍"></input>
-                    <button>搜索</button>
+                <input type="text" placeholder="搜索书籍"></input>
+                <button>搜索</button>
             </Col>}
             {user && <Col>
-                <Dropdown menu={{ onClick: handleMenuClick, items: dropMenuItems }}>
+                <Dropdown menu={{ items: dropMenuItems }}>
                     <Button shape="circle" icon={<UserOutlined />} />
                 </Dropdown>
             </Col>}
