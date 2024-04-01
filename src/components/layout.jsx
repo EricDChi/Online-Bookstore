@@ -1,19 +1,19 @@
-import { Layout, Space } from "antd";
+import { Divider, Layout, Space } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import Navbar, { navbar } from "./navbar";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export function BasicLayout ({children}) {
     return (
-        <Layout>
+        <Layout className="basic-layout">
             <Header className="header"><Navbar user={null}/></Header>
             <Content className="content">
                 {children}
             </Content>
             <Footer className="footer">
-                <Space style="vertical">
-                    <Link target="_blank" to="https://github.com/EricDChi/Online-Bookstore">github仓库</Link>
+                <Space direction="vertical">
+                    <Link href="https://github.com/EricDChi/Online-Bookstore">github仓库</Link>
                     <div>电子书城</div>  
                 </Space>
             </Footer>
@@ -22,18 +22,24 @@ export function BasicLayout ({children}) {
 }
 
 export function PrivateLayout ({children}) {
-    const[user, setUser] = useState(null);
+    const [user, setUser] = useState(null);
+    const navigate = useNavigate();
+
+
+    useEffect(() => {
+        setUser("Taylor");
+    }, []);
 
     return (
-        <Layout>
+        <Layout className="basic-layout">
             <Header className="header"><Navbar user={user}/></Header>
             <Content className="content">
                 {children}
             </Content>
             <Footer className="footer">
-                <Space style="vertical">
-                    <Link target="_blank" to="https://github.com/EricDChi/Online-Bookstore">github仓库</Link>
-                    <div>电子书城 REINS 2024</div>  
+                <Space direction="vertical">
+                    <Link href="https://github.com/EricDChi/Online-Bookstore">github仓库</Link>
+                    <div>电子书城</div>  
                 </Space>
             </Footer>
         </Layout>

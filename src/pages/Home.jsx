@@ -1,6 +1,6 @@
-import '../css/Home.css';
-import '../css/global.css';
-import { book_page } from '../service/Home';
+import '../oldcss/old_home.css';
+import '../oldcss/old_global.css';
+import { book_page } from '../service/home';
 
 function Home() {
   return (

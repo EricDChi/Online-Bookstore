@@ -1,7 +1,7 @@
 
-import '../css/Login.css';
-import '../css/global.css';
-import { login } from '../service/Login';
+import '../oldcss/old_login.css';
+import '../oldcss/old_global.css';
+import { login } from '../service/login';
 
 function Login() {
   return (

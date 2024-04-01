@@ -1,0 +1,158 @@
+@font-face {
+  font-family:HarmonyOS_Sans_SC_Medium;font-style: normal;font-display: swap;
+  src: url('https://cdn.jsdelivr.net/gh/irozhi/HarmonyOS-Sans/HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Medium.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/gh/irozhi/HarmonyOS-Sans/HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Medium.woff') fornmat('woff');
+}
+*{font-family:HarmonyOS_Sans_SC_Medium;}
+
+.global-header {
+  height: 50px;
+  background-color: #122930;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  color: white;
+}
+  
+.global-footer {
+  height: 50px;
+  background-color: rgb(245, 245, 245);
+  color: black;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+}
+  
+.global-header, .global-footer{
+  position: absolute;
+  width: 100%;
+}
+  
+.logo-box {
+  float: left;
+  width: 250px;
+}
+  
+.nav-box {
+  float: left;
+  width: 250px;
+}
+  
+.search-box {
+  float: left;
+  display: flex;
+  width: 300px;
+}
+  
+.tool-box {
+  float: right;
+  width: 300px;
+}
+  
+.search-box input {
+  width: 200px;
+  height: 30px;
+  margin-top: 10px;
+  margin-left: auto;
+  border-radius: 10px 0px 0px 10px;
+  padding-left: 20px;
+  color: darkgray;
+  font-size: 15px;
+  border: none;
+}
+  
+.search-box input:focus {
+  outline: gray solid 2px;
+  color: #000;
+}
+  
+.search-box button {
+  z-index: 1;
+  width: 50px;
+  pointer-events: auto;
+  height: 32px;
+  background-color: gainsboro;
+  margin-top: 10px;
+  margin-right: auto;
+  border-radius: 0px 10px 10px 0px;
+  font-size: 15px;
+  border: none;
+}
+
+.search-box button:hover {
+  border: 1px solid #122930;
+  cursor: pointer;
+}
+  
+.avatar-box {
+  float: right;
+  height: 50px;
+  width: 100px;
+}
+  
+.logo-box h2 {
+  float: left;
+  position: relative;
+  margin-left: 30px;
+  margin-top: 0px;
+  font-size: 20px;
+  line-height: 50px;
+  text-align: center;
+}
+  
+.logo-box .logo {
+  float: left;
+  position: relative;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  top: 10px;
+  left: 20px;
+}
+  
+.nav-box a {
+  float: left;
+  position: relative;
+  margin-left: 30px;
+  line-height: 50px;
+  color: white;
+  text-decoration: none;
+}
+  
+.tool-box a {
+  float: right;
+  position: relative;
+  top: 5px;
+  font-size: 12px;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  margin-right: 40px;
+}
+  
+.tool-box a img {
+  width: 20px;
+  height: 20px;
+}
+  
+.avatar-box .avatar {
+  position:relative;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  top: 7px;
+  border-radius: 50%;
+}
+  
+.global-footer > a {
+  font-size: 14px;
+  position: relative;
+  top: 10px;
+  text-decoration: none;
+}
+  
+.global-footer > p {
+  font-size: 14px;
+  position: relative;
+}
+  

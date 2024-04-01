@@ -1,106 +1,34 @@
-.Home {
-    position: relative;
-    padding-top: 100px;
-    padding-bottom: 100px;
-    min-height: 84vh;
+.booklist-container {
+  height: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 1%;
+  background-color: white;
+  border-radius: 20px;
+  color: black;
 }
 
-.Home-box {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    height: auto;
-    width: 90%;
-    margin:auto;
-    padding: 1%;
-    background-color: white;
-    border-radius: 20px;
-    color: black;
-}
 
-.Home-box .book-box {
-    width: 18%;
-    height: auto;
-    margin-top: 20px;
-    border-radius: 10px;
-    text-align: center;
-    text-decoration: none;
-    border: 1px solid gainsboro;
-    overflow: hidden;
+.book-card .title {
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size: 16px;
+  color: #0a1612;
+  font-weight: bold;
 }
-
-.Home-box .book-box:hover {
-    box-shadow: 0 0 5px gray;
-    cursor: pointer;
+  
+.book-card .author {
+  text-align: right;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size: 14px;
+  color: gray;
 }
-
-.Home-box .book-box img {
-    height: 65%;
-    width: 100%;
-    object-fit: contain;
-}
-
-.Home-box .book-box .title {
-    text-align: left;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-    margin-left: 20px;
-    font-size: 16px;
-    color: #0a1612;
-    font-weight: bold;
-}
-
-.Home-box .book-box .author {
-    text-align: right;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-    margin-right: 20px;
-    margin-left: 20px;
-    font-size: 14px;
-    color: gray;
-}
-
-.Home-box .book-box .price {
-    text-align: left;
-    margin-left: 20px;
-    font-weight: bold;
-    color: rgb(255, 152 , 1);
-    font-size: 16px;
-}
-
-.Home-box .page-box {
-    width:100%;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.Home-box .page-box .page-up, .page-num, .page-down{
-    float: left;
-    width: 30px;
-    height: 30px;
-    margin-left: 10px;
-    text-decoration: none;
-    font-size: 16px;
-    color: #0a1612;
-    text-align: center;
-    border-radius: 5px;
-    line-height: 30px;
-}
-
-.Home-box .page-box .page-up:hover, .page-num:hover, .page-down:hover {
-    background-color: gainsboro;
-}
-
-.Home-box .page-box .page-up {
-    background-image: url('../../public/arrow_left.png');
-    background-size: cover;
-}
-
-.Home-box .page-box .page-down {
-    background-image: url('../../public/arrow_right.png');
-    background-size: cover;
+  
+.book-card .price {
+  font-weight: bold;
+  color: rgb(255, 152 , 1);
+  font-size: 16px;
 }

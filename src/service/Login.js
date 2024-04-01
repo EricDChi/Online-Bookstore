@@ -1,3 +1,3 @@
 export function login() {
-    window.location.href = "/Home";
+    window.location.href = "/home";
 }

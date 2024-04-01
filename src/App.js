@@ -2,6 +2,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Book from './pages/Book';
 import LoginPage from './page/login';
+import HomePage from './page/home';
 import { Route, Routes } from "react-router-dom"
 
 function App() {
@@ -9,9 +10,10 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Routes>
-          <Route path="/" element={<LoginPage />}></Route>
-          <Route path="/Home" element={<Home />}></Route>
-          <Route path="/Book" element={<Book />}></Route>
+          <Route index element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />}></Route>
+          <Route path="/home" element={<HomePage />}></Route>
+          <Route path="/book" element={<Book />}></Route>
         </Routes>
       </header>
     </div>
