@@ -34,7 +34,7 @@ export default function Navbar({user}) {
     ];
     const usernavMenuItems = usernavItems.map(item => ({
         key: item.key,
-        label: <Link to={item.key}>{item.label}</Link>
+        icon: item.icon
     }));
 
     const dropMenuItems = [
@@ -97,6 +97,7 @@ export default function Navbar({user}) {
                     theme='dark'
                     defaultSelectedKeys={[selectedKey]}
                     selectedKeys={[selectedKey]}
+                    style={{ iconSize: "200%" }}
                 />
             </Col>}
             {user && <Col className='navbar-col' span={1}>

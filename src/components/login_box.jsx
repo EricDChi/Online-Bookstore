@@ -15,15 +15,15 @@ export function LoginBox (){
                 <img src="../logo.png" alt=""></img>
                 <h2>电子书城</h2>
             </div>
-            <Space className='input-box' direction="vertical">
-                <Input placeholder="input account" 
+            <Space size='middle' className='input-box' direction="vertical">
+                <Input size='large' 
+                    placeholder="input account" 
                     prefix={<UserOutlined />} 
                     allowClear
-                    size='large'
                 />
                 <Input.Password placeholder="input password" 
                     prefix={<LockOutlined />}
-                    size='large' 
+                    size='large'
                 /> 
             </Space>
             <Link href="#">忘记密码？</Link>

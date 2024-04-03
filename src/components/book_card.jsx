@@ -5,7 +5,7 @@ const { Meta } = Card;
 
 export default function BookCard({ book }) {
     return (
-        <Link to={`/book`}>
+        <Link to={`/book/${book.id}`}>
             <Card className="book-card"
                 hoverable
                 cover={<img alt={book.title} src={book.cover} />}

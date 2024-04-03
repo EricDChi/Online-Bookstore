@@ -5,14 +5,10 @@
     min-height: 84vh;
 }
 
-.Book-box {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
+.book-details-container {
     height: auto;
     width: 1100px;
-    margin:auto;
+    margin: 30px;
     padding: 1%;
     background-color: white;
     border-radius: 20px;
@@ -82,7 +78,7 @@
     margin-top: 40px;
 }
 
-.book-introduce button {
+button {
     justify-content: center;
     align-items: center;
     height: 50px;
@@ -92,7 +88,7 @@
     border: none;
 }
 
-.book-introduce .button-buy {
+.button-buy {
     width: 120px;
     border-radius: 15px 0 0 15px;
     background-color: rgb(255, 152 , 1);
@@ -101,7 +97,7 @@
     color: white;
 }
 
-.book-introduce .button-cart {
+.button-cart {
     width: 150px;
     border-radius: 0 15px 15px 0;
     background-color: #122930;

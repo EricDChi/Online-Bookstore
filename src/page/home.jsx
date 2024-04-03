@@ -1,4 +1,4 @@
-import { React, useEffect} from "react";
+import { React, useEffect, useState } from "react";
 
 import '../css/global.css';
 import '../css/home.css';
@@ -7,15 +7,29 @@ import BookList from "../components/book_list";
 import { Col, Row, Image, Typography, Button, Input, Space, Card } from 'antd'; 
 import { useSearchParams} from "react-router-dom";
 import { BasicLayout, PrivateLayout } from "../components/layout";
-import getBooks from "../service/books";
+import { searchBooks } from "../service/books";
 
 const HomePage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const pageSize = 10;
-    const pageIndex = 0;
-    const totalPage = 1;
+    const [books, setBooks] = useState([]);
+    const [totalPage, setTotalPage] = useState(0);
 
-    var books=getBooks();
+    const pageSize = searchParams.get("pageSize") ? parseInt(searchParams.get("pageSize")) : 10;
+    const pageIndex = searchParams.get("pageIndex") ? parseInt(searchParams.get("pageIndex")) : 0;
+
+    const keyword = searchParams.get("keyword") || "";
+
+    const getBooks = async () => {
+        let pagedBooks = await searchBooks(keyword, pageIndex, pageSize);
+        let books = pagedBooks.items;
+        let totalPage = pagedBooks.total;
+        setBooks(books);
+        setTotalPage(totalPage);
+    }
+
+    useEffect(() => {
+        getBooks();
+    }, [keyword, pageIndex, pageSize])
 
     const handlePageChange = (page) => {
         setSearchParams({ ...searchParams, pageIndex: page - 1 });
