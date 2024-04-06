@@ -1,36 +1,33 @@
 import { React, useEffect, useState } from "react";
-
 import '../css/global.css';
-import '../css/book.css';
+import '../css/cart.css';
 import useMessage from "antd/es/message/useMessage";
 import { Col, Row, Image, Typography, Button, Input, Space, Card } from 'antd'; 
 import { useParams, useSearchParams} from "react-router-dom";
 import { BasicLayout, PrivateLayout } from "../components/layout";
-import { getBookById } from "../service/books";
-import BookDetails from "../components/book_details";
+import { getCartBooks } from "../service/cart";
+import { CartTable } from "../components/cart_table";
 
-const BookPage = () => {
-    const [book, setBook] = useState(null);
+const CartPage = () => {
+    const [cartBooks, setCartBooks] = useState([]);
 
-    let { id } = useParams();
-
-    const getBook = async () => {
-        let book = await getBookById(id);
-        setBook(book);
+    const initCartBooks = async () => {
+        let cartBooks = await getCartBooks();
+        setCartBooks(cartBooks);
     }
 
     useEffect(() => {
-        getBook();
-    }, [id]);
+        initCartBooks();
+    }, []);
 
     return (
         <PrivateLayout>
             <Row justify="center">
-                <Col className="book-details-container">
-                    {book && <BookDetails book={book}/>}
+                <Col className="cart-container">
+                    <CartTable cartBooks={cartBooks}/>
                 </Col>
             </Row>
         </PrivateLayout>
     );
 };
-export default BookPage;
+export default CartPage;

@@ -1,28 +1,36 @@
 import { Row, Col, Image, Button } from "antd";
-import { Typography, Divider } from "antd";
-const { Title, Paragraph, Text } = Typography;
+import { Typography, Divider, Space } from "antd";
+const { Title, Paragraph } = Typography;
 
 export default function BookDetails({ book }) {
     return (
-      <Row>
-        <Col span={9}>
-            <Image src="../book1.png" alt=""></Image>
-        </Col>
-        <Col span={15}>
-            <Title level={3}>C++ Primer 中文版（第 5 版）</Title>
-            <Row className='price-box'>
-              <Paragraph className='text'>售价</Paragraph>
-              <Paragraph className='price symbol'>¥</Paragraph>
-              <Paragraph className='price'>57.5</Paragraph>
+        <Space direction="vertical">
+            <Row>
+                <Col span={9}>
+                    <Image src={book.cover} alt=""></Image>
+                </Col>
+                <Col span={14} offset={1}>
+                    <Title level={3} style={{ fontWeight:'bold' }}>{book.title}</Title>
+                    <Row className='price-box'>
+                        <Paragraph className='text'>售价</Paragraph>
+                        <Paragraph className='price symbol'>¥</Paragraph>
+                        <Paragraph className='price'>{book.price}</Paragraph>
+                    </Row>
+                    <Paragraph>作者：{book.author}</Paragraph>
+                    <Paragraph>出版社：{book.publisher}</Paragraph>
+                    <Paragraph>销量：{book.sales}</Paragraph>
+                    <Row style={{ marginTop:'30px' }}>
+                        <Button className='button-buy'>立即购买</Button>
+                        <Button className='button-cart'>加入购物车</Button>
+                    </Row>
+                </Col>
             </Row>
-            <Paragraph>作者：[美] Stanley B. Lippman / [美] Josée Lajoie / [美]</Paragraph>
-            <Paragraph>出版社：电子工业出版社</Paragraph>
-            <Paragraph>销量：8</Paragraph>
-            <Row className='button-box'>
-              <Button className='button-buy'>立即购买</Button>
-              <Button className='button-cart'>加入购物车</Button>
+            <Row style={{ margin:'20px' }}>
+                <Divider orientation="left">内容简介</Divider>
+                <Paragraph style={{ whiteSpace: 'pre-wrap' }}>{book.book_description}</Paragraph>
+                <Divider orientation="left">作者简介</Divider>
+                <Paragraph style={{ whiteSpace: 'pre-wrap'}}>{book.author_description}</Paragraph>
             </Row>
-        </Col>
-      </Row>
+        </Space>
     );
 }

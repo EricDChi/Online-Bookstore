@@ -8,7 +8,7 @@ import {
     AccountBookOutlined,
     FormOutlined,
     ShoppingCartOutlined,
-    OrderedListOutlined,
+    ReconciliationOutlined,
     SearchOutlined
 } from '@ant-design/icons';
 
@@ -21,7 +21,6 @@ export default function Navbar({user}) {
     const navItems = [
         { label: "首页", value: "/home" },
         { label: "排行", value: "/rank" },
-        { label: "分类", value: "/class" }
     ];
     const navMenuItems = navItems.map(item => ({
         key: item.value,
@@ -29,18 +28,19 @@ export default function Navbar({user}) {
     }));
 
     const usernavItems = [
-        { key: "/cart", label: "购物车", icon: <ShoppingCartOutlined /> },
-        { key: "/orders", label: "订单", icon: <OrderedListOutlined />}
+        { value: "/cart", label: "购物车", icon: <ShoppingCartOutlined /> },
+        { value: "/orders", label: "订单", icon: <ReconciliationOutlined />}
     ];
     const usernavMenuItems = usernavItems.map(item => ({
-        key: item.key,
-        icon: item.icon
+        key: item.value,
+        icon: item.icon,
+        label: <Link to={item.value} >{item.label}</Link>
     }));
 
     const dropMenuItems = [
         {
             key: "nickname",
-            label: user?.nickname,
+            label: <Link to={"/myhome"}></Link>,
             icon: <UserOutlined />,
         },
         {
@@ -65,13 +65,14 @@ export default function Navbar({user}) {
         <Row className="navbar" justify="center" align="middle"> 
             <Col className='navbar-col' span={3}>
                 <Image
+                    preview={false}
                     width={40}
                     height={40}
                     src="../../logo_white.png"
                 />  
-                <Link className="title" to="/">电子书城</Link>
+                <Link className="title" to="/home">电子书城</Link>
             </Col>
-            <Col className='navbar-col' span={5}>
+            <Col className='navbar-col' span={4}>
                 <Menu mode="horizontal"
                     items={navMenuItems}
                     theme='dark'
@@ -80,7 +81,7 @@ export default function Navbar({user}) {
                 />
             </Col>
             {!user && <Col className='navbar-col' span={16} />}
-            {user && <Col className='navbar-col' span={8} style={{ height:40 }} align="center">
+            {user && <Col className='navbar-col' span={10} style={{ height:40 }} align="center">
                 <Input.Search className='search-input'
                     placeholder="输入关键词"
                     allowClear
@@ -91,18 +92,21 @@ export default function Navbar({user}) {
                     style={{ maxWidth: 500, minWidth: 200 }}
                 />
             </Col>}
-            {user && <Col className='navbar-col' span={3} offset={4}>
-                <Menu mode="horizontal"
+            {user && <Col className='navbar-col' span={4} offset={2}>
+                <Menu className='user-menu' 
+                    mode="horizontal"
                     items={usernavMenuItems}
                     theme='dark'
                     defaultSelectedKeys={[selectedKey]}
                     selectedKeys={[selectedKey]}
-                    style={{ iconSize: "200%" }}
+                    style={{  }}
                 />
             </Col>}
             {user && <Col className='navbar-col' span={1}>
                 <Dropdown menu={{ items: dropMenuItems }}>
-                    <Button shape="circle" icon={<UserOutlined />} />
+                    <Link to="/myhome">
+                        <Button shape="circle" icon={<UserOutlined />} />
+                    </Link>
                 </Dropdown>
             </Col>}
         </Row>
