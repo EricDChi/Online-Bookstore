@@ -6,8 +6,12 @@ import useMessage from "antd/es/message/useMessage";
 import "../css/login.css";
 import { Col, Row, Image, Typography, Button, Input, Space } from 'antd'; 
 import { Link, useNavigate } from "react-router-dom";
+import { login } from "../service/login";
+import { setMe } from '../service/user';
 
 export function LoginBox (){
+
+
     return (
         <div className="Login-box">
             <div className="login-title">
@@ -27,7 +31,7 @@ export function LoginBox (){
             </Space>
             <Link href="#">忘记密码？</Link>
             <Space className='button-box' direction='horizontal'>
-                <Link to="/home">
+                <Link onClick={login}>
                     <Button>
                         登录 
                     </Button>

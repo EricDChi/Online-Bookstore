@@ -1,3 +1,6 @@
+import { setMe } from "./user";
+
 export function login() {
-    window.location.href = "/home";
+    setMe();
+    window.location.href = "/";
 }

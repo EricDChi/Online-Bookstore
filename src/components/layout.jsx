@@ -3,6 +3,7 @@ import { Content, Footer, Header } from "antd/es/layout/layout";
 import Navbar, { navbar } from "./navbar";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { getMe, setMe } from "../service/user";
 
 export function BasicLayout ({children}) {
     return (
@@ -25,9 +26,18 @@ export function PrivateLayout ({children}) {
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
 
+    const checkLogin = async() => {
+        let me = await getMe();
+        if (!me) {
+            navigate("/login");
+        }
+        else {
+            setUser(me);
+        }
+    }
 
     useEffect(() => {
-        setUser("Taylor");
+        checkLogin();
     }, []);
 
     return (

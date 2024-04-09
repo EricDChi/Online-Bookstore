@@ -30,7 +30,23 @@ export default function UserHome () {
                 Upload
             </div>
         </button>
-      );
+    );
+
+    const saveButton = (
+        <Button
+            style={{
+                height: '40px',
+                width: '80px',
+                borderRadius: '15px',
+                backgroundColor: 'rgb(22, 199 , 255)',
+                color: 'white'
+            }}
+            type = "button"
+        >
+
+            保存
+        </Button>
+    );
     
     return <>
         <Space size='middle'direction="vertical" style={{ width:'100%' }}>
@@ -45,22 +61,22 @@ export default function UserHome () {
                 </Col>
                 <Col span={20}>
                     <Upload
-                            name="avatar"
+                        name="avatar"
                         listType="picture-circle"
                         className="avatar-uploader"
                         showUploadList={false}
                     >
                         {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt="avatar"
-            style={{
-              width: '100%',
-            }}
-          />
-        ) : (
-          uploadButton
-        )}
+                            <img
+                                src={imageUrl}
+                                alt="avatar"
+                                style={{
+                                    width: '100%',
+                                }}
+                            />
+                            ) : (
+                            uploadButton
+                        )}
                     </Upload>
                 </Col>
             </Row>
@@ -101,6 +117,11 @@ export default function UserHome () {
                 <Col span={20}>
                     <DatePicker onChange={onChange} />
                 </Col>
+            </Row>
+            <Row>
+                <Col offset={4}>
+                    {saveButton}   
+                </Col>        
             </Row>
         </Space>
     </>

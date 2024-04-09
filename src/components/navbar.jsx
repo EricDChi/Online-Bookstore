@@ -11,6 +11,7 @@ import {
     ReconciliationOutlined,
     SearchOutlined
 } from '@ant-design/icons';
+import { logout } from '../service/user';
 
 const onSearch = (value, _e, info) => console.log(info?.source, value);
 
@@ -19,7 +20,7 @@ export default function Navbar({user}) {
     const parts = location.pathname.split('/');
     const selectedKey = '/' + parts[parts.length - 1];
     const navItems = [
-        { label: "首页", value: "/home" },
+        { label: "首页", value: "/" },
         { label: "排行", value: "/rank" },
     ];
     const navMenuItems = navItems.map(item => ({
@@ -36,6 +37,13 @@ export default function Navbar({user}) {
         icon: item.icon,
         label: <Link to={item.value} >{item.label}</Link>
     }));
+
+    const handleMenuClick = async (e) => {
+        if (e.key === "/logout") {
+            logout();
+            return;
+        }
+    };
 
     const dropMenuItems = [
         {
@@ -89,10 +97,10 @@ export default function Navbar({user}) {
                     onSearch={onSearch}
                     size='large'
                     suffix={<SearchOutlined />}
-                    style={{ maxWidth: 500, minWidth: 200 }}
+                    style={{ maxWidth: 400, minWidth: 100 }}
                 />
             </Col>}
-            {user && <Col className='navbar-col' span={4} offset={2}>
+            {user && <Col className='navbar-col' span={4} offset={1.5}>
                 <Menu className='user-menu' 
                     mode="horizontal"
                     items={usernavMenuItems}
@@ -102,8 +110,8 @@ export default function Navbar({user}) {
                     style={{  }}
                 />
             </Col>}
-            {user && <Col className='navbar-col' span={1}>
-                <Dropdown menu={{ items: dropMenuItems }}>
+            {user && <Col className='navbar-col' span={1} offset={0.5}>
+                <Dropdown menu={{ onClick: handleMenuClick, items: dropMenuItems }}>
                     <Link to="/myhome">
                         <Button shape="circle" icon={<UserOutlined />} />
                     </Link>
