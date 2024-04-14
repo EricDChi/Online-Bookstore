@@ -2,6 +2,7 @@ import { Button, InputNumber, Row, Col, Typography, Image, Table } from "antd";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PlaceOrderModal from "./place_order_modal";
+import { changeCartBookNumber, deleteCartBooks } from "../service/cart";
 const { Paragraph } = Typography;
 
 export function CartTable ({ cartBooks }) {
@@ -27,6 +28,29 @@ export function CartTable ({ cartBooks }) {
             prices.reduce((prev, cur) => prev + cur) : 0;
     }
 
+    const handleNumberChange = async (id, number) => {
+        changeCartBookNumber(id, number);
+        items.filter(item => item.id === id)[0].number = number;
+        let selected = selectedItems.find(item => item.id === id);
+        if (selected) {
+            selected.number = number;
+            setSelectedItems([...selectedItems]);
+        }
+       setItems([...items]);
+    }
+
+    const handeleDelete = async (id) => {
+        deleteCartBooks(id);
+        const index = items.findIndex((item) => id === item.id);
+        items.splice(index, 1);
+        let selected = selectedItems.find(item => item.id === id);
+        if (selected) {
+            selected.number = 0;
+            setSelectedItems([...selectedItems]);
+        }
+       setItems([...items]);
+    }
+
     const columns = [
         {
             width: 500,
@@ -40,7 +64,9 @@ export function CartTable ({ cartBooks }) {
             title: '数量',
             dataIndex: 'number',
             key: 'number',
-            render: (number, item) => <InputNumber min={1} defaultValue={number} />
+            render: (number, item) => <InputNumber min={1} defaultValue={number} onChange={(newNumber) => {
+                handleNumberChange(item.id, newNumber);
+            }} />
         },
         {
             width: 150,
@@ -53,7 +79,9 @@ export function CartTable ({ cartBooks }) {
             title: '操作',
             dataIndex: '',
             key: 'action',
-            render: (item) => <Button type="primary">删除</Button>,
+            render: (item) => <Button type="primary" onClick={() => {
+                handeleDelete(item.id);
+            }}>删除</Button>,
         },
     ];
 

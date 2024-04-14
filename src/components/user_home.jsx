@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Col, Row, Typography, Divider, Space, Input, Button, DatePicker, Upload } from "antd";
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 
-const { Title, Paragraph } = Typography;
+const { Paragraph } = Typography;
 const { TextArea } = Input;
 
 export default function UserHome () {
@@ -38,7 +38,7 @@ export default function UserHome () {
                 height: '40px',
                 width: '80px',
                 borderRadius: '15px',
-                backgroundColor: 'rgb(22, 199 , 255)',
+                backgroundColor: 'rgb(22, 119 , 255)',
                 color: 'white'
             }}
             type = "button"

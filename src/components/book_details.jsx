@@ -1,4 +1,5 @@
 import { Row, Col, Image, Button } from "antd";
+import { addCartBooks } from "../service/cart";
 import { Typography, Divider, Space } from "antd";
 const { Title, Paragraph } = Typography;
 
@@ -20,7 +21,7 @@ export default function BookDetails({ book }) {
                     <Paragraph>出版社：{book.publisher}</Paragraph>
                     <Paragraph>销量：{book.sales}</Paragraph>
                     <Row style={{ marginTop:'30px' }}>
-                        <Button className='button-buy'>立即购买</Button>
+                        <Button className='button-buy' onClick={addCartBooks(book.id)}>立即购买</Button>
                         <Button className='button-cart'>加入购物车</Button>
                     </Row>
                 </Col>

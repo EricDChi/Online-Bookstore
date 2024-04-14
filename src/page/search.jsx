@@ -4,18 +4,19 @@ import '../css/global.css';
 import '../css/home.css';
 import BookList from "../components/book_list";
 import { Col, Row, Space } from 'antd'; 
-import { useSearchParams} from "react-router-dom";
+import { useSearchParams, useParams } from "react-router-dom";
 import { PrivateLayout } from "../components/layout";
 import { searchBooks } from "../service/books";
 
-const HomePage = () => {
+const SearchPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [books, setBooks] = useState([]);
     const [totalPage, setTotalPage] = useState(0);
 
     const pageSize = searchParams.get("pageSize") ? parseInt(searchParams.get("pageSize")) : 10;
     const pageIndex = searchParams.get("pageIndex") ? parseInt(searchParams.get("pageIndex")) : 0;
-    const keyword = searchParams.get("keyword") || "";
+
+    let { keyword } = useParams();
 
     const getBooks = async () => {
         let pagedBooks = await searchBooks(keyword, pageIndex, pageSize);
@@ -45,4 +46,4 @@ const HomePage = () => {
         </PrivateLayout>
     );
 };
-export default HomePage;
+export default SearchPage;

@@ -1,4 +1,4 @@
-import { Divider, Layout, Space } from "antd";
+import {  Layout, Space } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import Navbar, { navbar } from "./navbar";
 import { useState, useEffect } from "react";

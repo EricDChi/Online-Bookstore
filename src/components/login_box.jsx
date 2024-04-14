@@ -2,12 +2,10 @@ import {
     LockOutlined,
     UserOutlined,
 } from '@ant-design/icons';
-import useMessage from "antd/es/message/useMessage";
 import "../css/login.css";
-import { Col, Row, Image, Typography, Button, Input, Space } from 'antd'; 
-import { Link, useNavigate } from "react-router-dom";
+import { Button, Input, Space } from 'antd'; 
+import { Link } from "react-router-dom";
 import { login } from "../service/login";
-import { setMe } from '../service/user';
 
 export function LoginBox (){
 

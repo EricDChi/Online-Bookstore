@@ -1,6 +1,5 @@
-import { Col, Row, Dropdown, Button, Menu, Image, Space, Input, ConfigProvider } from 'antd';
+import { Col, Row, Dropdown, Button, Menu, Image, Input } from 'antd';
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { SearchProps } from 'antd/es/input/Search';
 
 import {
     LogoutOutlined,
@@ -13,10 +12,9 @@ import {
 } from '@ant-design/icons';
 import { logout } from '../service/user';
 
-const onSearch = (value, _e, info) => console.log(info?.source, value);
-
 export default function Navbar({user}) {
     const location = useLocation();
+    const navigate = useNavigate();
     const parts = location.pathname.split('/');
     const selectedKey = '/' + parts[parts.length - 1];
     const navItems = [
@@ -44,6 +42,10 @@ export default function Navbar({user}) {
             return;
         }
     };
+
+    const handleSearch = (keyword) => {
+        navigate (`/search/${keyword}`);
+    }
 
     const dropMenuItems = [
         {
@@ -94,7 +96,7 @@ export default function Navbar({user}) {
                     placeholder="输入关键词"
                     allowClear
                     enterButton="搜索"
-                    onSearch={onSearch}
+                    onSearch={handleSearch}
                     size='large'
                     suffix={<SearchOutlined />}
                     style={{ maxWidth: 400, minWidth: 100 }}

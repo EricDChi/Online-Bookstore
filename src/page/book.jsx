@@ -2,10 +2,9 @@ import { React, useEffect, useState } from "react";
 
 import '../css/global.css';
 import '../css/book.css';
-import useMessage from "antd/es/message/useMessage";
-import { Col, Row, Image, Typography, Button, Input, Space, Card } from 'antd'; 
-import { useParams, useSearchParams} from "react-router-dom";
-import { BasicLayout, PrivateLayout } from "../components/layout";
+import { Col, Row } from 'antd'; 
+import { useParams } from "react-router-dom";
+import { PrivateLayout } from "../components/layout";
 import { getBookById } from "../service/books";
 import BookDetails from "../components/book_details";
 
