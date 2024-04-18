@@ -1,17 +1,35 @@
-import { React } from "react";
-
+import { React, useState, useEffect } from "react";
 import '../css/global.css';
 import '../css/user.css';
 import { Col, Row } from 'antd'; 
 import { PrivateLayout } from "../components/layout";
+import { getMe } from "../service/user";
 import UserHome from "../components/user_home";
+import { useNavigate } from "react-router-dom";
 
 const UserPage = () => {
+    const [user, setUser] = useState(null);
+    const navigate = useNavigate();
+
+    const checkLogin = async() => {
+        let me = await getMe();
+        if (!me) {
+            navigate("/login");
+        }
+        else {
+            setUser(me);
+        }
+    }
+
+    useEffect(() => {
+        checkLogin();
+    }, []);
+
     return (
         <PrivateLayout>
             <Row justify="center">
                 <Col className="user-home-container">
-                    <UserHome />
+                    <UserHome user={user}/>
                 </Col>
             </Row>
         </PrivateLayout>

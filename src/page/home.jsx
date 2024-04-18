@@ -5,7 +5,7 @@ import '../css/home.css';
 import BookList from "../components/book_list";
 import { Col, Row, Space } from 'antd'; 
 import { useSearchParams} from "react-router-dom";
-import { PrivateLayout } from "../components/layout";
+import { PrivateLayout, VerticalLayout } from "../components/layout";
 import { searchBooks } from "../service/books";
 
 const HomePage = () => {
@@ -15,10 +15,9 @@ const HomePage = () => {
 
     const pageSize = searchParams.get("pageSize") ? parseInt(searchParams.get("pageSize")) : 10;
     const pageIndex = searchParams.get("pageIndex") ? parseInt(searchParams.get("pageIndex")) : 0;
-    const keyword = searchParams.get("keyword") || "";
 
     const getBooks = async () => {
-        let pagedBooks = await searchBooks(keyword, pageIndex, pageSize);
+        let pagedBooks = await searchBooks('', pageIndex, pageSize);
         let books = pagedBooks.items;
         let totalPage = pagedBooks.total;
         setBooks(books);
@@ -27,7 +26,7 @@ const HomePage = () => {
 
     useEffect(() => {
         getBooks();
-    }, [keyword, pageIndex, pageSize])
+    }, [pageIndex, pageSize])
 
     const handlePageChange = (page) => {
         setSearchParams({ ...searchParams, pageIndex: page - 1 });

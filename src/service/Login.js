@@ -1,6 +1,9 @@
 import { setMe } from "./user";
 
-export function login() {
-    setMe();
-    window.location.href = "/";
+export async function login(username, password) {
+    if (username === "ch" && password === "123") {
+        setMe();
+        return true;
+    }
+    return false;
 }

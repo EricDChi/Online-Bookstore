@@ -1,11 +1,36 @@
 import { Row, Col, Image, Button } from "antd";
 import { addCartBooks } from "../service/cart";
-import { Typography, Divider, Space } from "antd";
+import { useState } from "react";
+import { Typography, Divider, Space, message } from "antd";
+import PlaceOrderModal from "./place_order_modal";
 const { Title, Paragraph } = Typography;
 
 export default function BookDetails({ book }) {
-    return (
+    const [messageApi, contextHolder] = message.useMessage();
+    const [showModal, setShowMadal] = useState(false);
+
+    const handleAddCart = async() => {
+        let res = await addCartBooks(book.id);
+        if (res === true) {
+            messageApi.info("添加成功");
+        }
+        else {
+            messageApi.error("已在购物车内，请勿重复添加");
+        }
+    }
+
+    const handleOpenModal = () => {
+        setShowMadal(true);
+    }
+
+    const handleCloseModal = () => {
+        setShowMadal(false);
+    }
+
+    return <>
+        {showModal && <PlaceOrderModal onCancel={handleCloseModal} selectedItems={{id: book.id}} onOk={handleOpenModal} />}
         <Space direction="vertical">
+            {contextHolder}
             <Row>
                 <Col span={9}>
                     <Image src={book.cover} alt=""></Image>
@@ -21,8 +46,8 @@ export default function BookDetails({ book }) {
                     <Paragraph>出版社：{book.publisher}</Paragraph>
                     <Paragraph>销量：{book.sales}</Paragraph>
                     <Row style={{ marginTop:'30px' }}>
-                        <Button className='button-buy' onClick={addCartBooks(book.id)}>立即购买</Button>
-                        <Button className='button-cart'>加入购物车</Button>
+                        <Button className='button-buy' onClick={handleOpenModal}>立即购买</Button>
+                        <Button className='button-cart'  onClick={handleAddCart}>加入购物车</Button>
                     </Row>
                 </Col>
             </Row>
@@ -33,5 +58,5 @@ export default function BookDetails({ book }) {
                 <Paragraph style={{ whiteSpace: 'pre-wrap'}}>{book.author_description}</Paragraph>
             </Row>
         </Space>
-    );
+    </>
 }

@@ -1,36 +1,46 @@
-import React, { useState } from 'react';
-import { Col, Row, Typography, Divider, Space, Input, Button, DatePicker, Upload } from "antd";
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { React, useState, useEffect } from 'react';
+import { Col, Row, Typography, Divider, Space, Input, Button, DatePicker, message, Radio } from "antd";
+import { setInfo } from '../service/user';
+import AvatarUploader from './avatar_upload';
+import dayjs from 'dayjs';
 
 const { Paragraph } = Typography;
 const { TextArea } = Input;
 
-export default function UserHome () {
-    const [imageUrl, setImageUrl] = useState();
-    const [loading, setLoading] = useState(false);
+export default function UserHome ({user}) {
+    const [userName, setUserName] = useState('');
+    const [userSignature, setUserSignature] = useState('');
+    const [userSex, setUserSex] = useState('');
+    const [userBirthday, setUserBirthday] = useState();
+    const [messageApi, contextHolder] = message.useMessage();
 
-    const onChange = (date, dateString) => {
-        console.log(date, dateString);
-    };
+    const setUserInfo = async() => {
+        setInfo(userName, userSignature, userSex, userBirthday);
+        messageApi.info("保存成功");
+    }
 
-    const uploadButton = (
-        <button
-            style={{
-                border: 0,
-                background: 'none',
-            }}
-            type="button"
-        >
-            {loading ? <LoadingOutlined /> : <PlusOutlined />}
-            <div
-                style={{
-                    marginTop: 8,
-                }}
-            >
-                Upload
-            </div>
-        </button>
-    );
+    const handleUserName = (event) => {
+        setUserName(event.target.value);
+    }
+
+    const handleUserSignature = (event) => {
+        setUserSignature(event.target.value);
+    }
+
+    const handleUserBirthday = (date) => {
+        setUserBirthday(date);
+    }
+
+    const handleUserSex = (event) => {
+        setUserSex(event.target.value);
+    }
+
+    useEffect(() => {
+        setUserName(user?.nickname);
+        setUserSignature(user?.signature);
+        setUserSex(user?.sex);
+        setUserBirthday(user?.birthday);
+    }, [user])
 
     const saveButton = (
         <Button
@@ -42,6 +52,7 @@ export default function UserHome () {
                 color: 'white'
             }}
             type = "button"
+            onClick={setUserInfo}
         >
 
             保存
@@ -49,6 +60,7 @@ export default function UserHome () {
     );
     
     return <>
+        {contextHolder}
         <Space size='middle'direction="vertical" style={{ width:'100%' }}>
             <Row>
                 <Divider orientation="left">
@@ -60,24 +72,7 @@ export default function UserHome () {
                     <Paragraph>头像：</Paragraph>
                 </Col>
                 <Col span={20}>
-                    <Upload
-                        name="avatar"
-                        listType="picture-circle"
-                        className="avatar-uploader"
-                        showUploadList={false}
-                    >
-                        {imageUrl ? (
-                            <img
-                                src={imageUrl}
-                                alt="avatar"
-                                style={{
-                                    width: '100%',
-                                }}
-                            />
-                            ) : (
-                            uploadButton
-                        )}
-                    </Upload>
+                    <AvatarUploader/>
                 </Col>
             </Row>
             <Row>
@@ -85,7 +80,7 @@ export default function UserHome () {
                     <Paragraph>昵称：</Paragraph>
                 </Col>
                 <Col span={20}>
-                    <TextArea rows={1} placeholder="你的昵称" maxLength={10} 
+                    <TextArea rows={1} key={user?.nickname} defaultValue={user?.nickname} placeholder={"你的昵称"} maxLength={10} onChange={handleUserName}
                         style={{ maxWidth:'200px', resize:'none' }}/>
                 </Col>
             </Row>
@@ -94,8 +89,8 @@ export default function UserHome () {
                     <Paragraph>我的签名：</Paragraph>
                 </Col>
                 <Col span={20}>
-                    <TextArea rows={6} placeholder="请输入你的签名" maxLength={200} 
-                            style={{ maxWidth:'500px', resize:'none' }}/>
+                    <TextArea rows={6} key={user?.signature} defaultValue={user?.signature} placeholder="请输入你的签名" maxLength={200} onChange={handleUserSignature}
+                        style={{ maxWidth:'500px', resize:'none' }}/>
                 </Col>
             </Row>
             <Row>
@@ -104,9 +99,11 @@ export default function UserHome () {
                 </Col>
                 <Col span={20}>
                     <Space size='middle'>
-                        <Button>男</Button>
-                        <Button>女</Button>
-                        <Button>保密</Button>
+                        <Radio.Group key={user?.sex} defaultValue={user?.sex} value={userSex} onChange={handleUserSex}>
+                            <Radio.Button value="male">男</Radio.Button>
+                            <Radio.Button value="female">女</Radio.Button>
+                            <Radio.Button value="secrecy">保密</Radio.Button>
+                        </Radio.Group>
                     </Space>
                 </Col>
             </Row>
@@ -115,7 +112,7 @@ export default function UserHome () {
                     出生日期：
                 </Col>
                 <Col span={20}>
-                    <DatePicker onChange={onChange} />
+                    <DatePicker key={dayjs(user?.birthday)} defaultValue={dayjs(user?.birthday)} onChange={handleUserBirthday}/>
                 </Col>
             </Row>
             <Row>

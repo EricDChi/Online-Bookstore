@@ -1,4 +1,4 @@
-import { Col, Row, Dropdown, Button, Menu, Image, Input } from 'antd';
+import { Col, Row, Dropdown, Menu, Image, Input, Avatar } from 'antd';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import {
@@ -8,11 +8,13 @@ import {
     FormOutlined,
     ShoppingCartOutlined,
     ReconciliationOutlined,
-    SearchOutlined
+    SearchOutlined,
+    HomeOutlined,
+    BarChartOutlined
 } from '@ant-design/icons';
 import { logout } from '../service/user';
 
-export default function Navbar({user}) {
+export function Navbar({user}) {
     const location = useLocation();
     const navigate = useNavigate();
     const parts = location.pathname.split('/');
@@ -36,8 +38,8 @@ export default function Navbar({user}) {
         label: <Link to={item.value} >{item.label}</Link>
     }));
 
-    const handleMenuClick = async (e) => {
-        if (e.key === "/logout") {
+    const handleMenuClick = async (event) => {
+        if (event.key === "/logout") {
             logout();
             return;
         }
@@ -50,7 +52,7 @@ export default function Navbar({user}) {
     const dropMenuItems = [
         {
             key: "nickname",
-            label: <Link to={"/myhome"}></Link>,
+            label: <Link to={"/myhome"}>{user?.nickname}</Link>,
             icon: <UserOutlined />,
         },
         {
@@ -60,7 +62,7 @@ export default function Navbar({user}) {
         },
         {
             key: "balance",
-            label: `余额：${user?.balance / 100}元`,
+            label: `余额：${user?.balance}元`,
             icon: <AccountBookOutlined />,
         },
         {   
@@ -115,10 +117,111 @@ export default function Navbar({user}) {
             {user && <Col className='navbar-col' span={1} offset={0.5}>
                 <Dropdown menu={{ onClick: handleMenuClick, items: dropMenuItems }}>
                     <Link to="/myhome">
-                        <Button shape="circle" icon={<UserOutlined />} />
+                        <Avatar shape="circle" src={<img src={user?.avatar} alt="avatar" />}/>
                     </Link>
                 </Dropdown>
             </Col>}
         </Row>
+    );
+}
+
+export function VerticalHeader({user}) {
+    const navigate = useNavigate();
+    const handleMenuClick = async (event) => {
+        if (event.key === "/logout") {
+            logout();
+            return;
+        }
+    };
+
+    const handleSearch = (keyword) => {
+        navigate (`/search/${keyword}`);
+    }
+
+    const dropMenuItems = [
+        {
+            key: "nickname",
+            label: <Link to={"/myhome"}>{user?.nickname}</Link>,
+            icon: <UserOutlined />,
+        },
+        {
+            key: "password",
+            label: "修改密码",
+            icon: <FormOutlined />,
+        },
+        {
+            key: "balance",
+            label: `余额：${user?.balance}元`,
+            icon: <AccountBookOutlined />,
+        },
+        {   
+            key: "/logout", 
+            label: "登出", 
+            icon: <LogoutOutlined />, 
+            danger: true 
+        },
+    ];
+
+    return (
+        <Row className="navbar" justify="center" align="middle"> 
+            {!user && <Col className='navbar-col' span={17}/>}
+            {user && <Col className='navbar-col' span={10} offset={7} style={{ height:40 }} align="center">
+                <Input.Search className='search-input'
+                    placeholder="输入关键词"
+                    allowClear
+                    enterButton="搜索"
+                    onSearch={handleSearch}
+                    size='large'
+                    suffix={<SearchOutlined />}
+                    style={{ maxWidth: 400, minWidth: 100 }}
+                />
+            </Col>}
+            {user && <Col className='navbar-col' span={1} offset={6}>
+                <Dropdown menu={{ onClick: handleMenuClick, items: dropMenuItems }}>
+                    <Link to="/myhome">
+                        <Avatar shape="circle" src={<img src={user?.avatar} alt="avatar" />}/>
+                    </Link>
+                </Dropdown>
+            </Col>}
+        </Row>
+    );
+}
+
+export function VerticalNavbar() {
+    const location = useLocation();
+    const parts = location.pathname.split('/');
+    const selectedKey = '/' + parts[parts.length - 1];
+
+    const navItems = [
+        { value: "/", label: "首页", icon: <HomeOutlined /> },
+        { value: "/rank", label: "排行", icon: <BarChartOutlined /> },
+        { value: "/cart", label: "购物车", icon: <ShoppingCartOutlined /> },
+        { value: "/orders", label: "订单", icon: <ReconciliationOutlined />}
+    ];
+    const navMenuItems = navItems.map(item => ({
+        key: item.value,
+        icon: item.icon,
+        label: <Link to={item.value} >{item.label}</Link>
+    }));
+
+    return (
+        <div>
+            <Col className='navbar' style={{ marginTop: 20, marginLeft: 10 }}>
+                <Image
+                    preview={false}
+                    width={40}
+                    height={40}
+                    src="../../logo_white.png"
+                />  
+                <Link className="title" to="/home">电子书城</Link>
+            </Col>
+            <Menu
+                mode='inline'
+                items={navMenuItems}
+                theme='dark'
+                defaultSelectedKeys={[selectedKey]}
+                selectedKeys={[selectedKey]}
+            />
+        </div>
     );
 }

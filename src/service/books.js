@@ -107,22 +107,22 @@ export const total_books = [
 export async function searchBooks(keyword, pageIndex, pageSize) {
     var books = [];
     var search_books = [];
-    if (keyword != "") {
+    if (keyword !== "") {
         for (const book of total_books) {
             if (book.title.includes(keyword)) {
                 search_books.push(book);
             }
         }
-        books = search_books.slice(pageIndex * 10, (pageIndex + 1) * 10);
+        books = search_books.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize);
         return {
-            total: search_books.length / 10,
+            total: search_books.length / pageSize,
             items: books
         };
     }
 
-    books = total_books.slice(pageIndex * 10, (pageIndex + 1) * 10);
+    books = total_books.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize);
     return {
-        total: total_books.length / 10,
+        total: total_books.length / pageSize,
         items: books
     };
 }
