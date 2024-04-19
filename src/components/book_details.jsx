@@ -1,13 +1,22 @@
 import { Row, Col, Image, Button } from "antd";
+import { useEffect } from "react";
 import { addCartBooks } from "../service/cart";
 import { useState } from "react";
 import { Typography, Divider, Space, message } from "antd";
 import PlaceOrderModal from "./place_order_modal";
+import { getMe } from "../service/user";
 const { Title, Paragraph } = Typography;
 
 export default function BookDetails({ book }) {
+    const [selectedItems, setSelectedItems] = useState([]);
     const [messageApi, contextHolder] = message.useMessage();
     const [showModal, setShowMadal] = useState(false);
+    const [user, setUser] = useState(null);
+
+    const checkLogin = async() => {
+        let me = await getMe();
+        setUser(me);
+    }
 
     const handleAddCart = async() => {
         let res = await addCartBooks(book.id);
@@ -27,8 +36,20 @@ export default function BookDetails({ book }) {
         setShowMadal(false);
     }
 
+    useEffect(() =>{
+        const items = [
+            {
+                id: book.id,
+                number: 1,
+                book: book
+            }
+        ];
+        setSelectedItems(items);
+        checkLogin();
+    }, [])
+
     return <>
-        {showModal && <PlaceOrderModal onCancel={handleCloseModal} selectedItems={{id: book.id}} onOk={handleOpenModal} />}
+        {showModal && <PlaceOrderModal onCancel={handleCloseModal} user={user} selectedItems={selectedItems} onOk={handleOpenModal} />}
         <Space direction="vertical">
             {contextHolder}
             <Row>

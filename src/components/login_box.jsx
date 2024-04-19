@@ -15,6 +15,10 @@ export function LoginBox (){
     const navigate = useNavigate();
 
     const onSubmit = async() => {
+        if (username === '' || password === '') {
+            messageApi.error("账号或密码不能为空")
+            return;
+        }
         let res = await login(username, password);
         if (res === true) {
             messageApi.info("登录成功");
@@ -41,16 +45,19 @@ export function LoginBox (){
                 <h2>电子书城</h2>
             </div>
             <Space size='middle' className='input-box' direction="vertical">
-                <Input size='large' 
-                    placeholder="input account" 
+                <Input size='large'
+                    placeholder="请输入用户名" 
+                    status={(username === '') && "error"}
                     prefix={<UserOutlined />} 
                     onChange={handleUsername}
                     allowClear
                 />
-                <Input.Password placeholder="input password" 
+                <Input.Password size='large'
+                    name="password"
+                    placeholder="input password" 
+                    status={(password === '') && "error"}
                     prefix={<LockOutlined />}
                     onChange={handlePassword}
-                    size='large'
                 /> 
             </Space>
             <Link href="#">忘记密码？</Link>

@@ -2,6 +2,7 @@ import { Button, InputNumber, Row, Col, Typography, Image, Table } from "antd";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PlaceOrderModal from "./place_order_modal";
+import { getMe } from "../service/user";
 import { changeCartBookNumber, deleteCartBooks } from "../service/cart";
 const { Paragraph } = Typography;
 
@@ -9,9 +10,16 @@ export function CartTable ({ cartBooks }) {
     const [items, setItems] = useState(cartBooks);
     const [showModal, setShowMadal] = useState(false);
     const [selectedItems, setSelectedItems] = useState([]);
+    const [user, setUser] = useState(null);
+
+    const checkLogin = async() => {
+        let me = await getMe();
+        setUser(me);
+    }
 
     useEffect(() => {
         setItems(cartBooks);
+        checkLogin();
     },[cartBooks]);
 
     const handleOpenModal = () => {
@@ -63,7 +71,7 @@ export function CartTable ({ cartBooks }) {
             width: 150,
             title: '数量',
             dataIndex: 'number',
-            key: 'number',
+            key: 'book_number',
             render: (number, item) => <InputNumber min={1} defaultValue={number} onChange={(newNumber) => {
                 handleNumberChange(item.id, newNumber);
             }} />
@@ -86,7 +94,7 @@ export function CartTable ({ cartBooks }) {
     ];
 
     return <>
-        {showModal && <PlaceOrderModal onCancel={handleCloseModal} selectedItems={selectedItems} onOk={handleOpenModal} />}
+        {showModal && <PlaceOrderModal onCancel={handleCloseModal} user={user} selectedItems={selectedItems} onOk={handleOpenModal} />}
         <Table
             columns={columns}
             rowSelection={{

@@ -1,18 +1,20 @@
 import { Button, Form, Input, Modal } from "antd";
 import React from "react";
 import useMessage from "antd/es/message/useMessage";
+import { BillTable } from "./bill_table";
 
 const { TextArea } = Input;
 
 export default function PlaceOrderModal ({
     selectedItems,
+    user,
     onOk,
     onCancel }) {
     const [form] = Form.useForm();
     const [messageApi, contextHolder] = useMessage();
 
-    const handleSubmit = async ({ address, receiver, tel }) => {
-        if (!address || !receiver || !tel) {
+    const handleSubmit = async ({ address, addressee, phone }) => {
+        if (!address || !addressee || !phone) {
             messageApi.error("请填写完整信息！");
             return;
         }
@@ -29,6 +31,7 @@ export default function PlaceOrderModal ({
             footer={null}
             width={800}
         >
+            <BillTable selectedItems={selectedItems}/>
             <Form
                 form={form}
                 layout="vertical"
@@ -37,25 +40,25 @@ export default function PlaceOrderModal ({
             >
                 {contextHolder}
                 <Form.Item
-                    name="receiver"
+                    name="addressee"
                     label="收货人"
                     required
                 >
-                    <Input />
+                    <Input key={user?.addressee} defaultValue={user?.addressee} />
                 </Form.Item>
                 <Form.Item
-                    name="tel"
+                    name="phone"
                     label="联系电话"
                     required
                 >
-                    <Input />
+                    <Input key={user?.phone} defaultValue={user?.phone} />
                 </Form.Item>
                 <Form.Item
                     name="address"
                     label="收货地址"
                     required
                 >
-                    <TextArea rows={2} maxLength={817} />
+                    <TextArea rows={2} maxLength={817} key={user?.address} defaultValue={user?.address} />
                 </Form.Item>
                 <Form.Item>
                     <Button type="primary" htmlType="submit">

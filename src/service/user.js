@@ -15,12 +15,15 @@ export function setMe() {
         sex: "male",
         birthday: dayjs('2015-01-01'),
         balance: 200,
-        avatar: "../../143873758.jpg"
+        avatar: "../../143873758.jpg",
+        addressee: "name",
+        phone: "11122223333",
+        address: "上海市闵行区 东川路800号 上海交通大学"
     };
     localStorage.setItem("me", JSON.stringify(me));
 }
 
-export function setInfo(name, signature, sex, birthday) {
+export function setInfo(name, signature, sex, birthday, addressee, phone, address) {
     const me = JSON.parse(localStorage.getItem("me"));
     const new_me = {
         nickname: name,
@@ -28,7 +31,10 @@ export function setInfo(name, signature, sex, birthday) {
         sex: sex,
         birthday: birthday,
         balance: me.balance,
-        avatar: me.avatar
+        avatar: me.avatar,
+        addressee: addressee,
+        phone: phone,
+        address: address
     };
     localStorage.setItem("me", JSON.stringify(new_me));
 }

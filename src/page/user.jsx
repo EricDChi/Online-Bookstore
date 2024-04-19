@@ -9,16 +9,10 @@ import { useNavigate } from "react-router-dom";
 
 const UserPage = () => {
     const [user, setUser] = useState(null);
-    const navigate = useNavigate();
 
     const checkLogin = async() => {
         let me = await getMe();
-        if (!me) {
-            navigate("/login");
-        }
-        else {
-            setUser(me);
-        }
+        setUser(me);
     }
 
     useEffect(() => {
