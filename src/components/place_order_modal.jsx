@@ -13,9 +13,21 @@ export default function PlaceOrderModal ({
     const [form] = Form.useForm();
     const [messageApi, contextHolder] = useMessage();
 
+    const computeTotalPrice = () => {
+        let total_price = 0;
+        for (const item of selectedItems) {
+            total_price += item.book.price * item.number;
+        }
+        return total_price;
+    }
+
     const handleSubmit = async ({ address, addressee, phone }) => {
         if (!address || !addressee || !phone) {
             messageApi.error("请填写完整信息！");
+            return;
+        }
+        if (computeTotalPrice() > user.balance) {
+            messageApi.error("余额不足");
             return;
         }
         messageApi.info("购买成功");
@@ -31,7 +43,7 @@ export default function PlaceOrderModal ({
             footer={null}
             width={800}
         >
-            <BillTable selectedItems={selectedItems}/>
+            <BillTable selectedItems={selectedItems} total_price={computeTotalPrice()} />
             <Form
                 form={form}
                 layout="vertical"

@@ -53,7 +53,7 @@ export function CartTable ({ cartBooks }) {
         items.splice(index, 1);
         let selected = selectedItems.find(item => item.id === id);
         if (selected) {
-            selected.number = 0;
+            selectedItems.splice(selectedItems.indexOf(selected), 1);
             setSelectedItems([...selectedItems]);
         }
        setItems([...items]);

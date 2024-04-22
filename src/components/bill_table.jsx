@@ -1,22 +1,7 @@
-import { Button, Row, Col, Typography, Table } from "antd";
-import { useEffect, useState } from "react";
+import { Row, Typography, Table } from "antd";
 const { Paragraph } = Typography;
 
-export function BillTable ({ selectedItems }) {
-    const [items, setItems] = useState(selectedItems);
-
-    useEffect(() => {
-        setItems(selectedItems);
-    },[selectedItems]);
-
-    const computeTotalPrice = () => {
-        let total_price = 0;
-        for (const item of selectedItems) {
-            total_price += item.book.price * item.number;
-        }
-        return total_price;
-    }
-
+export function BillTable ({ selectedItems, total_price }) {
     const columns = [
         {
             width: 500,
@@ -44,7 +29,7 @@ export function BillTable ({ selectedItems }) {
     return <>
         <Table
             columns={columns}
-            dataSource={items.map(item => ({
+            dataSource={selectedItems.map(item => ({
                 ...item,
                 key: item.id
             }))}
@@ -53,7 +38,7 @@ export function BillTable ({ selectedItems }) {
         <Row className="cart-price-box">
             <Paragraph className='text'>合计:</Paragraph>
             <Paragraph className='price symbol'>¥</Paragraph>
-            <Paragraph className='price'>{computeTotalPrice()}</Paragraph>
+            <Paragraph className='price'>{total_price}</Paragraph>
         </Row>
     </>
 }
