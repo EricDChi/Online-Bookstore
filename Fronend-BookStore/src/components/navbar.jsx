@@ -33,7 +33,7 @@ export function Navbar({user}) {
 
     const usernavItems = [
         { value: "/cart", label: "购物车", icon: <ShoppingCartOutlined /> },
-        { value: "/orders", label: "订单", icon: <ReconciliationOutlined />}
+        { value: "/order", label: "订单", icon: <ReconciliationOutlined />}
     ];
     const usernavMenuItems = usernavItems.map(item => ({
         key: item.value,
@@ -204,7 +204,7 @@ export function VerticalNavbar() {
         { value: "/", label: "首页", icon: <HomeOutlined /> },
         { value: "/rank", label: "排行", icon: <BarChartOutlined /> },
         { value: "/cart", label: "购物车", icon: <ShoppingCartOutlined /> },
-        { value: "/orders", label: "订单", icon: <ReconciliationOutlined />}
+        { value: "/order", label: "订单", icon: <ReconciliationOutlined />}
     ];
     const navMenuItems = navItems.map(item => ({
         key: item.value,

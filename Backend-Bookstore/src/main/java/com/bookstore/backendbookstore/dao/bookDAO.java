@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface bookDAO extends JpaRepository<book, Long>{
+
     @Query("select b from book b where b.title like %?1%")
     List<book> findByTitle(String keyword);
 }

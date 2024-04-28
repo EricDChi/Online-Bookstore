@@ -2,7 +2,6 @@ package com.bookstore.backendbookstore.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import jakarta.persistence.*;
 import com.bookstore.backendbookstore.dao.bookDAO;
 import com.bookstore.backendbookstore.entity.book;
 
@@ -36,8 +35,6 @@ public class bookService {
 
     @Autowired
     bookDAO bookDAO;
-
-    EntityManager entityManager;
 
     public List<book> getAllBooks() {
         return bookDAO.findAll();

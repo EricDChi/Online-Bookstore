@@ -1,12 +1,10 @@
 package com.bookstore.backendbookstore.dao;
 
-import com.bookstore.backendbookstore.entity.user;
+import com.bookstore.backendbookstore.entity.order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-
 @Repository
-public interface userDAO extends JpaRepository<user, Long>{
+public interface orderDAO extends JpaRepository<order, Long>{
 
-    user findByUsername(String username);
 }
