@@ -12,31 +12,6 @@ import java.util.List;
 @EnableAutoConfiguration
 public class bookController {
 
-    public class BookRequest {
-        private String keyword;
-        private Integer pageIndex;
-        private Integer pageSize;
-
-        public String getKeyword() {
-            return this.keyword;
-        }
-        public void setTotal(String keyword) {
-            this.keyword = keyword;
-        }
-        public Integer getPageIndex() {
-            return this.pageIndex;
-        }
-        public void setPageIndex(Integer pageIndex) {
-            this.pageIndex = pageIndex;
-        }
-        public Integer getPageSize() {
-            return this.pageSize;
-        }
-        public void setPageSize(Integer pageSize) {
-            this.pageIndex = pageSize;
-        }
-    }
-
     @Autowired
     bookService bookService;
 
