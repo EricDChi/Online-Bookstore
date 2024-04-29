@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import org.joda.time.DateTime;
 
 @Entity
-@Table(name = "carts")
+@Table(name = "cart")
 public class cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

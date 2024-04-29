@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import jakarta.persistence.*;
 import com.bookstore.backendbookstore.dao.userDAO;
+import com.bookstore.backendbookstore.dao.userAuthDAO;
 import com.bookstore.backendbookstore.entity.user;
+import com.bookstore.backendbookstore.entity.userAuth;
 
 @Service
 public class userService {
@@ -12,14 +14,16 @@ public class userService {
     @Autowired
     userDAO userDAO;
 
+    @Autowired
+    userAuthDAO userAuthDAO;
+
     public user checkLogin(String username, String password) {
-        user user = userDAO.findByUsername(username);
-        if (user == null) {
+        userAuth userAuth = userAuthDAO.checkUser(username, password);
+        if (userAuth == null) {
             return null;
         }
-        if (password.equals(user.getPassword())) {
-            return user;
-        }
-        return null;
+        Long id = userAuth.getUser_id();
+        user user = userDAO.findById(id).orElse(null);
+        return user;
     }
 }
