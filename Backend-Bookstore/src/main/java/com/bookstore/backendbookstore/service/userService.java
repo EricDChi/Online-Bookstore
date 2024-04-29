@@ -2,7 +2,6 @@ package com.bookstore.backendbookstore.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import jakarta.persistence.*;
 import com.bookstore.backendbookstore.dao.userDAO;
 import com.bookstore.backendbookstore.dao.userAuthDAO;
 import com.bookstore.backendbookstore.entity.user;
