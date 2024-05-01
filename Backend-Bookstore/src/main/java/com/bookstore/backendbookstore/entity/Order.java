@@ -5,7 +5,7 @@ import org.joda.time.DateTime;
 
 @Entity
 @Table(name = "orders")
-public class order {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -27,7 +27,7 @@ public class order {
     private String phone;
 
     // 构造函数
-    public order() {
+    public Order() {
     }
 
     // Getter 和 Setter 方法
