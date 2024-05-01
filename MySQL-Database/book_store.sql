@@ -106,36 +106,20 @@ INSERT INTO `order_item` (id, user_id, book_id, order_id, number) VALUES (4, 2, 
 INSERT INTO `order_item` (id, user_id, book_id, order_id, number) VALUES (5, 1, 1, 1, 1);
 COMMIT;
 
-DROP TABLE IF EXISTS `cart`;
-CREATE TABLE IF NOT EXISTS `cart` (
-    `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
-    `user_id` BIGINT NOT NULL,
-    CONSTRAINT `cart_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-);
-
-BEGIN;
-INSERT INTO `cart` (id, user_id) VALUES (1, 1);
-INSERT INTO `cart` (id, user_id) VALUES (2, 2);
-INSERT INTO `cart` (id, user_id) VALUES (3, 3);
-INSERT INTO `cart` (id, user_id) VALUES (4, 4);
-COMMIT;
-
 DROP TABLE IF EXISTS `cart_item`;
 CREATE TABLE IF NOT EXISTS `cart_item` (
     `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
     `user_id` BIGINT NOT NULL,
     `book_id` BIGINT not null,
-    `cart_id` BIGINT not null,
     `number` INT not null,
     CONSTRAINT `cart_item_fk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-    CONSTRAINT `cart_item_fk_2` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`),
-    CONSTRAINT `cart_item_fk_3` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`id`)
+    CONSTRAINT `cart_item_fk_2` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 BEGIN;
-INSERT INTO `cart_item` (id, user_id, book_id, cart_id, number) VALUES (1, 2, 1, 1, 1);
-INSERT INTO `cart_item` (id, user_id, book_id, cart_id, number) VALUES (2, 2, 4, 1, 1);
-INSERT INTO `cart_item` (id, user_id, book_id, cart_id, number) VALUES (3, 2, 7, 2, 2);
-INSERT INTO `cart_item` (id, user_id, book_id, cart_id, number) VALUES (4, 2, 1, 3, 1);
-INSERT INTO `cart_item` (id, user_id, book_id, cart_id, number) VALUES (5, 1, 1, 1, 1);
+INSERT INTO `cart_item` (id, user_id, book_id, number) VALUES (1, 2, 1, 1);
+INSERT INTO `cart_item` (id, user_id, book_id, number) VALUES (2, 2, 4, 1);
+INSERT INTO `cart_item` (id, user_id, book_id, number) VALUES (3, 2, 7, 2);
+INSERT INTO `cart_item` (id, user_id, book_id, number) VALUES (4, 2, 2, 1);
+INSERT INTO `cart_item` (id, user_id, book_id, number) VALUES (5, 1, 1, 1);
 COMMIT;

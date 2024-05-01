@@ -1,16 +1,18 @@
-import { Button, InputNumber, Row, Col, Typography, Image, Table } from "antd";
+import { Button, InputNumber, Row, Col, Typography, Image, Table, message } from "antd";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PlaceOrderModal from "./place_order_modal";
 import { getMe } from "../service/user";
-import { changeCartBookNumber, deleteCartBooks } from "../service/cart";
+import { changeCartBookNumber, changeCartItemNumber, deleteCartBooks, deleteCartItem } from "../service/cart";
 import { IMAGE_PREFIX } from "../service/common";
+import { handleBaseApiResponse } from "../utils/message";
 const { Paragraph } = Typography;
 
 export function CartTable ({ cartBooks }) {
     const [items, setItems] = useState(cartBooks);
     const [showModal, setShowMadal] = useState(false);
     const [selectedItems, setSelectedItems] = useState([]);
+    const [messageApi, contextHolder] = message.useMessage();
     const [user, setUser] = useState(null);
 
     const checkLogin = async() => {
@@ -38,7 +40,7 @@ export function CartTable ({ cartBooks }) {
     }
 
     const handleNumberChange = async (id, number) => {
-        changeCartBookNumber(id, number);
+        changeCartItemNumber(id, number);
         items.filter(item => item.id === id)[0].number = number;
         let selected = selectedItems.find(item => item.id === id);
         if (selected) {
@@ -48,8 +50,9 @@ export function CartTable ({ cartBooks }) {
        setItems([...items]);
     }
 
-    const handeleDelete = async (id) => {
-        deleteCartBooks(id);
+    const handleDelete = async (id) => {
+        let res = await deleteCartItem(id);
+        handleBaseApiResponse(res, messageApi);
         const index = items.findIndex((item) => id === item.id);
         items.splice(index, 1);
         let selected = selectedItems.find(item => item.id === id);
@@ -89,12 +92,13 @@ export function CartTable ({ cartBooks }) {
             dataIndex: '',
             key: 'action',
             render: (item) => <Button type="primary" onClick={() => {
-                handeleDelete(item.id);
+                handleDelete(item.id);
             }}>删除</Button>,
         },
     ];
 
     return <>
+        {contextHolder}
         {showModal && <PlaceOrderModal onCancel={handleCloseModal} user={user} selectedItems={selectedItems} onOk={handleOpenModal} />}
         <Table
             columns={columns}
@@ -114,7 +118,7 @@ export function CartTable ({ cartBooks }) {
                             <Image src={IMAGE_PREFIX + "/" + item.book.cover} height={200} />
                         </Col>
                         <Col span={19} offset={1}>
-                            <Paragraph style={{ whiteSpace: 'pre-wrap' }}>{item.book.book_description.replace(/\\n/g, '\n')}</Paragraph>
+                            <Paragraph style={{ whiteSpace: 'pre-wrap' }}>{item.book.bookDescription.replace(/\\n/g, '\n')}</Paragraph>
                         </Col>
                     </Row>
                 )
