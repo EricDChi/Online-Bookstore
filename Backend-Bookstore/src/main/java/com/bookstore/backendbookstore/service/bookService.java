@@ -46,7 +46,7 @@ public class bookService {
         for (long i = 1 + pageIndex * pageSize; i <= max; i++) {
             items.add(bookDAO.findById(i).orElse(null));
         }
-        int total = items.size() / pageSize + 1;
+        int total = (int) bookDAO.count() / pageSize + 1;
         BookResponse bookResponse = new BookResponse(total, items);
         return bookResponse;
     }
