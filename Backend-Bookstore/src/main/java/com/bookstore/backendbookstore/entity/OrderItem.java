@@ -3,8 +3,8 @@ package com.bookstore.backendbookstore.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "cart_item")
-public class cartItem {
+@Table(name = "order_item")
+public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -16,14 +16,14 @@ public class cartItem {
     @Column(name = "book_id")
     private Long bookId;
 
-    @Column(name = "cart_id")
-    private Long cartId;
+    @Column(name = "order_id")
+    private Long orderId;
 
     @Column(name = "number")
     private Integer number;
 
     // 构造函数
-    public cartItem() {
+    public OrderItem() {
     }
 
     // Getter 和 Setter 方法
@@ -50,12 +50,12 @@ public class cartItem {
     public void setBookIdId(Long bookId) {
         this.bookId = bookId;
     }
-    public Long getCartId() {
-        return this.cartId;
+    public Long getOrderId() {
+        return this.orderId;
     }
 
-    public void setOrderId(Long cartId) {
-        this.cartId = cartId;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
     public Integer getNumber() {
         return number;

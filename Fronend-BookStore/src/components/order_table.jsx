@@ -1,6 +1,7 @@
 import { Table } from "antd";
 import { formatTime } from "../utils/time";
 import { List, Avatar } from "antd"
+import { IMAGE_PREFIX } from "../service/common";
 
 export function OrderTable ({ orders }) {
     const columns = [
@@ -19,7 +20,7 @@ export function OrderTable ({ orders }) {
             renderItem={(item, _) => (
                 <List.Item>
                     <List.Item.Meta
-                        avatar={<Avatar shape="square" size={80} src={item.book.cover} />}
+                        avatar={<Avatar shape="square" size={80} src={IMAGE_PREFIX + item.book.cover} />}
                         title={item.book.title}
                         description={`数量：${item.number}`}
                     />
