@@ -13,20 +13,28 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     @Column(name = "title")
     private String title;
+
     @Column(name = "author")
     private String author;
+
     @Column(name = "price")
-    private Double price;
+    private Long price;
+
     @Column(name = "cover")
     private String cover;
+
     @Column(name = "sales")
     private Long sales;
+
     @Column(name = "publisher")
     private String publisher;
+
     @Column(name = "author_description")
     private String authorDescription;
+
     @Column(name = "book_description")
     private String bookDescription;
 }

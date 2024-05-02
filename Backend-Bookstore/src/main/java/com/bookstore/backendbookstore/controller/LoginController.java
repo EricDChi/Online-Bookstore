@@ -2,8 +2,6 @@ package com.bookstore.backendbookstore.controller;
 
 import com.bookstore.backendbookstore.utils.Msg;
 import jakarta.servlet.http.HttpSession;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.web.bind.annotation.*;
@@ -18,13 +16,6 @@ public class LoginController {
 
     @Autowired
     UserService userService;
-
-    @Getter
-    @Setter
-    public static class userRequest {
-        private String username;
-        private String password;
-    }
 
     @PostMapping("/api/login")
     public Msg login(@RequestBody Map<String, String> params, HttpSession session) {

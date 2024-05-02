@@ -14,7 +14,7 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         // 设置允许的来源
-        config.addAllowedOrigin("http://localhost:3001");
+        config.addAllowedOrigin("http://localhost:3000");
         // 设置允许的方法
         config.addAllowedMethod("*");
         // 设置允许的头信息

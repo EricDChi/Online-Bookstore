@@ -16,11 +16,7 @@ public class UserController {
 
     @GetMapping("/api/me")
     public User getMe(HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user != null) {
-            return user;
-        }
-        return new User();
+        return userService.getUser(session);
     }
 
 }

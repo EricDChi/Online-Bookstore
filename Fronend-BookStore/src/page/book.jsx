@@ -5,7 +5,7 @@ import '../css/book.css';
 import { Col, Row } from 'antd'; 
 import { useParams } from "react-router-dom";
 import { PrivateLayout } from "../components/layout";
-import { getBookById } from "../service/books";
+import { getBookById } from "../service/book";
 import BookDetails from "../components/book_details";
 
 const BookPage = () => {
@@ -26,7 +26,7 @@ const BookPage = () => {
         <PrivateLayout>
             <Row justify="center">
                 <Col className="book-details-container">
-                    {book && <BookDetails book={book}/>}
+                    {book && <BookDetails book={book} onMutate={getBook}/>}
                 </Col>
             </Row>
         </PrivateLayout>

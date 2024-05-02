@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { getMe } from "../service/user";
 import Sider from "antd/es/layout/Sider";
 
-export function BasicLayout ({children}) {
+export function BasicLayout ({ children }) {
     return (
         <Layout className="basic-layout">
             <Header className="header"
@@ -31,7 +31,7 @@ export function BasicLayout ({children}) {
     );
 }
 
-export function PrivateLayout ({children}) {
+export function PrivateLayout ({ children }) {
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
 
@@ -61,7 +61,7 @@ export function PrivateLayout ({children}) {
                 <Navbar user={user}/>
             </Header>
             <Content className="content">
-                {children}
+                {user && children}
             </Content>
             <Footer className="footer">
                 <Space direction="vertical">

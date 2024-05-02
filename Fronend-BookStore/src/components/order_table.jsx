@@ -9,7 +9,7 @@ export function OrderTable ({ orders }) {
         { title: '联系方式', dataIndex: 'phone', key: 'phone', },
         { title: '收货地址', dataIndex: 'address', key: 'address', },
         {
-            title: '下单时间', dataIndex: 'create_time', key: 'create_time',
+            title: '下单时间', dataIndex: 'createTime', key: 'createTime',
             render: (time) => formatTime(time)
         },
     ];
@@ -20,7 +20,7 @@ export function OrderTable ({ orders }) {
             renderItem={(item, _) => (
                 <List.Item>
                     <List.Item.Meta
-                        avatar={<Avatar shape="square" size={80} src={IMAGE_PREFIX + item.book.cover} />}
+                        avatar={<Avatar shape="square" size={80} src={IMAGE_PREFIX + "/" + item.book.cover} />}
                         title={item.book.title}
                         description={`数量：${item.number}`}
                     />

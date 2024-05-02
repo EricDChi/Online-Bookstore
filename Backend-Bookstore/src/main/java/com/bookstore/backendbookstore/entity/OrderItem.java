@@ -1,7 +1,14 @@
 package com.bookstore.backendbookstore.entity;
 
+import com.bookstore.backendbookstore.utils.BookItem;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.Map;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "order_item")
 public class OrderItem {
@@ -26,42 +33,10 @@ public class OrderItem {
     public OrderItem() {
     }
 
-    // Getter 和 Setter 方法
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
+    public OrderItem(Long userId, Long orderId, BookItem bookItem) {
         this.userId = userId;
-    }
-
-    public Long getBookId() {
-        return bookId;
-    }
-
-    public void setBookIdId(Long bookId) {
-        this.bookId = bookId;
-    }
-    public Long getOrderId() {
-        return this.orderId;
-    }
-
-    public void setOrderId(Long orderId) {
         this.orderId = orderId;
-    }
-    public Integer getNumber() {
-        return number;
-    }
-
-    public void setNumber(Integer number) {
-        this.number = number;
+        this.bookId = bookItem.getId();
+        this.number = bookItem.getNumber();
     }
 }

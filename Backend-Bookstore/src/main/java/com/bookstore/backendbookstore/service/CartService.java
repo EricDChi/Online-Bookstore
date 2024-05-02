@@ -3,6 +3,7 @@ package com.bookstore.backendbookstore.service;
 import com.bookstore.backendbookstore.dao.BookDAO;
 import com.bookstore.backendbookstore.dao.CartItemDAO;
 import com.bookstore.backendbookstore.entity.Book;
+import com.bookstore.backendbookstore.utils.BookItem;
 import com.bookstore.backendbookstore.utils.Msg;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,31 +23,17 @@ public class CartService {
     @Autowired
     BookDAO bookDAO;
 
-    @Getter
-    @Setter
-    public static class CartResponse {
-        private Long id;
-        private Integer number;
-        private Book book;
-
-        public CartResponse(Long id, Integer number, Book book) {
-            this.id = id;
-            this.number = number;
-            this.book = book;
-        }
-    }
-
-    public List<CartResponse> getCartItems(Long id) {
+    public List<BookItem> getCartItems(Long id) {
         List<CartItem> cartItems = new ArrayList<>();
-        List<CartResponse> cartResponse = new ArrayList<>();
+        List<BookItem> bookItems = new ArrayList<>();
         cartItems = cartItemDAO.findByUserId(id);
         for (int i = 0, cartItemsSize = cartItems.size(); i < cartItemsSize; i++) {
             CartItem cartItem = cartItems.get(i);
             Book book = bookDAO.findById(cartItem.getBookId()).orElse(null);
-            CartResponse cartItemResponse = new CartResponse(cartItem.getBookId(), cartItem.getNumber(), book);
-            cartResponse.add(cartItemResponse);
+            BookItem bookItem = new BookItem(cartItem.getBookId(), cartItem.getNumber(), book);
+            bookItems.add(bookItem);
         }
-        return cartResponse;
+        return bookItems;
     }
 
     public Msg deleteCartItem(Long bookId, Long userId) {
@@ -70,10 +57,10 @@ public class CartService {
             return new Msg(false, "书籍不存在", null);
         }
         if (cartItemDAO.existsByBookIdAndUserId(bookId, userId)) {
-            return new Msg(false, "书籍已存在", null);
+            return new Msg(false, "已在购物车内，请勿重复添加", null);
         }
         CartItem cartItem = new CartItem(bookId, userId);
-        cartItemDAO.save(cartItem);
+        cartItemDAO.insertCartItem(cartItem);
         return new Msg(true, "添加成功", null);
     }
 }

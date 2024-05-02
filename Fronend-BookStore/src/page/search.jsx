@@ -6,7 +6,7 @@ import BookList from "../components/book_list";
 import { Col, Row, Space } from 'antd'; 
 import { useSearchParams, useParams } from "react-router-dom";
 import { PrivateLayout } from "../components/layout";
-import { searchBooks } from "../service/books";
+import { searchBooks } from "../service/book";
 
 const SearchPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();

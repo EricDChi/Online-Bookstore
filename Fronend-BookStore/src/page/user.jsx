@@ -5,7 +5,6 @@ import { Col, Row } from 'antd';
 import { PrivateLayout } from "../components/layout";
 import { getMe } from "../service/user";
 import UserHome from "../components/user_home";
-import { useNavigate } from "react-router-dom";
 
 const UserPage = () => {
     const [user, setUser] = useState(null);

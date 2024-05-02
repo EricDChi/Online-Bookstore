@@ -15,7 +15,7 @@ public class User {
     private Long id;
 
     @Column(name = "balance")
-    private Double balance;
+    private Long balance;
 
     @Column(name = "address")
     private String address;

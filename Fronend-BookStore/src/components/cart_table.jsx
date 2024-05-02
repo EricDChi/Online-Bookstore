@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PlaceOrderModal from "./place_order_modal";
 import { getMe } from "../service/user";
-import { changeCartBookNumber, changeCartItemNumber, deleteCartBooks, deleteCartItem } from "../service/cart";
+import { changeCartItemNumber, deleteCartItem } from "../service/cart";
 import { IMAGE_PREFIX } from "../service/common";
 import { handleBaseApiResponse } from "../utils/message";
 const { Paragraph } = Typography;
 
-export function CartTable ({ cartBooks }) {
-    const [items, setItems] = useState(cartBooks);
-    const [showModal, setShowMadal] = useState(false);
+export function CartTable ({ cartItems, onMutate }) {
+    const [items, setItems] = useState(cartItems);
+    const [showModal, setShowModal] = useState(false);
     const [selectedItems, setSelectedItems] = useState([]);
     const [messageApi, contextHolder] = message.useMessage();
     const [user, setUser] = useState(null);
@@ -21,22 +21,28 @@ export function CartTable ({ cartBooks }) {
     }
 
     useEffect(() => {
-        setItems(cartBooks);
+        setItems(cartItems);
         checkLogin();
-    },[cartBooks]);
+    },[cartItems]);
 
     const handleOpenModal = () => {
-        setShowMadal(true);
+        setShowModal(true);
     }
 
     const handleCloseModal = () => {
-        setShowMadal(false);
+        setShowModal(false);
+    }
+
+    const handleOrderSubmit = () => {
+        setSelectedItems([]);
+        setShowModal(false);
+        onMutate();
     }
 
     const computeTotalPrice = () => {
         const prices = selectedItems.map(item => item.book.price * item.number);
         return prices.length > 0 ?
-            prices.reduce((prev, cur) => prev + cur) : 0;
+            prices.reduce((prev, cur) => prev + cur) / 100 : 0;
     }
 
     const handleNumberChange = async (id, number) => {
@@ -85,7 +91,7 @@ export function CartTable ({ cartBooks }) {
             title: '价格',
             dataIndex: 'book',
             key: 'book_price',
-            render: book => book.price
+            render: book => book.price / 100
         },
         {
             title: '操作',
@@ -99,7 +105,7 @@ export function CartTable ({ cartBooks }) {
 
     return <>
         {contextHolder}
-        {showModal && <PlaceOrderModal onCancel={handleCloseModal} user={user} selectedItems={selectedItems} onOk={handleOpenModal} />}
+        {showModal && <PlaceOrderModal onCancel={handleCloseModal} user={user} selectedItems={selectedItems} onOk={handleOrderSubmit} />}
         <Table
             columns={columns}
             rowSelection={{
@@ -115,10 +121,10 @@ export function CartTable ({ cartBooks }) {
                 expandedRowRender: (item) => (
                     <Row>
                         <Col span={4}>
-                            <Image src={IMAGE_PREFIX + "/" + item.book.cover} height={200} />
+                            <Image src={IMAGE_PREFIX + "/" + item.book.cover} />
                         </Col>
                         <Col span={19} offset={1}>
-                            <Paragraph style={{ whiteSpace: 'pre-wrap' }}>{item.book.bookDescription.replace(/\\n/g, '\n')}</Paragraph>
+                            <Paragraph style={{ whiteSpace: 'pre-wrap' }}>{item.book.bookDescription?item.book.bookDescription.replace(/\\n/g, '\n'):null}</Paragraph>
                         </Col>
                     </Row>
                 )
@@ -131,7 +137,7 @@ export function CartTable ({ cartBooks }) {
         <Row>
             <Col span={12}>
                 <Row className="cart-price-box">
-                    {(selectedItems.length == 0)? 
+                    {(selectedItems.length === 0)? 
                         <Paragraph className="hidden-text"></Paragraph> :
                         <Paragraph className="hidden-text">已选{selectedItems.length}件，</Paragraph>
                     }

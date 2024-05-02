@@ -22,7 +22,7 @@ export function BillTable ({ selectedItems, total_price }) {
             title: '价格',
             dataIndex: 'book',
             key: 'book_price',
-            render: book => book.price
+            render: book => book.price / 100
         },
     ];
 
@@ -38,7 +38,7 @@ export function BillTable ({ selectedItems, total_price }) {
         <Row className="cart-price-box">
             <Paragraph className='text'>合计:</Paragraph>
             <Paragraph className='price symbol'>¥</Paragraph>
-            <Paragraph className='price'>{total_price}</Paragraph>
+            <Paragraph className='price'>{total_price / 100}</Paragraph>
         </Row>
     </>
 }

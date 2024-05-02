@@ -5,25 +5,24 @@ import { Col, Row } from 'antd';
 import { PrivateLayout } from "../components/layout";
 import { getCartItems } from "../service/cart";
 import { CartTable } from "../components/cart_table";
-import { cart_books } from "../service/cart";
 
 const CartPage = () => {
-    const [cartBooks, setCartBooks] = useState([]);
+    const [cartItems, setCartItems] = useState([]);
 
-    const initCartBooks = async () => {
+    const initCartItems = async () => {
         let cartBooks = await getCartItems();
-        setCartBooks(cartBooks);
+        setCartItems(cartBooks);
     }
 
     useEffect(() => {
-        initCartBooks();
-    }, [cart_books]);
+        initCartItems();
+    }, []);
 
     return (
         <PrivateLayout>
             <Row justify="center">
                 <Col className="cart-container">
-                    <CartTable cartBooks={cartBooks}/>
+                    <CartTable cartItems={cartItems} onMutate={initCartItems}/>
                 </Col>
             </Row>
         </PrivateLayout>

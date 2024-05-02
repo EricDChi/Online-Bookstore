@@ -1,5 +1,6 @@
 package com.bookstore.backendbookstore.controller;
 
+import com.bookstore.backendbookstore.utils.BookItem;
 import com.bookstore.backendbookstore.utils.Msg;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,9 @@ public class CartController {
     CartService cartService;
 
     @GetMapping("/api/cart")
-    public List<CartService.CartResponse> getCart(HttpSession session) {
+    public List<BookItem> getCart(HttpSession session) {
         User user = (User) session.getAttribute("user");
-        List<CartService.CartResponse> cartItems = cartService.getCartItems(user.getId());
+        List<BookItem> cartItems = cartService.getCartItems(user.getId());
         return cartItems;
     }
 

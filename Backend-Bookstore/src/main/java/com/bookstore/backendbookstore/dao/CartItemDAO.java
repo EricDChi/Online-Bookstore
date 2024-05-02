@@ -25,4 +25,8 @@ public interface CartItemDAO extends JpaRepository<CartItem, Long>{
     void updateNumberByBookIdAndUserId(@Param("bookId") Long bookId, @Param("userId") Long userId, @Param("number") Integer number);
 
     boolean existsByBookIdAndUserId(Long bookId, Long userId);
+
+    default void insertCartItem(CartItem cartItem) {
+        save(cartItem);
+    }
 }

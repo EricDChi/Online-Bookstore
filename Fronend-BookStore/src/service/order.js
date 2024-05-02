@@ -13,24 +13,6 @@ export async function placeOrder(orderInfo) {
 }
 
 export async function getOrders() {
-    return [
-        {
-            id: 1,
-            address: "北京市海淀区",
-            addressee: "张三",
-            phone: "123456789",
-            create_time: 1627862400000,
-            items: [
-                {
-                    book: {
-                        id: 1,
-                        title: "计算机网络",
-                        cover: "https://img3.doubanio.com/view/subject/s/public/s27283852.jpg"
-                    },
-                    number: 1
-                }
-            ]
-        }];
     const url = `${PREFIX}/order`;
     let orders;
     try {

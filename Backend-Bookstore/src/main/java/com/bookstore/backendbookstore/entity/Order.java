@@ -1,8 +1,15 @@
 package com.bookstore.backendbookstore.entity;
 
+import com.bookstore.backendbookstore.service.OrderService;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.joda.time.DateTime;
 
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -15,7 +22,7 @@ public class Order {
     private Long userId;
 
     @Column(name = "create_time")
-    private DateTime createTime;
+    private LocalDateTime createTime;
 
     @Column(name = "address")
     private String address;
@@ -27,55 +34,13 @@ public class Order {
     private String phone;
 
     // 构造函数
-    public Order() {
-    }
-
-    // Getter 和 Setter 方法
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
+    public Order(Long userId, OrderService.OrderRequest orderRequest, LocalDateTime createTime) {
         this.userId = userId;
-    }
-
-    public DateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(DateTime createTime) {
         this.createTime = createTime;
+        this.address = orderRequest.getAddress();
+        this.addressee = orderRequest.getAddressee();
+        this.phone = orderRequest.getPhone();
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getAddressee() {
-        return addressee;
-    }
-
-    public void setAddressee(String addressee) {
-        this.addressee = addressee;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+    public Order() {};
 }

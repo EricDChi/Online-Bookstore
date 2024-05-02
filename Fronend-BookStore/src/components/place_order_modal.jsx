@@ -1,7 +1,8 @@
 import { Button, Form, Input, Modal } from "antd";
-import React from "react";
 import useMessage from "antd/es/message/useMessage";
 import { BillTable } from "./bill_table";
+import { handleBaseApiResponse } from "../utils/message";
+import { placeOrder } from "../service/order";
 
 const { TextArea } = Input;
 
@@ -26,12 +27,15 @@ export default function PlaceOrderModal ({
             messageApi.error("请填写完整信息！");
             return;
         }
-        if (computeTotalPrice() > user.balance) {
-            messageApi.error("余额不足");
-            return;
+        let orderInfo = {
+            address,
+            addressee,
+            phone,
+            price: computeTotalPrice(),
+            items: selectedItems
         }
-        messageApi.info("购买成功");
-        setTimeout(() => onCancel(), 1000);
+        let res = await placeOrder(orderInfo);
+        handleBaseApiResponse(res, messageApi, onOk);
     };
 
     return (
@@ -49,6 +53,7 @@ export default function PlaceOrderModal ({
                 layout="vertical"
                 onFinish={handleSubmit}
                 preserve={false}
+                initialValues={{ addressee: user?.addressee, phone: user?.phone, address: user?.address }}
             >
                 {contextHolder}
                 <Form.Item

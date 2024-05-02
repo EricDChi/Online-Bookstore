@@ -1,17 +1,18 @@
 import { Row, Col, Image, Button } from "antd";
 import { useEffect } from "react";
-import { addCartBooks } from "../service/cart";
+import { addCartItem } from "../service/cart";
 import { useState } from "react";
 import { Typography, Divider, Space, message } from "antd";
 import PlaceOrderModal from "./place_order_modal";
 import { getMe } from "../service/user";
 import { IMAGE_PREFIX } from "../service/common";
+import { handleBaseApiResponse } from "../utils/message";
 const { Title, Paragraph } = Typography;
 
-export default function BookDetails({ book }) {
+export default function BookDetails({ book, onMutate }) {
     const [selectedItems, setSelectedItems] = useState([]);
     const [messageApi, contextHolder] = message.useMessage();
-    const [showModal, setShowMadal] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const [user, setUser] = useState(null);
 
     const checkLogin = async() => {
@@ -20,21 +21,21 @@ export default function BookDetails({ book }) {
     }
 
     const handleAddCart = async() => {
-        let res = await addCartBooks(book.id);
-        if (res === true) {
-            messageApi.info("添加成功");
-        }
-        else {
-            messageApi.error("已在购物车内，请勿重复添加");
-        }
+        let res = await addCartItem(book.id);
+        handleBaseApiResponse(res, messageApi);
     }
 
     const handleOpenModal = () => {
-        setShowMadal(true);
+        setShowModal(true);
     }
 
     const handleCloseModal = () => {
-        setShowMadal(false);
+        setShowModal(false);
+    }
+
+    const handleOrderSubmit = () => {
+        setShowModal(false);
+        onMutate();
     }
 
     useEffect(() =>{
@@ -49,8 +50,9 @@ export default function BookDetails({ book }) {
         checkLogin();
     }, [])
 
+
     return <>
-        {showModal && <PlaceOrderModal onCancel={handleCloseModal} user={user} selectedItems={selectedItems} onOk={handleOpenModal} />}
+        {showModal && <PlaceOrderModal onCancel={handleCloseModal} user={user} selectedItems={selectedItems} onOk={handleOrderSubmit} />}
         <Space direction="vertical">
             {contextHolder}
             <Row>
@@ -62,7 +64,7 @@ export default function BookDetails({ book }) {
                     <Row className='price-box'>
                         <Paragraph className='text'>售价</Paragraph>
                         <Paragraph className='price symbol'>¥</Paragraph>
-                        <Paragraph className='price'>{book.price}</Paragraph>
+                        <Paragraph className='price'>{book.price / 100}</Paragraph>
                     </Row>
                     <Paragraph>作者：{book.author}</Paragraph>
                     <Paragraph>出版社：{book.publisher}</Paragraph>
@@ -75,9 +77,9 @@ export default function BookDetails({ book }) {
             </Row>
             <Row style={{ margin:'20px' }}>
                 <Divider orientation="left">内容简介</Divider>
-                <Paragraph style={{ whiteSpace: 'pre-wrap' }}>{book.bookDescription.replace(/\\n/g, '\n')}</Paragraph>
+                <Paragraph style={{ whiteSpace: 'pre-wrap' }}>{book.bookDescription?book.bookDescription.replace(/\\n/g, '\n'):null}</Paragraph>
                 <Divider orientation="left">作者简介</Divider>
-                <Paragraph style={{ whiteSpace: 'pre-wrap'}}>{book.authorDescription.replace(/\\n/g, '\n')}</Paragraph>
+                <Paragraph style={{ whiteSpace: 'pre-wrap'}}>{book.authorDescription?book.authorDescription.replace(/\\n/g, '\n'):null}</Paragraph>
             </Row>
         </Space>
     </>

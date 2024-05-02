@@ -11,7 +11,7 @@ export default function BookCard({ book }) {
             >
                 <p className='title'>{book.title}</p>
                 <p className='author'>{book.author}</p>
-                <p className='price'>¥ {book.price}</p>
+                <p className='price'>¥ {book.price / 100}</p>
             </Card>
         </Link>
     )

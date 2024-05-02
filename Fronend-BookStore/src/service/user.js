@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { PREFIX, getJson } from './common';
 
 export async function getMe() {
@@ -6,6 +5,7 @@ export async function getMe() {
     let me = null;
     try {
         me = await getJson(url);
+        console.log(me);
     } catch(e) {
         console.log(e);
     }
@@ -13,21 +13,6 @@ export async function getMe() {
         return null;
     }
     return me;
-}
-
-export function setMe() {
-    const me = {
-        nickname: "admin",
-        signature: "这人是个懒狗，什么都没有写",
-        sex: "male",
-        birthday: dayjs('2015-01-01'),
-        balance: 200,
-        avatar: "../../143873758.jpg",
-        addressee: "name",
-        phone: "11122223333",
-        address: "上海市闵行区 东川路800号 上海交通大学"
-    };
-    localStorage.setItem("me", JSON.stringify(me));
 }
 
 export function setInfo(name, signature, sex, birthday, addressee, phone, address) {

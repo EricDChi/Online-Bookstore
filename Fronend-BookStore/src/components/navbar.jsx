@@ -16,7 +16,7 @@ import { logout } from '../service/logout';
 import { handleBaseApiResponse } from '../utils/message';
 import { IMAGE_PREFIX } from '../service/common';
 
-export function Navbar({user}) {
+export function Navbar({ user }) {
     const [messageApi, contextHolder] = message.useMessage();
     const location = useLocation();
     const navigate = useNavigate();
@@ -66,7 +66,7 @@ export function Navbar({user}) {
         },
         {
             key: "balance",
-            label: `余额：${user?.balance}元`,
+            label: `余额：${user?.balance / 100}元`,
             icon: <AccountBookOutlined />,
         },
         {   
@@ -122,7 +122,10 @@ export function Navbar({user}) {
             {user && <Col className='navbar-col' span={1} offset={0.5}>
                 <Dropdown menu={{ onClick: handleMenuClick, items: dropMenuItems }}>
                     <Link to="/myhome">
-                        <Avatar shape="circle" src={<img src={IMAGE_PREFIX + "/" + user?.avatar} alt="avatar" />}/>
+                        {user.avatar?
+                            <Avatar shape="circle" src={<img src={IMAGE_PREFIX + "/" + user?.avatar} alt="avatar" />}/>:
+                            <Avatar shape="circle" icon={<UserOutlined />} />
+                        }
                     </Link>
                 </Dropdown>
             </Col>}
@@ -158,7 +161,7 @@ export function VerticalHeader({user}) {
         },
         {
             key: "balance",
-            label: `余额：${user?.balance}元`,
+            label: `余额：${user?.balance / 100}元`,
             icon: <AccountBookOutlined />,
         },
         {   

@@ -24,8 +24,12 @@ public class CartItem {
     private Integer number;
 
     // 构造函数
-    public CartItem(Long id, Long userId) {
-        this.id = bookId;
+    public CartItem() {
+        
+    }
+
+    public CartItem(Long bookId, Long userId) {
+        this.bookId = bookId;
         this.userId = userId;
         this.number = 1;
     }
