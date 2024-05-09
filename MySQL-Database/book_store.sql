@@ -42,14 +42,16 @@ CREATE TABLE IF NOT EXISTS `user` (
     `nickname` VARCHAR(255) NULL,
     `phone` BIGINT NULL,
     `sex` VARCHAR(255) NULL,
-    `signature` TEXT NULL
+    `signature` TEXT NULL,
+    `forbidden` BOOLEAN DEFAULT FALSE NOT NULL,
+    `role` INT DEFAULT 0 NOT NULL
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 BEGIN;
-INSERT INTO `user` (id, address, addressee, avatar, balance, birthday, nickname, phone, sex, signature) VALUES (1, null, null, null, 0, null, null, null, null, null);
-INSERT INTO `user` (id, address, addressee, avatar, balance, birthday, nickname, phone, sex, signature) VALUES (2, '上海市闵行区 东川路800号 上海交通大学', '池昊', '143873758.jpg', 200000000, '2014-12-31T16:00:00.000Z', 'admin', '15517597867', 'male', '这人是个懒狗，什么都没有写');
-INSERT INTO `user` (id, address, addressee, avatar, balance, birthday, nickname, phone, sex, signature) VALUES (3, null, null, null, 0, null, null, null, null, null);
-INSERT INTO `user` (id, address, addressee, avatar, balance, birthday, nickname, phone, sex, signature) VALUES (4, null, null, null, 0, null, null, null, null, null);
+INSERT INTO `user` (id, address, addressee, avatar, balance, birthday, nickname, phone, sex, signature, forbidden, role) VALUES (1, null, null, null, 0, null, null, null, null, null, FALSE, 1);
+INSERT INTO `user` (id, address, addressee, avatar, balance, birthday, nickname, phone, sex, signature, forbidden, role) VALUES (2, '上海市闵行区 东川路800号 上海交通大学', '池昊', '143873758.jpg', 200000000, '2014-12-31T16:00:00.000Z', 'admin', '15517597867', 'male', '这人是个懒狗，什么都没有写', FALSE, 0);
+INSERT INTO `user` (id, address, addressee, avatar, balance, birthday, nickname, phone, sex, signature, forbidden, role) VALUES (3, null, null, null, 0, null, null, null, null, null, TRUE, 0);
+INSERT INTO `user` (id, address, addressee, avatar, balance, birthday, nickname, phone, sex, signature, forbidden, role) VALUES (4, null, null, null, 0, null, null, null, null, null, TRUE, 0);
 COMMIT;
 
 DROP TABLE IF EXISTS `user_auth`;

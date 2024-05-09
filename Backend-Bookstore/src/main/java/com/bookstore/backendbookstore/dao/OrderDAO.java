@@ -14,7 +14,6 @@ public interface OrderDAO extends JpaRepository<Order, Long>{
 
     default Long insertOrder(Order order) {
         save(order);
-        Long id = order.getId();
-        return id;
+        return order.getId();
     }
 }

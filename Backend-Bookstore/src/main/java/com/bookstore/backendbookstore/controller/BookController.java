@@ -19,8 +19,7 @@ public class BookController {
     public BookService.BookResponse getBooks() {
         List<Book> items = bookService.getAllBooks();
         int total = items.size() / 10;
-        BookService.BookResponse bookResponse = new BookService.BookResponse(total, items);
-        return bookResponse;
+        return new BookService.BookResponse(total, items);
     }
 
     @GetMapping("/api/book/{id}")

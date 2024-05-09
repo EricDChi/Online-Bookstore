@@ -20,4 +20,8 @@ public interface BookDAO extends JpaRepository<Book, Long>{
     @Modifying
     @Query("UPDATE Book c SET c.sales = c.sales + :number WHERE c.id = :id")
     void updateSalesById(@Param("id") Long id, @Param("number") Integer number);
+
+    default void insertBook(Book book) {
+        save(book);
+    }
 }
