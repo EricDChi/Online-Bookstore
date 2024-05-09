@@ -21,8 +21,7 @@ public class CartController {
     @GetMapping("/api/cart")
     public List<BookItem> getCart(HttpSession session) {
         User user = (User) session.getAttribute("user");
-        List<BookItem> cartItems = cartService.getCartItems(user.getId());
-        return cartItems;
+        return cartService.getCartItems(user.getId());
     }
 
     @DeleteMapping("/api/cart/{id}")

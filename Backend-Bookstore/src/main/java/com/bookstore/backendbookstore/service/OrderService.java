@@ -4,12 +4,10 @@ import com.bookstore.backendbookstore.dao.*;
 import com.bookstore.backendbookstore.entity.Book;
 import com.bookstore.backendbookstore.entity.Order;
 import com.bookstore.backendbookstore.entity.OrderItem;
-import com.bookstore.backendbookstore.entity.User;
 import com.bookstore.backendbookstore.utils.BookItem;
 import com.bookstore.backendbookstore.utils.Msg;
 import lombok.Getter;
 import lombok.Setter;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
@@ -17,7 +15,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class OrderService {
@@ -60,7 +57,7 @@ public class OrderService {
         public OrderResponse(Order order, List<BookItem> bookItems) {
             this.id = order.getId();
             this.createTime = order.getCreateTime();
-            this.address = order.getAddress();;
+            this.address = order.getAddress();
             this.addressee = order.getAddressee();
             this.phone = order.getPhone();
             this.items = bookItems;
@@ -69,10 +66,9 @@ public class OrderService {
 
     public List<OrderResponse> getOrders(Long userId) {
         List<OrderResponse> orderResponses = new ArrayList<>();
-        List<Order> orders = new ArrayList<>();
+        List<Order> orders;
         orders = orderDAO.findByUserId(userId);
-        for (int i = 0, ordersSize = orders.size(); i < ordersSize; i++) {
-            Order order = orders.get(i);
+        for (Order order : orders) {
             Long orderId = order.getId();
             List<BookItem> bookItems = getOrderItems(orderId);
             OrderResponse orderResponse = new OrderResponse(order, bookItems);
@@ -84,11 +80,10 @@ public class OrderService {
     }
 
     public List<BookItem> getOrderItems(Long orderId) {
-        List<OrderItem> orderItems = new ArrayList<>();
+        List<OrderItem> orderItems;
         List<BookItem> bookItems = new ArrayList<>();
         orderItems = orderItemDAO.findByOrderId(orderId);
-        for (int i = 0, orderItemSize = orderItems.size(); i < orderItemSize; i++) {
-            OrderItem orderItem = orderItems.get(i);
+        for (OrderItem orderItem : orderItems) {
             Book book = bookDAO.findById(orderItem.getBookId()).orElse(null);
             BookItem bookItem = new BookItem(orderItem.getBookId(), orderItem.getNumber(), book);
             bookItems.add(bookItem);
@@ -101,8 +96,7 @@ public class OrderService {
         Order order = new Order(userId, orderRequest, createTime);
         Long orderId = orderDAO.insertOrder(order);
         List<BookItem> bookItems = orderRequest.getItems();
-        for (int i = 0, bookItemsSize = bookItems.size(); i < bookItemsSize; i++) {
-            BookItem bookItem = bookItems.get(i);
+        for (BookItem bookItem : bookItems) {
             addOrderItems(userId, orderId, bookItem);
         }
         userDAO.updateBalanceById(userId, orderRequest.getPrice());

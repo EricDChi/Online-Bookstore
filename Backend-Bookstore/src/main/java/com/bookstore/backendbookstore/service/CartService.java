@@ -5,8 +5,6 @@ import com.bookstore.backendbookstore.dao.CartItemDAO;
 import com.bookstore.backendbookstore.entity.Book;
 import com.bookstore.backendbookstore.utils.BookItem;
 import com.bookstore.backendbookstore.utils.Msg;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bookstore.backendbookstore.entity.CartItem;
@@ -24,11 +22,10 @@ public class CartService {
     BookDAO bookDAO;
 
     public List<BookItem> getCartItems(Long id) {
-        List<CartItem> cartItems = new ArrayList<>();
+        List<CartItem> cartItems;
         List<BookItem> bookItems = new ArrayList<>();
         cartItems = cartItemDAO.findByUserId(id);
-        for (int i = 0, cartItemsSize = cartItems.size(); i < cartItemsSize; i++) {
-            CartItem cartItem = cartItems.get(i);
+        for (CartItem cartItem : cartItems) {
             Book book = bookDAO.findById(cartItem.getBookId()).orElse(null);
             BookItem bookItem = new BookItem(cartItem.getBookId(), cartItem.getNumber(), book);
             bookItems.add(bookItem);

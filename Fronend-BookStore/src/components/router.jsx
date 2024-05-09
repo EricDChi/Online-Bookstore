@@ -6,6 +6,7 @@ import CartPage from '../page/cart';
 import UserPage from '../page/user';
 import SearchPage from "../page/search";
 import OrderPage from "../page/order";
+import ManageUserPage from "../page/manageUser";
 
 function AppRouter() {
     return <BrowserRouter>
@@ -18,6 +19,7 @@ function AppRouter() {
             <Route path='/cart' element={<CartPage />}></Route>
             <Route path='/myhome' element={<UserPage />}></Route>
             <Route path='/order' element={<OrderPage />}></Route>
+            <Route path='/admin' element={<ManageUserPage />}></Route>
         </Routes>
     </BrowserRouter>
 }

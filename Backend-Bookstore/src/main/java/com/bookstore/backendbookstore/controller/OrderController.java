@@ -1,7 +1,6 @@
 package com.bookstore.backendbookstore.controller;
 
 import com.bookstore.backendbookstore.service.OrderService;
-import com.bookstore.backendbookstore.utils.BookItem;
 import com.bookstore.backendbookstore.utils.Msg;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import com.bookstore.backendbookstore.entity.User;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @EnableAutoConfiguration
@@ -22,8 +20,7 @@ public class OrderController {
     @GetMapping("/api/order")
     public List<OrderService.OrderResponse> getOrder(HttpSession session) {
         User user = (User) session.getAttribute("user");
-        List<OrderService.OrderResponse> orderResponses = orderService.getOrders(user.getId());
-        return orderResponses;
+        return orderService.getOrders(user.getId());
     }
 
     @PostMapping("/api/order")
