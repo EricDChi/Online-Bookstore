@@ -1,5 +1,7 @@
 package com.bookstore.backendbookstore.service;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bookstore.backendbookstore.dao.BookDAO;
@@ -11,24 +13,14 @@ import java.util.List;
 @Service
 public class BookService {
 
+    @Getter
+    @Setter
     public static class BookResponse {
         private int total;
         private List<Book> items;
 
         public BookResponse(int total, List<Book> items) {
             this.total = total;
-            this.items = items;
-        }
-        public int getTotal() {
-            return total;
-        }
-        public void setTotal(int total) {
-            this.total = total;
-        }
-        public List<Book> getItems() {
-            return this.items;
-        }
-        public void setItems(List<Book> items) {
             this.items = items;
         }
     }
