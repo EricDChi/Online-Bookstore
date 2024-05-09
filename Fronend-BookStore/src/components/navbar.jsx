@@ -31,6 +31,17 @@ export function Navbar({ user }) {
         label: <Link to={item.value}>{item.label}</Link>
     }));
 
+    const administratorNavItems = [
+        { label: "首页", value: "/" },
+        { label: "排行", value: "/rank" },
+        { label: "管理账户", value: "/admin"},
+        { label: "管理图书", value: "/book"},
+    ];
+    const administratorNavMenuItems = administratorNavItems.map(item => ({
+        key: item.value,
+        label: <Link to={item.value}>{item.label}</Link>
+    }));
+
     const usernavItems = [
         { value: "/cart", label: "购物车", icon: <ShoppingCartOutlined /> },
         { value: "/order", label: "订单", icon: <ReconciliationOutlined />}
@@ -91,7 +102,7 @@ export function Navbar({ user }) {
             </Col>
             <Col className='navbar-col' span={4}>
                 <Menu mode="horizontal"
-                    items={navMenuItems}
+                    items={(user && user.role == 1 && administratorNavMenuItems) || navMenuItems}
                     theme='dark'
                     defaultSelectedKeys={[selectedKey]}
                     selectedKeys={[selectedKey]}
@@ -109,7 +120,7 @@ export function Navbar({ user }) {
                     style={{ maxWidth: 400, minWidth: 100 }}
                 />
             </Col>}
-            {user && <Col className='navbar-col' span={4} offset={1.5}>
+            {user && <Col className='navbar-col' span={4} offset={1}>
                 <Menu className='user-menu' 
                     mode="horizontal"
                     items={usernavMenuItems}
@@ -119,7 +130,7 @@ export function Navbar({ user }) {
                     style={{  }}
                 />
             </Col>}
-            {user && <Col className='navbar-col' span={1} offset={0.5}>
+            {user && <Col className='navbar-col' span={1} offset={1}>
                 <Dropdown menu={{ onClick: handleMenuClick, items: dropMenuItems }}>
                     <Link to="/myhome">
                         {user.avatar?

@@ -11,4 +11,6 @@ public interface UserAuthDAO extends JpaRepository<UserAuth, Long>{
 
     @Query(value = "from UserAuth where username = :username and password = :password")
     UserAuth checkUser(@Param("username") String username, @Param("password") String password);
+
+    boolean existsByUsername(String username);
 }

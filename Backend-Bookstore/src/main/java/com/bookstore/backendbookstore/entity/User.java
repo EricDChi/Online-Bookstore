@@ -40,4 +40,24 @@ public class User {
 
     @Column(name = "signature")
     private String signature;
+
+    @Column(name = "forbidden")
+    private Boolean forbidden;
+
+    @Column(name = "role")
+    private Integer role;
+
+    public User() {
+        this.balance = 0L;
+        this.address = "";
+        this.addressee = "";
+        this.avatar = "";
+        this.birthday = "";
+        this.nickname = "";
+        this.phone = 0L;
+        this.sex = "secrecy";
+        this.signature = "";
+        this.forbidden = false;
+        this.role = 0;
+    }
 }

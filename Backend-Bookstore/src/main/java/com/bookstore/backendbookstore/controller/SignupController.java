@@ -11,24 +11,15 @@ import java.util.Map;
 
 @RestController
 @EnableAutoConfiguration
-public class LoginController {
+public class SignupController {
 
     @Autowired
     UserService userService;
 
-    @PostMapping("/api/login")
-    public Msg login(@RequestBody Map<String, String> params, HttpSession session) {
+    @PutMapping("/api/signup")
+    public Msg signup(@RequestBody Map<String, String> params, HttpSession session) {
         String username = params.get("username");
         String password = params.get("password");
-        return userService.checkLogin(username, password, session);
-    }
-
-    @PutMapping("/api/logout")
-    public Msg logout(HttpSession session) {
-        if (session.getAttribute("user") == null) {
-            return new Msg(false, "用户未登录", null);
-        }
-        session.invalidate();
-        return new Msg(true, "注销成功", null);
+        return userService.checkSignup(username, password);
     }
 }
