@@ -1,5 +1,4 @@
-import { render } from "@testing-library/react";
-import { Row, Typography, Table, Checkbox, message } from "antd";
+import { Table, Checkbox, message } from "antd";
 import { useEffect, useState } from "react";
 import { forbidUser } from "../service/user";
 import { handleBaseApiResponse } from "../utils/message";
@@ -57,6 +56,7 @@ export function UserTable ({ users }) {
         let newChecked = [];
         users.map((user) => {
             newChecked[user.id] = user.forbidden;
+            return user;
         });
         setChecked(newChecked);
     }, [users]);

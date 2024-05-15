@@ -1,4 +1,4 @@
-import { PREFIX, post, put } from "./common";
+import { PREFIX, put } from "./common";
 
 export async function signup(username, password) {
     const url = `${PREFIX}/signup`;

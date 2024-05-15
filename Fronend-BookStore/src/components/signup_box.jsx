@@ -6,7 +6,7 @@ import {
 } from '@ant-design/icons';
 import "../css/login.css";
 import { Button, Input, Space, message } from 'antd'; 
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { handleBaseApiResponse } from '../utils/message.js';
 import { signup } from '../service/signup.js';
 
@@ -16,7 +16,6 @@ export function SignUpBox ({ onMutate }){
     const [reapeatPassword, setReapeatPassword] = useState('');
     const [email, setEmail] = useState('');
     const [messageApi, contextHolder] = message.useMessage();
-    const navigate = useNavigate();
 
     const onSubmit = async() => {
         if (username === '' || password === '') {
@@ -53,8 +52,8 @@ export function SignUpBox ({ onMutate }){
     }
 
     const IsEmail = (email) => {
-        const pattern = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
-        return pattern.test(email);
+        const pattern = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+	    return pattern.test(email);
     }
 
     return <>

@@ -17,6 +17,7 @@ public interface CartItemDAO extends JpaRepository<CartItem, Long>{
     List<CartItem> findByUserId(Long userId);
 
     CartItem findByBookIdAndUserId(Long bookId, Long userId);
+
     @Modifying
     void deleteByBookIdAndUserId(Long bookId, Long userId);
 
@@ -26,7 +27,4 @@ public interface CartItemDAO extends JpaRepository<CartItem, Long>{
 
     boolean existsByBookIdAndUserId(Long bookId, Long userId);
 
-    default void insertCartItem(CartItem cartItem) {
-        save(cartItem);
-    }
 }

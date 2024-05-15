@@ -49,12 +49,12 @@ export async function forbidUser(id, forbidden) {
     else {
         url = `${PREFIX}/user/unban/${id}`;
     }
-    let result;
+    let response;
     try {
-        result = await post(url);
+        response = await post(url);
     } catch (e) {
         console.log(e);
-        result = DUMMY_RESPONSE;
+        response = DUMMY_RESPONSE;
     }
-    return result;
+    return response;
 }

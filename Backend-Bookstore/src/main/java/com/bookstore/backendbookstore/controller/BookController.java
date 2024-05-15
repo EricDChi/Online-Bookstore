@@ -1,5 +1,6 @@
 package com.bookstore.backendbookstore.controller;
 
+import com.alibaba.fastjson2.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.web.bind.annotation.*;
@@ -38,8 +39,8 @@ public class BookController {
     }
 
     @GetMapping("api/books")
-    public BookService.BookResponse getSearchedBooks(@RequestParam("pageIndex") Integer pageIndex,
-                                                     @RequestParam("pageSize") Integer pageSize) {
+    public JSONObject getSearchedBooks(@RequestParam("pageIndex") Integer pageIndex,
+                                       @RequestParam("pageSize") Integer pageSize) {
         return bookService.getPagedBooks(pageIndex, pageSize);
     }
 }

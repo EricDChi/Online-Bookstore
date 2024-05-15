@@ -57,7 +57,7 @@ public class CartService {
             return new Msg(false, "已在购物车内，请勿重复添加", null);
         }
         CartItem cartItem = new CartItem(bookId, userId);
-        cartItemDAO.insertCartItem(cartItem);
+        cartItemDAO.save(cartItem);
         return new Msg(true, "添加成功", null);
     }
 }

@@ -102,7 +102,7 @@ export function Navbar({ user }) {
             </Col>
             <Col className='navbar-col' span={4}>
                 <Menu mode="horizontal"
-                    items={(user && user.role == 1 && administratorNavMenuItems) || navMenuItems}
+                    items={(user && user.role === 1 && administratorNavMenuItems) || navMenuItems}
                     theme='dark'
                     defaultSelectedKeys={[selectedKey]}
                     selectedKeys={[selectedKey]}

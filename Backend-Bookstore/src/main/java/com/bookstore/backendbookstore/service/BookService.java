@@ -1,5 +1,6 @@
 package com.bookstore.backendbookstore.service;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.bookstore.backendbookstore.utils.Msg;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,7 +34,7 @@ public class BookService {
         return bookDAO.findAll();
     }
 
-    public BookResponse getPagedBooks(Integer pageIndex, Integer pageSize) {
+    public JSONObject getPagedBooks(Integer pageIndex, Integer pageSize) {
         List<Book> items = new ArrayList<>();
         long max = Math.min((long) (1 + pageIndex) * pageSize, bookDAO.count());
 
@@ -41,7 +42,10 @@ public class BookService {
             items.add(bookDAO.findById(i).orElse(null));
         }
         int total = (int) bookDAO.count() / pageSize + 1;
-        return new BookResponse(total, items);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("total", total);
+        jsonObject.put("items", items);
+        return jsonObject;
     }
 
     public BookResponse searchBooks(String keyword, Integer pageIndex, Integer pageSize) {
