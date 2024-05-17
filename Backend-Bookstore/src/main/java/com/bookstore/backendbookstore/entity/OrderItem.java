@@ -1,17 +1,15 @@
 package com.bookstore.backendbookstore.entity;
 
-import com.bookstore.backendbookstore.utils.BookItem;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Map;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "order_item")
 public class OrderItem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

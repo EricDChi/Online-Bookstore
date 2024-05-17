@@ -18,12 +18,12 @@ export async function put(url, data) {
         credentials: "include"
     };
     let res = await fetch(url, opts);
-    return await res.json();
+    return res.json();
 }
 
 export async function del(url, data) {
     let res = await fetch(url, { method: "DELETE", credentials: "include", body: JSON.stringify(data) });
-    return await res.json();
+    return res.json();
 }
 
 export async function post(url, data) {
@@ -36,7 +36,7 @@ export async function post(url, data) {
         credentials: "include"
     };
     let res = await fetch(url, opts);
-    return await res.json();
+    return res.json();
 }
 
 export const BASEURL = 'http://localhost:8080';

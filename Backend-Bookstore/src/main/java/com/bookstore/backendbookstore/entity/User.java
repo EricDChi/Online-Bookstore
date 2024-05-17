@@ -11,6 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "user")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -43,8 +44,8 @@ public class User {
     @Column(name = "signature")
     private String signature;
 
-    @Column(name = "forbidden")
-    private Boolean forbidden;
+    @Column(name = "status")
+    private Boolean status;
 
     @Column(name = "role")
     private Integer role;
@@ -59,7 +60,7 @@ public class User {
         this.phone = 0L;
         this.sex = "secrecy";
         this.signature = "";
-        this.forbidden = false;
+        this.status = false;
         this.role = 0;
     }
 }
