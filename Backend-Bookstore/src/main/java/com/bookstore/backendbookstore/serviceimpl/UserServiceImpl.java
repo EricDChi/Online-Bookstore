@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
         Long id = userAuth.getUser_id();
         User user = userDao.findById(id);
         if (user != null) {
-            if (user.getForbidden() == Boolean.TRUE) {
+            if (user.getStatus() == Boolean.TRUE) {
                 return new Msg(false, "用户已被禁用", null);
             }
             session.setAttribute("user", user);
@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
             if (user.getRole().equals(1)) {
                 return new Msg(false, "无法解禁管理员", null);
             }
-            user.setForbidden(Boolean.TRUE);
+            user.setStatus(Boolean.TRUE);
             userDao.save(user);
             return new Msg(true, "禁用成功", null);
         }
@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
             if (user.getRole().equals(1)) {
                 return new Msg(false, "无法解禁管理员", null);
             }
-            user.setForbidden(Boolean.FALSE);
+            user.setStatus(Boolean.FALSE);
             userDao.save(user);
             return new Msg(true, "解禁成功", null);
         }

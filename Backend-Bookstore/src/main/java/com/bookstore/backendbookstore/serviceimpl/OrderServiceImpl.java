@@ -6,10 +6,7 @@ import com.bookstore.backendbookstore.dao.*;
 import com.bookstore.backendbookstore.service.OrderService;
 import com.bookstore.backendbookstore.entity.Order;
 import com.bookstore.backendbookstore.entity.OrderItem;
-import com.bookstore.backendbookstore.utils.BookItem;
 import com.bookstore.backendbookstore.utils.Msg;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
@@ -31,26 +28,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private CartItemDao cartItemDao;
-
-    @Getter
-    @Setter
-    public static class OrderResponse {
-        private Long id;
-        private LocalDateTime createTime;
-        private String address;
-        private String addressee;
-        private String phone;
-        private List<BookItem> items;
-
-        public OrderResponse(Order order, List<BookItem> bookItems) {
-            this.id = order.getId();
-            this.createTime = order.getCreateTime();
-            this.address = order.getAddress();
-            this.addressee = order.getAddressee();
-            this.phone = order.getPhone();
-            this.items = bookItems;
-        }
-    }
 
     public List<Order> getOrders(Long userId) {
         List<Order> orders;
