@@ -47,8 +47,8 @@ export function CartTable ({ cartItems, onMutate }) {
 
     const handleNumberChange = async (id, number) => {
         changeCartItemNumber(id, number);
-        items.filter(item => item.id === id)[0].number = number;
-        let selected = selectedItems.find(item => item.id === id);
+        items.filter(item => item.bookId === id)[0].number = number;
+        let selected = selectedItems.find(item => item.bookId === id);
         if (selected) {
             selected.number = number;
             setSelectedItems([...selectedItems]);
@@ -59,9 +59,9 @@ export function CartTable ({ cartItems, onMutate }) {
     const handleDelete = async (id) => {
         let res = await deleteCartItem(id);
         handleBaseApiResponse(res, messageApi);
-        const index = items.findIndex((item) => id === item.id);
+        const index = items.findIndex((item) => id === item.bookId);
         items.splice(index, 1);
-        let selected = selectedItems.find(item => item.id === id);
+        let selected = selectedItems.find(item => item.bookId === id);
         if (selected) {
             selectedItems.splice(selectedItems.indexOf(selected), 1);
             setSelectedItems([...selectedItems]);
@@ -83,7 +83,7 @@ export function CartTable ({ cartItems, onMutate }) {
             dataIndex: 'number',
             key: 'book_number',
             render: (number, item) => <InputNumber min={1} defaultValue={number} onChange={(newNumber) => {
-                handleNumberChange(item.id, newNumber);
+                handleNumberChange(item.bookId, newNumber);
             }} />
         },
         {
@@ -98,7 +98,7 @@ export function CartTable ({ cartItems, onMutate }) {
             dataIndex: '',
             key: 'action',
             render: (item) => <Button type="primary" onClick={() => {
-                handleDelete(item.id);
+                handleDelete(item.bookId);
             }}>删除</Button>,
         },
     ];
@@ -131,7 +131,7 @@ export function CartTable ({ cartItems, onMutate }) {
             }}
             dataSource={items.map(item => ({
                 ...item,
-                key: item.id
+                key: item.bookId
             }))}
         />
         <Row>

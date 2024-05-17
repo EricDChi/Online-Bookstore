@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { forbidUser } from "../service/user";
 import { handleBaseApiResponse } from "../utils/message";
 
-export function UserTable ({ users }) {
+export function UserTable ({ books }) {
     const [checked, setChecked] = useState([true]);
     const [messageApi, contextHolder] = message.useMessage();
 

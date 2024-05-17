@@ -37,4 +37,10 @@ public class Book {
 
     @Column(name = "book_description")
     private String bookDescription;
+
+    @Column(name = "ISBN")
+    private String isbn;
+
+    @Column(name = "stock")
+    private Long stock;
 }

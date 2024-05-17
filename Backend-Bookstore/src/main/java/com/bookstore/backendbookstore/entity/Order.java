@@ -1,12 +1,13 @@
 package com.bookstore.backendbookstore.entity;
 
-import com.bookstore.backendbookstore.service.OrderService;
+import com.alibaba.fastjson.JSONObject;
+import com.bookstore.backendbookstore.serviceimpl.OrderServiceImpl;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.joda.time.DateTime;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -33,13 +34,17 @@ public class Order {
     @Column(name = "phone")
     private String phone;
 
+    @OneToMany
+    @JoinColumn(name = "order_id")
+    private List<OrderItem> items;
+
     // 构造函数
-    public Order(Long userId, OrderService.OrderRequest orderRequest, LocalDateTime createTime) {
+    public Order(Long userId, JSONObject orderRequest, LocalDateTime createTime) {
         this.userId = userId;
         this.createTime = createTime;
-        this.address = orderRequest.getAddress();
-        this.addressee = orderRequest.getAddressee();
-        this.phone = orderRequest.getPhone();
+        this.address = orderRequest.getString("address");
+        this.addressee = orderRequest.getString("addressee");
+        this.phone = orderRequest.getString("phone");
     }
 
     public Order() {};

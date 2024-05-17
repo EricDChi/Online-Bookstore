@@ -1,22 +1,19 @@
-package com.bookstore.backendbookstore.dao;
+package com.bookstore.backendbookstore.repository;
 
 import com.bookstore.backendbookstore.entity.CartItem;
-import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-@Transactional
-public interface CartItemDAO extends JpaRepository<CartItem, Long>{
+public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 
     List<CartItem> findByUserId(Long userId);
 
     CartItem findByBookIdAndUserId(Long bookId, Long userId);
+
     @Modifying
     void deleteByBookIdAndUserId(Long bookId, Long userId);
 
@@ -25,8 +22,4 @@ public interface CartItemDAO extends JpaRepository<CartItem, Long>{
     void updateNumberByBookIdAndUserId(@Param("bookId") Long bookId, @Param("userId") Long userId, @Param("number") Integer number);
 
     boolean existsByBookIdAndUserId(Long bookId, Long userId);
-
-    default void insertCartItem(CartItem cartItem) {
-        save(cartItem);
-    }
 }

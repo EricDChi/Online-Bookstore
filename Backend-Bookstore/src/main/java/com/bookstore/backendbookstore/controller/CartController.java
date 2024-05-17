@@ -1,6 +1,6 @@
 package com.bookstore.backendbookstore.controller;
 
-import com.bookstore.backendbookstore.utils.BookItem;
+import com.bookstore.backendbookstore.entity.CartItem;
 import com.bookstore.backendbookstore.utils.Msg;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +16,10 @@ import java.util.List;
 public class CartController {
 
     @Autowired
-    CartService cartService;
+    private CartService cartService;
 
     @GetMapping("/api/cart")
-    public List<BookItem> getCart(HttpSession session) {
+    public List<CartItem> getCart(HttpSession session) {
         User user = (User) session.getAttribute("user");
         return cartService.getCartItems(user.getId());
     }

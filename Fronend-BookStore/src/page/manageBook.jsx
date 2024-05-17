@@ -3,29 +3,29 @@ import { React, useEffect, useState } from "react";
 import '../css/global.css';
 import { Col, Row } from 'antd'; 
 import { PrivateLayout } from "../components/layout";
+import { getAllBooks } from "../service/book";
 import { UserTable } from "../components/user_table";
-import { getAllUsers } from "../service/user";
 
-const ManageUserPage = () => {
-    const [users, setUsers] = useState([]);
+const ManageBookPage = () => {
+    const [books, setBooks] = useState([]);
 
-    const getUsers = async () => {
-        let users = await getAllUsers();
-        setUsers(users);
+    const getBooks = async () => {
+        let books = await getAllBooks();
+        setBooks(books);
     }
 
     useEffect(() => {
-        getUsers();
+        getBooks();
     }, []);
 
     return (
         <PrivateLayout>
             <Row justify="center">
                 <Col className="card-container">
-                    <UserTable users={users}/>
+                    <UserTable books={books}/>
                 </Col>
             </Row>
         </PrivateLayout>
     );
 };
-export default ManageUserPage;
+export default ManageBookPage;
