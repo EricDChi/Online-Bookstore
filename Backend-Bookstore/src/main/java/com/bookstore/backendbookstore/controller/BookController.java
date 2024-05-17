@@ -1,26 +1,22 @@
 package com.bookstore.backendbookstore.controller;
 
 import com.alibaba.fastjson2.JSONObject;
+import com.bookstore.backendbookstore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.web.bind.annotation.*;
 import com.bookstore.backendbookstore.entity.Book;
-import com.bookstore.backendbookstore.service.BookService;
-
-import java.util.List;
 
 @RestController
 @EnableAutoConfiguration
 public class BookController {
 
     @Autowired
-    BookService bookService;
+    private BookService bookService;
 
     @GetMapping("/api/book")
-    public BookService.BookResponse getBooks() {
-        List<Book> items = bookService.getAllBooks();
-        int total = items.size() / 10;
-        return new BookService.BookResponse(total, items);
+    public JSONObject getBooks() {
+        return bookService.getBooks();
     }
 
     @GetMapping("/api/book/{id}")
@@ -32,9 +28,9 @@ public class BookController {
     }
 
     @GetMapping("api/search")
-    public BookService.BookResponse getSearchBooks(@RequestParam("keyword") String keyword,
-                                                   @RequestParam("pageIndex") Integer pageIndex,
-                                                   @RequestParam("pageSize") Integer pageSize) {
+    public JSONObject getSearchBooks(@RequestParam("keyword") String keyword,
+                                     @RequestParam("pageIndex") Integer pageIndex,
+                                     @RequestParam("pageSize") Integer pageSize) {
         return bookService.searchBooks(keyword, pageIndex, pageSize);
     }
 

@@ -21,7 +21,11 @@ public class CartItem {
     private Long bookId;
 
     @Column(name = "number")
-    private Integer number;
+    private Long number;
+
+    @OneToOne
+    @JoinColumn(name = "book_id", insertable = false, updatable = false)
+    private Book book;
 
     // 构造函数
     public CartItem() {
@@ -31,6 +35,6 @@ public class CartItem {
     public CartItem(Long bookId, Long userId) {
         this.bookId = bookId;
         this.userId = userId;
-        this.number = 1;
+        this.number = 1L;
     }
 }

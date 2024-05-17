@@ -1,0 +1,67 @@
+package com.bookstore.backendbookstore.serviceimpl;
+
+import com.alibaba.fastjson2.JSONObject;
+import com.bookstore.backendbookstore.service.BookService;
+import com.bookstore.backendbookstore.utils.Msg;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.bookstore.backendbookstore.dao.BookDao;
+import com.bookstore.backendbookstore.entity.Book;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+public class BookServiceImpl implements BookService {
+
+    @Autowired
+    private BookDao bookDao;
+
+    @Override
+    public JSONObject getBooks() {
+        List<Book> items = bookDao.findAll();
+        int total = items.size() / 10;
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("total", total);
+        jsonObject.put("items", items);
+        return jsonObject;
+    }
+
+    public JSONObject getPagedBooks(Integer pageIndex, Integer pageSize) {
+        List<Book> items = bookDao.getPagedBooks(pageIndex, pageSize);
+        int total = (bookDao.count() - 1) / pageSize + 1;
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("total", total);
+        jsonObject.put("items", items);
+        return jsonObject;
+    }
+
+    public JSONObject searchBooks(String keyword, Integer pageIndex, Integer pageSize) {
+        List<Book> allItems;
+        List<Book> items = new ArrayList<>();
+        allItems = bookDao.findByTitle(keyword);
+        long max = Math.min((1 + pageIndex) * pageSize, allItems.size());
+        for (int i = pageIndex * pageSize; i < max; i++) {
+            items.add(allItems.get(i));
+        }
+        int total = allItems.size() / pageSize + 1;
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("total", total);
+        jsonObject.put("items", items);
+        return jsonObject;
+    }
+
+    public Book findBookByID(long id) {
+        return bookDao.findById(id);
+    }
+
+    public Msg addBook(Book book) {
+        bookDao.insertBook(book);
+        return new Msg(true, "添加成功", null);
+    }
+
+    public Msg updateBook(Book book) {
+        bookDao.insertBook(book);
+        return new Msg(true, "更新成功", null);
+    }
+}

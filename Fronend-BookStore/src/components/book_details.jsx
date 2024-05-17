@@ -41,14 +41,15 @@ export default function BookDetails({ book, onMutate }) {
     useEffect(() =>{
         const items = [
             {
-                id: book.id,
+                id: 1,
+                bookId: book.id,
                 number: 1,
                 book: book
             }
         ];
         setSelectedItems(items);
         checkLogin();
-    }, [])
+    }, [book])
 
 
     return <>
@@ -68,7 +69,9 @@ export default function BookDetails({ book, onMutate }) {
                     </Row>
                     <Paragraph>作者：{book.author}</Paragraph>
                     <Paragraph>出版社：{book.publisher}</Paragraph>
+                    <Paragraph>ISBN编号: {book.isbn}</Paragraph>
                     <Paragraph>销量：{book.sales}</Paragraph>
+                    <Paragraph>库存：{book.stock}</Paragraph>
                     <Row style={{ marginTop:'30px' }}>
                         <Button className='button-buy' onClick={handleOpenModal}>立即购买</Button>
                         <Button className='button-cart'  onClick={handleAddCart}>加入购物车</Button>

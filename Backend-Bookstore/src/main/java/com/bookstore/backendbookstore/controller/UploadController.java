@@ -1,6 +1,6 @@
 package com.bookstore.backendbookstore.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.bookstore.backendbookstore.utils.Msg;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;

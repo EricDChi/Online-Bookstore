@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from "react";
 import '../css/global.css';
-import '../css/user.css';
 import { Col, Row } from 'antd'; 
 import { PrivateLayout } from "../components/layout";
 import { getMe } from "../service/user";
@@ -21,7 +20,7 @@ const UserPage = () => {
     return (
         <PrivateLayout>
             <Row justify="center">
-                <Col className="user-home-container">
+                <Col className="card-container">
                     <UserHome user={user}/>
                 </Col>
             </Row>

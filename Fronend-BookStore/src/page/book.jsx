@@ -25,7 +25,7 @@ const BookPage = () => {
     return (
         <PrivateLayout>
             <Row justify="center">
-                <Col className="book-details-container">
+                <Col className="card-container">
                     {book && <BookDetails book={book} onMutate={getBook}/>}
                 </Col>
             </Row>

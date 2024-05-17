@@ -61,21 +61,21 @@ export default function PlaceOrderModal ({
                     label="收货人"
                     required
                 >
-                    <Input key={user?.addressee} defaultValue={user?.addressee} />
+                    <Input key={user?.addressee}/>
                 </Form.Item>
                 <Form.Item
                     name="phone"
                     label="联系电话"
                     required
                 >
-                    <Input key={user?.phone} defaultValue={user?.phone} />
+                    <Input key={user?.phone}/>
                 </Form.Item>
                 <Form.Item
                     name="address"
                     label="收货地址"
                     required
                 >
-                    <TextArea rows={2} maxLength={817} key={user?.address} defaultValue={user?.address} />
+                    <TextArea rows={2} maxLength={817} key={user?.address}/>
                 </Form.Item>
                 <Form.Item>
                     <Button type="primary" htmlType="submit">

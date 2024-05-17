@@ -14,6 +14,7 @@ export async function getCartItems() {
 
 export async function deleteCartItem(id) {
     const url = `${PREFIX}/cart/${id}`;
+    console.log(url);
     let res;
     try {
         res = await del(url);

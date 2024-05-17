@@ -21,7 +21,7 @@ const CartPage = () => {
     return (
         <PrivateLayout>
             <Row justify="center">
-                <Col className="cart-container">
+                <Col className="card-container">
                     <CartTable cartItems={cartItems} onMutate={initCartItems}/>
                 </Col>
             </Row>
