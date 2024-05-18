@@ -1,6 +1,7 @@
 DROP DATABASE IF EXISTS `book_store`;
 CREATE DATABASE `book_store` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE book_store;
+USE `book_store`;
+SET NAMES utf8mb4;
 
 DROP TABLE IF EXISTS `book`;
 CREATE TABLE IF NOT EXISTS `book` (
