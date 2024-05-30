@@ -7,6 +7,7 @@ import UserPage from '../page/user';
 import SearchPage from "../page/search";
 import OrderPage from "../page/order";
 import ManageUserPage from "../page/manageUser";
+import ManageBookPage from "../page/manageBook";
 
 function AppRouter() {
     return <BrowserRouter>
@@ -20,6 +21,7 @@ function AppRouter() {
             <Route path='/myhome' element={<UserPage />}></Route>
             <Route path='/order' element={<OrderPage />}></Route>
             <Route path='/admin' element={<ManageUserPage />}></Route>
+            <Route path='/book' element={<ManageBookPage />}></Route>
         </Routes>
     </BrowserRouter>
 }

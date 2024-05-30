@@ -101,7 +101,6 @@ public class UserServiceImpl implements UserService {
     }
 
     public void updateBalance(Long id, Long price) {
-        System.out.println("id: " + id + " price: " + price);
         userDao.updateBalanceById(id, price);
     }
 }

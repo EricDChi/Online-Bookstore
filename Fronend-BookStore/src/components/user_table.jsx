@@ -1,4 +1,4 @@
-import { Table, Checkbox, message } from "antd";
+import { Table, Checkbox, message, Popconfirm } from "antd";
 import { useEffect, useState } from "react";
 import { forbidUser } from "../service/user";
 import { handleBaseApiResponse } from "../utils/message";
@@ -20,11 +20,11 @@ export function UserTable ({ users }) {
             return item;
         });
         setChecked(newChecked);
-      };
+    };
 
     const columns = [
         {
-            width: 200,
+            width: 100,
             title: 'Id',
             dataIndex: 'id',
             key: 'id',
@@ -36,26 +36,43 @@ export function UserTable ({ users }) {
             key: 'nickname',
         },
         {
-            width: 300,
+            width: 200,
             title: `权限`,
             dataIndex: 'role',
             key: 'role',
             render: role => role === 1 ? '管理员' : '用户'
         },
         {
+            width: 200,
+            title: '状态',
+            dataIndex: 'status',
+            key: 'status',
+            render: status => status === false ? '正常' : '封禁'
+        },
+        {
             title: '禁用',
             dataIndex: '',
             key: 'action',
-            render: (item) => <Checkbox id={item.id} checked={checked[item.id]} disabled={item.role === 1} onChange={onChange}>
-                {checked[item.id] ? "封禁中" : "正常使用"}
-            </Checkbox>,
+            render: (item) => <>
+                {checked[item.id] ? 
+                    <Checkbox id={item.id} checked={checked[item.id]} disabled={item.role === 1} onChange={onChange}>
+                        {"封禁中"}
+                    </Checkbox>
+                    :
+                    <Popconfirm title="确定要封禁用户吗">
+                        <Checkbox id={item.id} checked={checked[item.id]} disabled={item.role === 1} onChange={onChange}>
+                            {"正常使用"}
+                        </Checkbox>
+                    </Popconfirm>
+                }
+            </>,
         },
     ];
 
     useEffect(() => {
         let newChecked = [];
         users.map((user) => {
-            newChecked[user.id] = user.forbidden;
+            newChecked[user.id] = user.status;
             return user;
         });
         setChecked(newChecked);
