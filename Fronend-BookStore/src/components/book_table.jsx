@@ -1,19 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, InputNumber, Popconfirm, Table, Typography, Upload } from 'antd';
+import { Form, Input, InputNumber, Pagination, Popconfirm, Table, Typography, Upload, message } from 'antd';
 import { render } from '@testing-library/react';
 import { IMAGE_PREFIX } from '../service/common';
+import { handleBaseApiResponse } from '../utils/message';
+import { deleteBook } from '../service/book';
 
-const originData = [];
-
-for (let i = 0; i < 100; i++) {
-    originData.push({
-        key: i.toString(),
-        name: `Edward ${i}`,
-        age: 32,
-        address: `London Park no. ${i}`,
-    });
-}
-   
 const EditableCell = ({
     editing,
     dataIndex,
@@ -49,14 +40,15 @@ const EditableCell = ({
     );
 };
 
-export default function BookTable({books}) {
+export default function BookTable({ books, onMutate, current, pageSize, total, onPageChange }) {
     const [form] = Form.useForm();
-    const [data, setData] = useState(books.items);
+    const [items, setItems] = useState(books.items);
     const [editingKey, setEditingKey] = useState('');
+    const [messageApi, contextHolder] = message.useMessage();
     const isEditing = (record) => record.key === editingKey;
 
     useEffect(() => {
-        setData(books.items);
+        setItems(books);
     }, [books]);
 
     const edit = (record) => {
@@ -76,38 +68,45 @@ export default function BookTable({books}) {
     const save = async (key) => {
         try {
             const row = await form.validateFields();
-            const newData = [...data];
-            const index = newData.findIndex((item) => key === item.key);
+            const newItems = [...items];
+            const index = newItems.findIndex((item) => key === item.key);
             if (index > -1) {
-                const item = newData[index];
-                newData.splice(index, 1, {
+                const item = newItems[index];
+                newItems.splice(index, 1, {
                     ...item,
                     ...row,
                 });
-                setData(newData);
+                setItems(newItems);
                 setEditingKey('');
             } else {
-                newData.push(row);
-                setData(newData);
+                newItems.push(row);
+                setItems(newItems);
                 setEditingKey('');
             }
         } catch (errInfo) {
             console.log('Validate Failed:', errInfo);
         }
     };
+
+    const handleDelete = async (id) => {
+        console.log(id);
+        let res = await deleteBook(id);
+        handleBaseApiResponse(res, messageApi);
+        onMutate();
+    }
     
     const columns = [
         {
             title: '书名',
             dataIndex: 'title',
-            key: 'title',
+            key: 'book_title',
             width: '20%',
             editable: true,
         },
         {
             title: '封面',
             dataIndex: 'cover',
-            key: 'cover',
+            key: 'book_cover',
             width: '20%',
             render: (cover, record) => {
                 const editable = isEditing(record);
@@ -123,7 +122,7 @@ export default function BookTable({books}) {
         {
             title: '作者',
             dataIndex: 'author',
-            key: 'author',
+            key: 'book_author',
             width: '20%',
             editable: true,
         },
@@ -137,12 +136,16 @@ export default function BookTable({books}) {
         {
             title: 'operation',
             dataIndex: 'operation',
+            key: 'book_operation',
             render: (_, record) => {
                 const editable = isEditing(record);
                 return editable ? (
                     <span>
                         <Typography.Link
                             onClick={() => save(record.key)}
+                            style={{
+                                marginRight: 8,
+                            }}
                         >
                             编辑更多
                         </Typography.Link>
@@ -159,9 +162,24 @@ export default function BookTable({books}) {
                         </Popconfirm>
                     </span>
                 ) : (
-                    <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-                        编辑
-                    </Typography.Link>
+                    <span>
+                        <Typography.Link disabled={editingKey !== ''} 
+                            onClick={() => edit(record)}
+                            style={{
+                                marginRight: 8,
+                            }}
+                        >
+                            编辑
+                        </Typography.Link>
+                        <Popconfirm title="确定要删除吗？" 
+                            cancelText={"取消"} 
+                            okText={"确认"} 
+                            onConfirm={() => handleDelete(record.id)}
+                            onCancel={cancel}
+                        >
+                            <a style={{ color: 'red' }}>删除</a>
+                        </Popconfirm>
+                    </span>
                 );
             },
         },
@@ -183,7 +201,8 @@ export default function BookTable({books}) {
         };
     });
 
-    return (
+    return <>
+        {contextHolder}
         <Form form={form} component={false}>
             <Table
                 components={{
@@ -192,13 +211,18 @@ export default function BookTable({books}) {
                     },
                 }}
                 bordered
-                dataSource={data}
+                dataSource={items}
                 columns={mergedColumns}
                 rowClassName="editable-row"
-                pagination={{
-                    onChange: cancel,
-                }}
+                pagination={false}
             />
         </Form>
-    );
+        <Pagination 
+            current={current} 
+            pageSize={pageSize} 
+            total={total} 
+            onChange={onPageChange}
+            style={{ marginTop: "20px", float: "right"}}
+        />
+    </>
 };

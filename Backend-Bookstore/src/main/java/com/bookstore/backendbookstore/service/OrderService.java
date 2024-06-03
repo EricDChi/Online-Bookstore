@@ -11,5 +11,5 @@ public interface OrderService {
 
     Msg addOrder(Long userId, JSONObject orderRequest);
 
-    void addOrderItems(Long userId, Long orderId, Long bookId, Long number);
+    void addOrderItems(Long userId, Long orderId, Long bookId, Long number, String title, String cover);
 }

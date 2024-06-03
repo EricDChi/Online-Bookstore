@@ -30,6 +30,10 @@ public class CartItemDaoImpl implements CartItemDao {
         cartItemRepository.deleteByBookIdAndUserId(bookId, userId);
     }
 
+    public void deleteByBookId(Long bookId) {
+        cartItemRepository.deleteByBookId(bookId);
+    }
+
     public void updateNumberByBookIdAndUserId(@Param("bookId") Long bookId, @Param("userId") Long userId, @Param("number") Integer number) {
         cartItemRepository.updateNumberByBookIdAndUserId(bookId, userId, number);
     }

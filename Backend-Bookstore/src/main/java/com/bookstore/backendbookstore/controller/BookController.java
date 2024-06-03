@@ -2,6 +2,7 @@ package com.bookstore.backendbookstore.controller;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.bookstore.backendbookstore.service.BookService;
+import com.bookstore.backendbookstore.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.web.bind.annotation.*;
@@ -38,5 +39,13 @@ public class BookController {
     public JSONObject getSearchedBooks(@RequestParam("pageIndex") Integer pageIndex,
                                        @RequestParam("pageSize") Integer pageSize) {
         return bookService.getPagedBooks(pageIndex, pageSize);
+    }
+
+    @DeleteMapping("/api/book/{id}")
+    public Msg deleteBookByID(@PathVariable("id") Long id) {
+        if (id > 0) {
+            return bookService.deleteBook(id);
+        }
+        return null;
     }
 }
