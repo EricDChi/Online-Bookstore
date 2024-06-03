@@ -143,6 +143,11 @@ export default function BookTable({books}) {
                     <span>
                         <Typography.Link
                             onClick={() => save(record.key)}
+                        >
+                            编辑更多
+                        </Typography.Link>
+                        <Typography.Link
+                            onClick={() => save(record.key)}
                             style={{
                                 marginRight: 8,
                             }}
