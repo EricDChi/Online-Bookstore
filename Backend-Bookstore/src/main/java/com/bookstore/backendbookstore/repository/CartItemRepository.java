@@ -18,6 +18,9 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
     void deleteByBookIdAndUserId(Long bookId, Long userId);
 
     @Modifying
+    void deleteByBookId(Long bookId);
+
+    @Modifying
     @Query("UPDATE CartItem c SET c.number = :number WHERE c.bookId = :bookId and c.userId = :userId")
     void updateNumberByBookIdAndUserId(@Param("bookId") Long bookId, @Param("userId") Long userId, @Param("number") Integer number);
 

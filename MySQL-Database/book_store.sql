@@ -95,20 +95,20 @@ DROP TABLE IF EXISTS `order_item`;
 CREATE TABLE IF NOT EXISTS `order_item` (
     `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
     `user_id` BIGINT NOT NULL,
-    `book_id` BIGINT NOT NULL,
     `order_id` BIGINT NOT NULL,
     `number` BIGINT DEFAULT 0 NOT NULL,
+    `title` VARCHAR(255) NOT NULL,
+    `cover` VARCHAR(255) NOT NULL,
     CONSTRAINT `fk_order_item_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-    CONSTRAINT `fk_order_item_book` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`),
     CONSTRAINT `fk_order_item_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 BEGIN;
-INSERT INTO `order_item` (id, user_id, book_id, order_id, number) VALUES (1, 2, 1, 1, 1);
-INSERT INTO `order_item` (id, user_id, book_id, order_id, number) VALUES (2, 2, 4, 1, 1);
-INSERT INTO `order_item` (id, user_id, book_id, order_id, number) VALUES (3, 2, 7, 2, 2);
-INSERT INTO `order_item` (id, user_id, book_id, order_id, number) VALUES (4, 2, 1, 3, 1);
-INSERT INTO `order_item` (id, user_id, book_id, order_id, number) VALUES (5, 1, 1, 1, 1);
+INSERT INTO `order_item` (id, user_id, order_id, number, title, cover) VALUES (1, 2, 1, 1, 'C++ Primer 中文版(第5版)', 'book1.png');
+INSERT INTO `order_item` (id, user_id, order_id, number, title, cover) VALUES (2, 2, 1, 1, '穆斯林的葬礼', 'book4.jpg');
+INSERT INTO `order_item` (id, user_id, order_id, number, title, cover) VALUES (3, 2, 2, 2, '福尔摩斯探案全集', 'book7.jpg');
+INSERT INTO `order_item` (id, user_id, order_id, number, title, cover) VALUES (4, 2, 3, 1, 'C++ Primer 中文版(第5版)', 'book1.png');
+INSERT INTO `order_item` (id, user_id, order_id, number, title, cover) VALUES (5, 1, 4, 1, 'C++ Primer 中文版(第5版)', 'book1.png');
 COMMIT;
 
 DROP TABLE IF EXISTS `cart_item`;

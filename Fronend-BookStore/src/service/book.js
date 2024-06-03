@@ -1,4 +1,4 @@
-import { getJson, PREFIX } from "./common";
+import { del, getJson, PREFIX } from "./common";
 
 export async function searchBooks(keyword, pageIndex, pageSize) {
     let url;
@@ -46,4 +46,16 @@ export async function getAllBooks() {
         };
     }
     return books;
+}
+
+export async function deleteBook(id) {
+    const url = `${PREFIX}/book/${id}`;
+    let res;
+    try {
+        res = await del(url);
+    } catch (e) {
+        console.log(e);
+        res = null;
+    }
+    return res;
 }

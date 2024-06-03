@@ -1,6 +1,7 @@
 package com.bookstore.backendbookstore.serviceimpl;
 
 import com.alibaba.fastjson2.JSONObject;
+import com.bookstore.backendbookstore.dao.CartItemDao;
 import com.bookstore.backendbookstore.service.BookService;
 import com.bookstore.backendbookstore.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class BookServiceImpl implements BookService {
 
     @Autowired
     private BookDao bookDao;
+
+    @Autowired
+    private CartItemDao cartItemDao;
 
     @Override
     public JSONObject getBooks() {
@@ -63,5 +67,14 @@ public class BookServiceImpl implements BookService {
     public Msg updateBook(Book book) {
         bookDao.insertBook(book);
         return new Msg(true, "更新成功", null);
+    }
+
+    public Msg deleteBook(long id) {
+        if (bookDao.existsById(id)) {
+            cartItemDao.deleteByBookId(id);
+            bookDao.deleteById(id);
+            return new Msg(true, "删除成功", null);
+        }
+        return new Msg(false, "删除失败", null);
     }
 }

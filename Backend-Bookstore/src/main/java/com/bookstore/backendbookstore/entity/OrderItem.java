@@ -18,27 +18,27 @@ public class OrderItem {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "book_id")
-    private Long bookId;
-
     @Column(name = "order_id")
     private Long orderId;
 
     @Column(name = "number")
     private Long number;
 
-    @OneToOne
-    @JoinColumn(name = "book_id", insertable = false, updatable = false)
-    private Book book;
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "cover")
+    private String cover;
 
     // 构造函数
     public OrderItem() {
     }
 
-    public OrderItem(Long userId, Long orderId, Long bookId, Long number) {
+    public OrderItem(Long userId, Long orderId, Long number, String title, String cover) {
         this.userId = userId;
         this.orderId = orderId;
-        this.bookId = bookId;
         this.number = number;
+        this.title = title;
+        this.cover = cover;
     }
 }

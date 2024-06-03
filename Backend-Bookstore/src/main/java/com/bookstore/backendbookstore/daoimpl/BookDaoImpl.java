@@ -61,4 +61,8 @@ public class BookDaoImpl implements BookDao {
     public void insertBook(Book book) {
         bookRepositoy.save(book);
     }
+
+    public void deleteById(Long id) {
+        bookRepositoy.deleteById(id);
+    }
 }

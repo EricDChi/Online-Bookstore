@@ -20,8 +20,8 @@ export function OrderTable ({ orders }) {
             renderItem={(item, _) => (
                 <List.Item>
                     <List.Item.Meta
-                        avatar={<Avatar shape="square" size={80} src={IMAGE_PREFIX + "/" + item.book.cover} />}
-                        title={item.book.title}
+                        avatar={<Avatar shape="square" size={80} src={IMAGE_PREFIX + "/" + item.cover} />}
+                        title={item.title}
                         description={`数量：${item.number}`}
                     />
                 </List.Item>

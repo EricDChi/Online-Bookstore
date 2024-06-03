@@ -14,6 +14,8 @@ public interface CartItemDao {
 
     void deleteByBookIdAndUserId(Long bookId, Long userId);
 
+    void deleteByBookId(Long bookId);
+
     void updateNumberByBookIdAndUserId(@Param("bookId") Long bookId, @Param("userId") Long userId, @Param("number") Integer number);
 
     boolean existsByBookIdAndUserId(Long bookId, Long userId);

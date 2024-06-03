@@ -47,13 +47,15 @@ public class OrderServiceImpl implements OrderService {
             JSONObject item = items.getJSONObject(i);
             Long bookId = item.getLong("bookId");
             Long number = item.getLong("number");
-            addOrderItems(userId, orderId, bookId, number);
+            String title = item.getString("title");
+            String cover = item.getString("cover");
+            addOrderItems(userId, orderId, bookId, number, title, cover);
         }
         return new Msg(true, "下单成功", null);
     }
 
-    public void addOrderItems(Long userId, Long orderId, Long bookId, Long number) {
-        OrderItem orderItem = new OrderItem(userId, orderId, bookId, number);
+    public void addOrderItems(Long userId, Long orderId, Long bookId, Long number, String title, String cover) {
+        OrderItem orderItem = new OrderItem(userId, orderId, number, title, cover);
         cartItemDao.deleteByBookIdAndUserId(bookId, userId);
         orderItemDao.insertOrderItem(orderItem);
         bookDao.updateSalesAndStockById(bookId, number);

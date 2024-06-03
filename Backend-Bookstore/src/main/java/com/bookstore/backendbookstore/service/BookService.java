@@ -16,4 +16,6 @@ public interface BookService {
     Msg addBook(Book book);
 
     Msg updateBook(Book book);
+
+    Msg deleteBook(long id);
 }
