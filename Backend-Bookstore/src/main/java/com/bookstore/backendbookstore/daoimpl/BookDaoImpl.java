@@ -42,6 +42,10 @@ public class BookDaoImpl implements BookDao {
         return bookRepositoy.findById(id).orElse(null);
     }
 
+    public Book findByISBN(String ISBN) {
+        return bookRepositoy.findByIsbn(ISBN);
+    }
+
     public int count() {
         return (int) bookRepositoy.count();
     }

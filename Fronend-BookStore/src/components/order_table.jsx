@@ -1,9 +1,9 @@
-import { Table } from "antd";
+import { Pagination, Table } from "antd";
 import { formatTime } from "../utils/time";
 import { List, Avatar } from "antd"
 import { IMAGE_PREFIX } from "../service/common";
 
-export function OrderTable ({ orders }) {
+export function OrderTable ({ orders, current, pageSize, total, onPageChange }) {
     const columns = [
         { title: '收货人', dataIndex: 'addressee', key: 'addressee', },
         { title: '联系方式', dataIndex: 'phone', key: 'phone', },
@@ -29,16 +29,26 @@ export function OrderTable ({ orders }) {
         />
     }
 
-    return <Table
-        columns={columns}
-        expandable={{
-            expandedRowRender: (order) => (
-                <OrderItemList orderItems={order.items} />
-            ),
-        }}
-        dataSource={orders.map(order => ({
-            ...order,
-            key: order.id
-        }))}
-    />
+    return <>
+        <Table
+            columns={columns}
+            expandable={{
+                expandedRowRender: (order) => (
+                    <OrderItemList orderItems={order.items} />
+                ),
+            }}
+            dataSource={orders.map(order => ({
+                ...order,
+                key: order.id
+            }))}
+            pagination={false}
+        />
+        <Pagination
+            current={current} 
+            pageSize={pageSize} 
+            total={total} 
+            onChange={onPageChange}
+            style={{ marginTop: "20px", float: "right"}}
+        />
+    </>
 }

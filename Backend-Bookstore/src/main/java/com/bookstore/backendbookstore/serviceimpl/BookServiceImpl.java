@@ -61,14 +61,19 @@ public class BookServiceImpl implements BookService {
 
     public Msg addBook(JSONObject bookJson) {
         Book book = new Book();
-        if (bookJson.getLong("id") != null) {
+        boolean isAdd = bookJson.getLong("id") == null;
+        if (!isAdd) {
             book.setId(bookJson.getLong("id"));
+        }
+        Book bookByIsbn = bookDao.findByISBN(bookJson.getString("isbn"));
+        if (bookByIsbn != null && (isAdd || !bookByIsbn.getId().equals(book.getId()))) {
+            return new Msg(false, "ISBN已存在", null);
         }
         book.setTitle(bookJson.getString("title"));
         book.setAuthor(bookJson.getString("author"));
         book.setPrice(bookJson.getLong("price"));
         book.setStock(bookJson.getLong("stock"));
-        book.setCover(bookJson.getJSONArray("cover").getJSONObject(0).getString("name"));
+        book.setCover(bookJson.getString("cover"));
         book.setSales(0L);
         book.setPublisher(bookJson.getString("publisher"));
         book.setIsbn(bookJson.getString("isbn"));

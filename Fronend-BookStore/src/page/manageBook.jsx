@@ -11,6 +11,7 @@ const { Search } = Input;
 
 const ManageBookPage = () => {
     const [books, setBooks] = useState([]);
+    const [editingBook, setEditingBook] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams();
     const [totalPage, setTotalPage] = useState(0);
@@ -32,13 +33,20 @@ const ManageBookPage = () => {
         setShowModal(true);
     }
 
+    const handleOpenBookModal = (book) => {
+        setEditingBook(book);
+        setShowModal(true);
+    }
+
     const handleCloseModal = () => {
         setShowModal(false);
+        setEditingBook(null);
     }
 
     const handleOrderSubmit = () => {
         setShowModal(false);
         getBooks();
+        setEditingBook(null);
     }
 
     const handlePageChange = (page) => {
@@ -58,13 +66,30 @@ const ManageBookPage = () => {
     }, [pageIndex, pageSize, keyword]);
 
     return <>
-        {showModal && <PlaceBookModal onCancel={handleCloseModal} book={null} onOk={handleOrderSubmit} />}
+        {showModal && <PlaceBookModal onCancel={handleCloseModal} book={editingBook} onOk={handleOrderSubmit} />}
         <PrivateLayout>
             <Row justify="center">
                 <Col className="card-container">
                     <Search placeholder="输入关键字" onSearch={handleSearch} size="large" />
-                    <Button onClick={handleOpenModal}>添加图书</Button>
-                    <BookTable books={books} onMutate={getBooks} pageSize={pageSize} current={pageIndex + 1} total={totalPage * pageSize} onPageChange={handlePageChange} />
+                    <Button 
+                        onClick={handleOpenModal}
+                        className="button"
+                        style={{ 
+                            marginTop: "20px",
+                            marginBottom: "20px"
+                        }}
+                    >
+                        添加图书
+                    </Button>
+                    <BookTable 
+                        books={books} 
+                        onMutate={getBooks} 
+                        pageSize={pageSize} 
+                        current={pageIndex + 1} 
+                        total={totalPage * pageSize}
+                        onPageChange={handlePageChange} 
+                        onOpenBookModal={handleOpenBookModal}
+                    />
                 </Col>
             </Row>
         </PrivateLayout>

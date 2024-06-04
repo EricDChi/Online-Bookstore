@@ -34,6 +34,7 @@ export default function PlaceOrderModal ({
             price: computeTotalPrice(),
             items: selectedItems
         }
+        console.log(orderInfo);
         let res = await placeOrder(orderInfo);
         handleBaseApiResponse(res, messageApi, onOk);
     };

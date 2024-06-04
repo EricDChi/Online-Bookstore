@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -36,6 +37,31 @@ public class OrderServiceImpl implements OrderService {
         return orders;
     }
 
+    public JSONObject getPagedOrders(String keyword,  Integer pageIndex, Integer pageSize) {
+        List<OrderItem> orderItems = orderItemDao.findByTitle(keyword);
+        List<Order> items = new ArrayList<>();
+        for (OrderItem orderItem : orderItems) {
+            Order order = orderDao.findById(orderItem.getOrderId());
+            if (!items.contains(order)) {
+                items.add(order);
+            }
+        }
+        int total = items.size() / pageSize + 1;
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("total", total);
+        jsonObject.put("items", items);
+        return jsonObject;
+    }
+
+    public JSONObject getPagedOrdersByUserId(Long userId, String keyword, Integer pageIndex, Integer pageSize) {
+        List<Order> items = orderDao.getPagedOrdersByUserId(userId, pageIndex, pageSize);
+        int total = (orderDao.countByUserId(userId) - 1) / pageSize + 1;
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("total", total);
+        jsonObject.put("items", items);
+        return jsonObject;
+    }
+
     public Msg addOrder(Long userId, JSONObject orderRequest) {
         LocalDateTime createTime = LocalDateTime.now();
         Order order = new Order(userId, orderRequest, createTime);
@@ -47,8 +73,8 @@ public class OrderServiceImpl implements OrderService {
             JSONObject item = items.getJSONObject(i);
             Long bookId = item.getLong("bookId");
             Long number = item.getLong("number");
-            String title = item.getString("title");
-            String cover = item.getString("cover");
+            String title = item.getJSONObject("book").getString("title");
+            String cover = item.getJSONObject("book").getString("cover");
             addOrderItems(userId, orderId, bookId, number, title, cover);
         }
         return new Msg(true, "下单成功", null);

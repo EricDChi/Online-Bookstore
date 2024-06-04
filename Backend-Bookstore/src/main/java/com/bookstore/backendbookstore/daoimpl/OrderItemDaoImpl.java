@@ -10,8 +10,13 @@ import java.util.List;
 
 @Repository
 public class OrderItemDaoImpl implements OrderItemDao {
+
     @Autowired
     private OrderItemRepository orderItemRepository;
+
+    public List<OrderItem> findByTitle(String keyword) {
+        return orderItemRepository.findByTitle(keyword);
+    }
 
     @Override
     public void insertOrderItem(OrderItem orderItem) {

@@ -10,4 +10,6 @@ public interface BookRepository extends JpaRepository<Book, Long>{
 
     @Query("select b from Book b where b.title like %?1%")
     List<Book> findByTitle(String keyword);
+
+    Book findByIsbn(String isbn);
 }

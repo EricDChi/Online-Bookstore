@@ -6,7 +6,17 @@ import java.util.List;
 
 public interface OrderDao {
 
+    Order findById(Long id);
+
     List<Order> findByUserId(Long userId);
 
+    List<Order> getPagedOrders(Integer pageIndex, Integer pageSize);
+
+    List<Order> getPagedOrdersByUserId(Long userId, Integer pageIndex, Integer pageSize);
+
     void insertOrder(Order order);
+
+    int count();
+
+    int countByUserId(Long userId);
 }

@@ -1,9 +1,9 @@
 import { Button, Form, Input, Modal, Upload } from "antd";
 import useMessage from "antd/es/message/useMessage";
-import { BillTable } from "./bill_table";
 import { handleBaseApiResponse } from "../utils/message";
 import { UploadOutlined } from '@ant-design/icons';
 import { IMAGE_PREFIX } from "../service/common";
+import { addBook } from "../service/book";
 
 const { TextArea } = Input;
 
@@ -15,11 +15,10 @@ export default function PlaceBookModal ({
     const [messageApi, contextHolder] = useMessage();
 
     const normFile = (e) => {
-        // console.log('Upload event:', e);
         if (Array.isArray(e)) {
             return e;
         }
-        return e?.fileList;
+        return e?.fileList[0].response?.data.name;
     };
 
     const handleSubmit = async (values) => {
@@ -28,8 +27,8 @@ export default function PlaceBookModal ({
             return;
         }
         console.log(values);
-        // let res = await placeBook(values);
-        // handleBaseApiResponse(res, messageApi, onOk);
+        let res = await addBook(values);
+        handleBaseApiResponse(res, messageApi, onOk);
     };
 
     return (
@@ -46,9 +45,13 @@ export default function PlaceBookModal ({
                 layout="vertical"
                 onFinish={handleSubmit}
                 preserve={false}
-                initialValues={{ title: book?.title, cover: book?.cover, author: book?.author, isbn: book?.isbn, price: book?.price, publisher: book?.publisher, stock: book?.stock, bookDescription: book?.bookDescription, authorDescription: book?.authorDescription}}
+                initialValues={{id: book?.id, title: book?.title, cover: book?.cover, author: book?.author, isbn: book?.isbn, price: book?.price, publisher: book?.publisher, stock: book?.stock, bookDescription: book?.bookDescription, authorDescription: book?.authorDescription}}
             >
                 {contextHolder}
+                <Form.Item
+                    name="id"
+                    hidden
+                />
                 <Form.Item
                     name="title"
                     label="书名"
@@ -60,8 +63,9 @@ export default function PlaceBookModal ({
                     name="cover"
                     label="封面"
                     required
+                    getValueFromEvent={normFile}
                 >
-                    <Upload Upload name="picture" action="http://localhost:8080/api/upload" listType="picture" maxCount={1} getValueFromEvent={normFile}>
+                    <Upload Upload name="picture" action="http://localhost:8080/api/upload" listType="picture" maxCount={1}>
                         {book === null || book?.cover === "" ? (
                             <Button icon={<UploadOutlined />}>上传封面</Button> 
                             ) : (

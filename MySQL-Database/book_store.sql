@@ -85,10 +85,10 @@ CREATE TABLE IF NOT EXISTS `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 BEGIN;
-INSERT INTO `orders` (id, user_id, create_time, address, addressee, phone) VALUES (1, 1, '2024-4-28 14:16:32', '系统订单', 'system', '0');
+INSERT INTO `orders` (id, user_id, create_time, address, addressee, phone) VALUES (1, 4, '2024-4-28 14:11:32', '系统订单', 'system', '0');
 INSERT INTO `orders` (id, user_id, create_time, address, addressee, phone) VALUES (2, 2, '2024-4-28 14:15:32', 'test_address', '池昊', '15517597867');
-INSERT INTO `orders` (id, user_id, create_time, address, addressee, phone) VALUES (3, 2, '2024-4-27 08:05:12', 'test_address', 'chihao', '15517597867');
-INSERT INTO `orders` (id, user_id, create_time, address, addressee, phone) VALUES (4, 3, '2024-4-12 05:23:14', '东川路800号', 'test_addressee', '15517597867');
+INSERT INTO `orders` (id, user_id, create_time, address, addressee, phone) VALUES (3, 2, '2024-4-29 08:05:12', 'test_address', 'chihao', '15517597867');
+INSERT INTO `orders` (id, user_id, create_time, address, addressee, phone) VALUES (4, 3, '2024-5-12 05:23:14', '东川路800号', 'test_addressee', '15517597867');
 COMMIT;
 
 DROP TABLE IF EXISTS `order_item`;

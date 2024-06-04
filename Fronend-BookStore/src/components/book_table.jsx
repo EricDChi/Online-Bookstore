@@ -40,7 +40,7 @@ const EditableCell = ({
     );
 };
 
-export default function BookTable({ books, onMutate, current, pageSize, total, onPageChange }) {
+export default function BookTable({ books, onMutate, onOpenBookModal, current, pageSize, total, onPageChange }) {
     const [form] = Form.useForm();
     const [items, setItems] = useState(books.items);
     const [editingKey, setEditingKey] = useState('');
@@ -98,7 +98,6 @@ export default function BookTable({ books, onMutate, current, pageSize, total, o
                     ...item,
                     ...row,
                 });
-                console.log(row);
                 saveBook(newItems.at(index));
                 setItems(newItems);
                 setEditingKey('');
@@ -113,10 +112,14 @@ export default function BookTable({ books, onMutate, current, pageSize, total, o
     };
 
     const handleDelete = async (id) => {
-        console.log(id);
         let res = await deleteBook(id);
         handleBaseApiResponse(res, messageApi);
         onMutate();
+    }
+
+    const handleOpenBookModal = (book) => {
+        onOpenBookModal(book);
+        cancel();
     }
     
     const columns = [
@@ -166,7 +169,7 @@ export default function BookTable({ books, onMutate, current, pageSize, total, o
                 return editable ? (
                     <span>
                         <Typography.Link
-                            onClick={() => save(record.id)}
+                            onClick={() => {handleOpenBookModal(record)}}
                             style={{
                                 marginRight: 8,
                             }}

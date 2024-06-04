@@ -1,7 +1,6 @@
 package com.bookstore.backendbookstore.controller;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.bookstore.backendbookstore.entity.Order;
 import com.bookstore.backendbookstore.service.OrderService;
 import com.bookstore.backendbookstore.service.UserService;
 import com.bookstore.backendbookstore.utils.Msg;
@@ -10,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.web.bind.annotation.*;
 import com.bookstore.backendbookstore.entity.User;
-
-import java.util.List;
 
 @RestController
 @EnableAutoConfiguration
@@ -24,9 +21,15 @@ public class OrderController {
     private UserService userService;
 
     @GetMapping("/api/order")
-    public List<Order> getOrder(HttpSession session) {
+    public JSONObject getOrder(@RequestParam("keyword") String keyword,
+                                @RequestParam("pageIndex") Integer pageIndex,
+                                @RequestParam("pageSize") Integer pageSize,
+                                HttpSession session) {
         User user = (User) session.getAttribute("user");
-        return orderService.getOrders(user.getId());
+        if (user.getRole() == 1) {
+            return orderService.getPagedOrders(keyword, pageIndex, pageSize);
+        }
+        return orderService.getPagedOrdersByUserId(user.getId(), keyword, pageIndex, pageSize);
     }
 
     @PostMapping("/api/order")
