@@ -14,6 +14,14 @@ export default function PlaceBookModal ({
     const [form] = Form.useForm();
     const [messageApi, contextHolder] = useMessage();
 
+    const normFile = (e) => {
+        // console.log('Upload event:', e);
+        if (Array.isArray(e)) {
+            return e;
+        }
+        return e?.fileList;
+    };
+
     const handleSubmit = async (values) => {
         if (!values.title || !values.cover || !values.author) {
             messageApi.error("请填写完整信息！");
@@ -53,8 +61,8 @@ export default function PlaceBookModal ({
                     label="封面"
                     required
                 >
-                    <Upload Upload name="picture" action="http://localhost:8080/api/upload" listType="picture" maxCount={1}>
-                        {book?.cover === "" ? (
+                    <Upload Upload name="picture" action="http://localhost:8080/api/upload" listType="picture" maxCount={1} getValueFromEvent={normFile}>
+                        {book === null || book?.cover === "" ? (
                             <Button icon={<UploadOutlined />}>上传封面</Button> 
                             ) : (
                             <img src={IMAGE_PREFIX + "/" + book?.cover} alt="cover" style={{width: '100px'}} />

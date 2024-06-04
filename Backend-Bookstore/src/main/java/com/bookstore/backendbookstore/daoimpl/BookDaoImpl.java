@@ -58,7 +58,7 @@ public class BookDaoImpl implements BookDao {
         bookRepositoy.save(book);
     }
 
-    public void insertBook(Book book) {
+    public void save(Book book) {
         bookRepositoy.save(book);
     }
 

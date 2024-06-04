@@ -1,4 +1,4 @@
-import { del, getJson, PREFIX } from "./common";
+import { del, getJson, post, PREFIX, put } from "./common";
 
 export async function searchBooks(keyword, pageIndex, pageSize) {
     let url;
@@ -53,6 +53,30 @@ export async function deleteBook(id) {
     let res;
     try {
         res = await del(url);
+    } catch (e) {
+        console.log(e);
+        res = null;
+    }
+    return res;
+}
+
+export async function updateBook(book) {
+    const url = `${PREFIX}/book/update`;
+    let res;
+    try {
+        res = put(url, book);
+    } catch (e) {
+        console.log(e);
+        res = null;
+    }
+    return res;
+}
+
+export async function addBook(book) {
+    const url = `${PREFIX}/book/add`;
+    let res;
+    try {
+        res = put(url, book);
     } catch (e) {
         console.log(e);
         res = null;

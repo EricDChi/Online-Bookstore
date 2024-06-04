@@ -2,8 +2,10 @@ package com.bookstore.backendbookstore.controller;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.bookstore.backendbookstore.utils.Msg;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -11,6 +13,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+@RestController
+@EnableAutoConfiguration
 public class UploadController {
 
     @PostMapping("/api/upload")

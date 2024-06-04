@@ -13,7 +13,7 @@ public interface BookService {
 
     Book findBookByID(long id);
 
-    Msg addBook(Book book);
+    Msg addBook(JSONObject jsonObject);
 
     Msg updateBook(Book book);
 

@@ -48,4 +48,14 @@ public class BookController {
         }
         return null;
     }
+
+    @PutMapping("/api/book/add")
+    public Msg addBook(@RequestBody JSONObject book) {
+        return bookService.addBook(book);
+    }
+
+    @PutMapping("/api/book/update")
+    public Msg updateBook(@RequestBody Book book) {
+        return bookService.updateBook(book);
+    }
 }

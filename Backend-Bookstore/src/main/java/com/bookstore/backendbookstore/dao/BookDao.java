@@ -19,7 +19,7 @@ public interface BookDao {
 
     void updateSalesAndStockById(Long id, Long number);
 
-    void insertBook(Book book);
+    void save(Book book);
 
     void deleteById(Long id);
 }

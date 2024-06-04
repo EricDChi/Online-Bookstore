@@ -59,13 +59,27 @@ public class BookServiceImpl implements BookService {
         return bookDao.findById(id);
     }
 
-    public Msg addBook(Book book) {
-        bookDao.insertBook(book);
+    public Msg addBook(JSONObject bookJson) {
+        Book book = new Book();
+        if (bookJson.getLong("id") != null) {
+            book.setId(bookJson.getLong("id"));
+        }
+        book.setTitle(bookJson.getString("title"));
+        book.setAuthor(bookJson.getString("author"));
+        book.setPrice(bookJson.getLong("price"));
+        book.setStock(bookJson.getLong("stock"));
+        book.setCover(bookJson.getJSONArray("cover").getJSONObject(0).getString("name"));
+        book.setSales(0L);
+        book.setPublisher(bookJson.getString("publisher"));
+        book.setIsbn(bookJson.getString("isbn"));
+        book.setBookDescription(bookJson.getString("bookDescription"));
+        book.setAuthorDescription(bookJson.getString("authorDescription"));
+        bookDao.save(book);
         return new Msg(true, "添加成功", null);
     }
 
     public Msg updateBook(Book book) {
-        bookDao.insertBook(book);
+        bookDao.save(book);
         return new Msg(true, "更新成功", null);
     }
 

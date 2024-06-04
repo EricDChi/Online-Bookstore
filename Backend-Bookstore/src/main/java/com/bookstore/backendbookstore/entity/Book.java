@@ -43,4 +43,7 @@ public class Book {
 
     @Column(name = "stock")
     private Long stock;
+
+    public Book() {
+    }
 }
