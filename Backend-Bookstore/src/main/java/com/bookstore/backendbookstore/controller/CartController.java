@@ -15,8 +15,12 @@ import java.util.List;
 @EnableAutoConfiguration
 public class CartController {
 
+    private final CartService cartService;
+
     @Autowired
-    private CartService cartService;
+    public CartController(CartService cartService) {
+        this.cartService = cartService;
+    }
 
     @GetMapping("/api/cart")
     public List<CartItem> getCart(HttpSession session) {

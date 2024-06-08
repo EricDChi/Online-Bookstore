@@ -22,26 +22,32 @@ public class CartItemDaoImpl implements CartItemDao {
         return cartItemRepository.findByUserId(userId);
     }
 
+    @Override
     public CartItem findByBookIdAndUserId(Long bookId, Long userId) {
         return cartItemRepository.findByBookIdAndUserId(bookId, userId);
     }
 
+    @Override
     public void deleteByBookIdAndUserId(Long bookId, Long userId) {
         cartItemRepository.deleteByBookIdAndUserId(bookId, userId);
     }
 
+    @Override
     public void deleteByBookId(Long bookId) {
         cartItemRepository.deleteByBookId(bookId);
     }
 
+    @Override
     public void updateNumberByBookIdAndUserId(@Param("bookId") Long bookId, @Param("userId") Long userId, @Param("number") Integer number) {
         cartItemRepository.updateNumberByBookIdAndUserId(bookId, userId, number);
     }
 
+    @Override
     public boolean existsByBookIdAndUserId(Long bookId, Long userId) {
         return cartItemRepository.existsByBookIdAndUserId(bookId, userId);
     }
 
+    @Override
     public void insertCartItem(CartItem cartItem) {
         cartItemRepository.save(cartItem);
     }

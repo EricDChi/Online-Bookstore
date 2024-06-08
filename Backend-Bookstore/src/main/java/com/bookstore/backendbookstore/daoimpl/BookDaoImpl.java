@@ -25,10 +25,12 @@ public class BookDaoImpl implements BookDao {
         return bookRepositoy.findByTitle(keyword);
     }
 
+    @Override
     public List<Book> findAll() {
         return bookRepositoy.findAll();
     }
 
+    @Override
     public List<Book> getPagedBooks(Integer pageIndex, Integer pageSize) {
         List<Book> items;
         items = entityManager.createQuery("SELECT e FROM Book e ORDER BY e.id ASC", Book.class)
@@ -38,23 +40,28 @@ public class BookDaoImpl implements BookDao {
         return items;
     }
 
+    @Override
     public Book findById(Long id) {
         return bookRepositoy.findById(id).orElse(null);
     }
 
+    @Override
     public Book findByISBN(String ISBN) {
         return bookRepositoy.findByIsbn(ISBN);
     }
 
+    @Override
     public int count() {
         return (int) bookRepositoy.count();
     }
 
+    @Override
     public Boolean existsById(Long id) {
         return bookRepositoy.existsById(id);
     }
 
-    public void updateSalesAndStockById(Long id, Long number) {
+    @Override
+    public void updateSalesAndStockById(Long id, Integer number) {
         Book book = bookRepositoy.findById(id).orElse(null);
         assert book != null;
         book.setSales(book.getSales() + number);
@@ -62,10 +69,12 @@ public class BookDaoImpl implements BookDao {
         bookRepositoy.save(book);
     }
 
+    @Override
     public void save(Book book) {
         bookRepositoy.save(book);
     }
 
+    @Override
     public void deleteById(Long id) {
         bookRepositoy.deleteById(id);
     }

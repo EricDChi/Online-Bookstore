@@ -14,7 +14,7 @@ public interface OrderDao {
 
     List<Order> getPagedOrdersByUserId(Long userId, Integer pageIndex, Integer pageSize);
 
-    void insertOrder(Order order);
+    void save(Order order);
 
     int count();
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserDao {
 
-    void updateBalanceById(Long id, Long price);
+    void updateBalanceById(Long id, Integer price);
 
     User findById(Long id);
 

@@ -23,6 +23,10 @@ const ManageBookPage = () => {
     const getBooks = async () => {
         let pagedBooks = await searchBooks(keyword, pageIndex, pageSize);
         let books = pagedBooks.items;
+        if (books.length === 0 && pageIndex > 0) {
+            setSearchParams({ ...searchParams, pageIndex: pageIndex - 1 });
+            return;
+        }
         let totalPage = pagedBooks.total;
         setBooks(books);
         setTotalPage(totalPage);

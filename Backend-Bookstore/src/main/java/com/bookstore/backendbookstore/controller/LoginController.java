@@ -13,8 +13,12 @@ import java.util.Map;
 @EnableAutoConfiguration
 public class LoginController {
 
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public LoginController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/api/login")
     public Msg login(@RequestBody Map<String, String> params, HttpSession session) {

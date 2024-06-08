@@ -10,32 +10,50 @@ import org.springframework.boot.autoconfigure.*;
 import org.springframework.web.bind.annotation.*;
 import com.bookstore.backendbookstore.entity.User;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @RestController
 @EnableAutoConfiguration
 public class OrderController {
 
-    @Autowired
-    private OrderService orderService;
+    private final OrderService orderService;
+
+    private final UserService userService;
 
     @Autowired
-    private UserService userService;
+    public OrderController(OrderService orderService, UserService userService) {
+        this.orderService = orderService;
+        this.userService = userService;
+    }
 
     @GetMapping("/api/order")
     public JSONObject getOrder(@RequestParam("keyword") String keyword,
                                 @RequestParam("pageIndex") Integer pageIndex,
                                 @RequestParam("pageSize") Integer pageSize,
+                                @RequestParam("startDate") String startDate,
+                                @RequestParam("endDate") String endDate,
                                 HttpSession session) {
         User user = (User) session.getAttribute("user");
-        if (user.getRole() == 1) {
-            return orderService.getPagedOrders(keyword, pageIndex, pageSize);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime start = LocalDateTime.MIN;
+        LocalDateTime end = LocalDateTime.MAX;
+        if (!startDate.isEmpty()) {
+            start = LocalDateTime.parse(startDate, formatter);
         }
-        return orderService.getPagedOrdersByUserId(user.getId(), keyword, pageIndex, pageSize);
+        if (!endDate.isEmpty()) {
+            end = LocalDateTime.parse(endDate, formatter);
+        }
+        if (user.getRole() == 1) {
+            return orderService.getPagedOrders(keyword, pageIndex, pageSize, start, end);
+        }
+        return orderService.getPagedOrdersByUserId(user.getId(), keyword, pageIndex, pageSize, start, end);
     }
 
     @PostMapping("/api/order")
     public Msg placeOrder(@RequestBody JSONObject orderRequest, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        Long price = orderRequest.getLong("price");
+        Integer price = orderRequest.getInteger("price");
         if (user.getBalance() < price) {
             return new Msg(false, "余额不足", null);
         }

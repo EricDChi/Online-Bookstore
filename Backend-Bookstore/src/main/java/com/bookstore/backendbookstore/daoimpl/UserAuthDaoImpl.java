@@ -17,10 +17,17 @@ public class UserAuthDaoImpl implements UserAuthDao {
         return userAuthRepository.findByUsernameAndPassword(username, password);
     }
 
+    @Override
+    public UserAuth findByUsername(String username) {
+        return userAuthRepository.findByUsername(username);
+    }
+
+    @Override
     public boolean existsByUsername(String username) {
         return userAuthRepository.existsByUsername(username);
     }
 
+    @Override
     public void save(UserAuth userAuth) {
         userAuthRepository.save(userAuth);
     }

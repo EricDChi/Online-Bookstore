@@ -8,5 +8,5 @@ public interface OrderItemDao {
 
     List<OrderItem> findByTitle(String keyword);
 
-    void insertOrderItem(OrderItem orderItem);
+    void save(OrderItem orderItem);
 }

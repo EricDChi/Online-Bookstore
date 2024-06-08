@@ -16,7 +16,8 @@ public class UserDaoImpl implements UserDao {
         this.userRepository = userRepository;
     }
 
-    public void updateBalanceById(Long id, Long price) {
+    @Override
+    public void updateBalanceById(Long id, Integer price) {
         User user = userRepository.findById(id).orElse(null);
         if (user != null) {
             user.setBalance(user.getBalance() - price);
@@ -24,14 +25,17 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    @Override
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
+    @Override
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
+    @Override
     public void save(User user) {
         userRepository.save(user);
     }

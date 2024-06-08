@@ -21,13 +21,13 @@ public class Book {
     private String author;
 
     @Column(name = "price")
-    private Long price;
+    private Integer price;
 
     @Column(name = "cover")
     private String cover;
 
     @Column(name = "sales")
-    private Long sales;
+    private Integer sales;
 
     @Column(name = "publisher")
     private String publisher;
@@ -42,7 +42,7 @@ public class Book {
     private String isbn;
 
     @Column(name = "stock")
-    private Long stock;
+    private Integer stock;
 
     public Book() {
     }

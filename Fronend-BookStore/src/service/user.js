@@ -25,20 +25,16 @@ export async function getAllUsers() {
     return users;
 }
 
-export function setInfo(name, signature, sex, birthday, addressee, phone, address) {
-    const me = JSON.parse(localStorage.getItem("me"));
-    const new_me = {
-        nickname: name,
-        signature: signature,
-        sex: sex,
-        birthday: birthday,
-        balance: me.balance,
-        avatar: me.avatar,
-        addressee: addressee,
-        phone: phone,
-        address: address
-    };
-    localStorage.setItem("me", JSON.stringify(new_me));
+export async function setInfo(values) {
+    const url = `${PREFIX}/user`;
+    let response;
+    try {
+        response = await post(url, values);
+    } catch (e) {
+        console.log(e);
+        response = DUMMY_RESPONSE;
+    }
+    return response;
 }
 
 export async function forbidUser(id, forbidden) {

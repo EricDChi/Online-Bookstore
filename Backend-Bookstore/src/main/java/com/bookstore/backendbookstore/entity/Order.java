@@ -34,7 +34,7 @@ public class Order {
     @Column(name = "phone")
     private String phone;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "order_id")
     private List<OrderItem> items;
 

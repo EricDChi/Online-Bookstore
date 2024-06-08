@@ -15,11 +15,15 @@ import java.util.List;
 @Service
 public class BookServiceImpl implements BookService {
 
-    @Autowired
-    private BookDao bookDao;
+    private final BookDao bookDao;
+
+    private final CartItemDao cartItemDao;
 
     @Autowired
-    private CartItemDao cartItemDao;
+    public BookServiceImpl(BookDao bookDao, CartItemDao cartItemDao) {
+        this.bookDao = bookDao;
+        this.cartItemDao = cartItemDao;
+    }
 
     @Override
     public JSONObject getBooks() {
@@ -31,6 +35,7 @@ public class BookServiceImpl implements BookService {
         return jsonObject;
     }
 
+    @Override
     public JSONObject getPagedBooks(Integer pageIndex, Integer pageSize) {
         List<Book> items = bookDao.getPagedBooks(pageIndex, pageSize);
         int total = (bookDao.count() - 1) / pageSize + 1;
@@ -40,6 +45,7 @@ public class BookServiceImpl implements BookService {
         return jsonObject;
     }
 
+    @Override
     public JSONObject searchBooks(String keyword, Integer pageIndex, Integer pageSize) {
         List<Book> allItems;
         List<Book> items = new ArrayList<>();
@@ -55,10 +61,12 @@ public class BookServiceImpl implements BookService {
         return jsonObject;
     }
 
+    @Override
     public Book findBookByID(long id) {
         return bookDao.findById(id);
     }
 
+    @Override
     public Msg addBook(JSONObject bookJson) {
         Book book = new Book();
         boolean isAdd = bookJson.getLong("id") == null;
@@ -71,10 +79,10 @@ public class BookServiceImpl implements BookService {
         }
         book.setTitle(bookJson.getString("title"));
         book.setAuthor(bookJson.getString("author"));
-        book.setPrice(bookJson.getLong("price"));
-        book.setStock(bookJson.getLong("stock"));
+        book.setPrice(bookJson.getInteger("price"));
+        book.setStock(bookJson.getInteger("stock"));
         book.setCover(bookJson.getString("cover"));
-        book.setSales(0L);
+        book.setSales(0);
         book.setPublisher(bookJson.getString("publisher"));
         book.setIsbn(bookJson.getString("isbn"));
         book.setBookDescription(bookJson.getString("bookDescription"));
@@ -83,11 +91,13 @@ public class BookServiceImpl implements BookService {
         return new Msg(true, "添加成功", null);
     }
 
+    @Override
     public Msg updateBook(Book book) {
         bookDao.save(book);
         return new Msg(true, "更新成功", null);
     }
 
+    @Override
     public Msg deleteBook(long id) {
         if (bookDao.existsById(id)) {
             cartItemDao.deleteByBookId(id);

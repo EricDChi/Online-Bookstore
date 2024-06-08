@@ -22,7 +22,7 @@ public class CartItem {
     private Long bookId;
 
     @Column(name = "number")
-    private Long number;
+    private Integer number;
 
     @OneToOne
     @JoinColumn(name = "book_id", insertable = false, updatable = false)
@@ -36,6 +36,6 @@ public class CartItem {
     public CartItem(Long bookId, Long userId) {
         this.bookId = bookId;
         this.userId = userId;
-        this.number = 1L;
+        this.number = 1;
     }
 }

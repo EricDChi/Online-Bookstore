@@ -15,14 +15,11 @@ public class OrderItem {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "user_id")
-    private Long userId;
-
     @Column(name = "order_id")
     private Long orderId;
 
     @Column(name = "number")
-    private Long number;
+    private Integer number;
 
     @Column(name = "title")
     private String title;
@@ -34,8 +31,7 @@ public class OrderItem {
     public OrderItem() {
     }
 
-    public OrderItem(Long userId, Long orderId, Long number, String title, String cover) {
-        this.userId = userId;
+    public OrderItem(Long orderId, Integer number, String title, String cover) {
         this.orderId = orderId;
         this.number = number;
         this.title = title;

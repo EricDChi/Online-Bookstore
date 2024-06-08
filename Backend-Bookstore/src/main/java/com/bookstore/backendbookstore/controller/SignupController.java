@@ -2,7 +2,6 @@ package com.bookstore.backendbookstore.controller;
 
 import com.bookstore.backendbookstore.service.UserService;
 import com.bookstore.backendbookstore.utils.Msg;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +12,15 @@ import java.util.Map;
 @EnableAutoConfiguration
 public class SignupController {
 
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public SignupController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PutMapping("/api/signup")
-    public Msg signup(@RequestBody Map<String, String> params, HttpSession session) {
+    public Msg signup(@RequestBody Map<String, String> params) {
         String username = params.get("username");
         String password = params.get("password");
         return userService.checkSignup(username, password);

@@ -13,10 +13,10 @@ export async function placeOrder(orderInfo) {
     return res;
 }
 
-export async function searchOrders(keyword, pageIndex, pageSize) {
+export async function searchOrders(keyword, pageIndex, pageSize, startDate, endDate) {
     let url;
     let orders;
-    url = `${PREFIX}/order?keyword=${keyword}&pageIndex=${pageIndex}&pageSize=${pageSize}`;
+    url = `${PREFIX}/order?keyword=${keyword}&pageIndex=${pageIndex}&pageSize=${pageSize}&startDate=${startDate}&endDate=${endDate}`;
 
     try {
         orders = await getJson(url);

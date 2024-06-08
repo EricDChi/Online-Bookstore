@@ -21,5 +21,5 @@ public interface UserService {
 
     Msg checkSignup(String username, String password);
 
-    void updateBalance(Long id, Long price);
+    void updateBalance(Long id, Integer price);
 }

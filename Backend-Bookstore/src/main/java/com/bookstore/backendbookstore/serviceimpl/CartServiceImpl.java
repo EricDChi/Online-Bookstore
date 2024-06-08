@@ -13,16 +13,21 @@ import java.util.List;
 @Service
 public class CartServiceImpl implements CartService {
 
-    @Autowired
-    private CartItemDao cartItemDao;
+    private final CartItemDao cartItemDao;
+    private final BookDao bookDao;
 
     @Autowired
-    private BookDao bookDao;
+    public CartServiceImpl(CartItemDao cartItemDao, BookDao bookDao) {
+        this.cartItemDao = cartItemDao;
+        this.bookDao = bookDao;
+    }
 
+    @Override
     public List<CartItem> getCartItems(Long userId) {
         return cartItemDao.findByUserId(userId);
     }
 
+    @Override
     public Msg deleteCartItem(Long bookId, Long userId) {
         if (cartItemDao.findByBookIdAndUserId(bookId, userId) == null) {
             return new Msg(false, "书籍不存在", null);
@@ -31,6 +36,7 @@ public class CartServiceImpl implements CartService {
         return new Msg(true, "删除成功", null);
     }
 
+    @Override
     public Msg changeCartItemNumber(Long bookId, Long userId, Integer number) {
         if (cartItemDao.findByBookIdAndUserId(bookId, userId) == null) {
             return new Msg(false, "书籍不存在", null);
@@ -39,6 +45,7 @@ public class CartServiceImpl implements CartService {
         return new Msg(true, "更改成功", null);
     }
 
+    @Override
     public Msg addCartItem(Long bookId, Long userId) {
         if (!bookDao.existsById(bookId)) {
             return new Msg(false, "书籍不存在", null);

@@ -9,22 +9,31 @@ import com.bookstore.backendbookstore.dao.UserDao;
 import com.bookstore.backendbookstore.dao.UserAuthDao;
 import com.bookstore.backendbookstore.entity.User;
 import com.bookstore.backendbookstore.entity.UserAuth;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    UserDao userDao;
+    private final UserDao userDao;
+
+    private final UserAuthDao userAuthDao;
 
     @Autowired
-    UserAuthDao userAuthDao;
+    public UserServiceImpl(UserDao userDao, UserAuthDao userAuthDao) {
+        this.userDao = userDao;
+        this.userAuthDao = userAuthDao;
+    }
 
+    @Override
     public Msg checkLogin(String username, String password, HttpSession session) {
-        UserAuth userAuth = userAuthDao.checkUser(username, password);
+        UserAuth userAuth = userAuthDao.findByUsername(username);
         if (userAuth == null) {
-            return new Msg(false, "用户名或密码错误", null);
+            return new Msg(false, "用户名不存在", null);
+        }
+        if (password == null || !BCrypt.checkpw(password, userAuth.getPassword())) {
+            return new Msg(false, "密码错误", null);
         }
         Long id = userAuth.getUser_id();
         User user = userDao.findById(id);
@@ -38,6 +47,8 @@ public class UserServiceImpl implements UserService {
         return new Msg(false, "登陆失败", null);
     }
 
+
+    @Override
     public User getUser(HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user != null) {
@@ -50,10 +61,12 @@ public class UserServiceImpl implements UserService {
         return new User();
     }
 
+    @Override
     public List<User> getAllUsers() {
         return userDao.findAll();
     }
 
+    @Override
     public Integer getUserRole(HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
@@ -62,6 +75,7 @@ public class UserServiceImpl implements UserService {
         return user.getRole();
     }
 
+    @Override
     public Msg banUser(Long id) {
         User user = userDao.findById(id);
         if (user != null) {
@@ -75,6 +89,7 @@ public class UserServiceImpl implements UserService {
         return new Msg(false, "禁用失败", null);
     }
 
+    @Override
     public Msg unbanUser(Long id) {
         User user = userDao.findById(id);
         if (user != null) {
@@ -88,6 +103,7 @@ public class UserServiceImpl implements UserService {
         return new Msg(false, "解禁失败", null);
     }
 
+    @Override
     public Msg checkSignup(String username, String password) {
         if (userAuthDao.existsByUsername(username)) {
             return new Msg(false, "用户名已存在", null);
@@ -95,12 +111,14 @@ public class UserServiceImpl implements UserService {
         User newUser = new User();
         userDao.save(newUser);
         Long userId = newUser.getId();
-        UserAuth newUserAuth = new UserAuth(username, password, userId);
+        String encodedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));  // 加密密码
+        UserAuth newUserAuth = new UserAuth(username, encodedPassword, userId);
         userAuthDao.save(newUserAuth);
         return new Msg(true, "注册成功", null);
     }
 
-    public void updateBalance(Long id, Long price) {
+    @Override
+    public void updateBalance(Long id, Integer price) {
         userDao.updateBalanceById(id, price);
     }
 }

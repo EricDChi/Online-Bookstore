@@ -14,12 +14,13 @@ public class OrderItemDaoImpl implements OrderItemDao {
     @Autowired
     private OrderItemRepository orderItemRepository;
 
+    @Override
     public List<OrderItem> findByTitle(String keyword) {
         return orderItemRepository.findByTitle(keyword);
     }
 
     @Override
-    public void insertOrderItem(OrderItem orderItem) {
+    public void save(OrderItem orderItem) {
         orderItemRepository.save(orderItem);
     }
 

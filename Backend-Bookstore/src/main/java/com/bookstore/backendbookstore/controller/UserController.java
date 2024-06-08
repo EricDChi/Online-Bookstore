@@ -15,8 +15,12 @@ import java.util.List;
 @EnableAutoConfiguration
 public class UserController {
 
+    private final UserService userService;
+
     @Autowired
-    UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/api/me")
     public User getMe(HttpSession session) {

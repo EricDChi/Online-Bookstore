@@ -8,14 +8,14 @@ CREATE TABLE IF NOT EXISTS `book` (
     `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
     `title` VARCHAR(255) NOT NULL,
     `author` VARCHAR(255) NULL,
-    `price` BIGINT NOT NULL,
-    `sales` BIGINT DEFAULT 0 NOT NULL,
+    `price` INT NOT NULL,
+    `sales` INT DEFAULT 0 NOT NULL,
     `publisher` VARCHAR(255) NULL,
     `author_description` TEXT NULL,
     `book_description` TEXT NULL,
     `cover` VARCHAR(255) NOT NULL,
-    `ISBN` VARCHAR(255) NULL unique,
-    `stock` BIGINT DEFAULT 0 NOT NULL
+    `ISBN` VARCHAR(20) NULL unique,
+    `stock` INT DEFAULT 0 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 BEGIN;
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `user` (
     `address` TEXT NULL,
     `addressee` VARCHAR(255) NULL,
     `avatar` VARCHAR(255) NULL,
-    `balance` BIGINT DEFAULT 0 NOT NULL,
+    `balance` INT DEFAULT 0 NOT NULL,
     `birthday` VARCHAR(255) NULL,
     `nickname` VARCHAR(255) NULL,
     `phone` VARCHAR(20) NULL,
@@ -60,17 +60,18 @@ COMMIT;
 DROP TABLE IF EXISTS `user_auth`;
 CREATE TABLE IF NOT EXISTS `user_auth` (
     `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
-    `username` VARCHAR(255) NOT NULL unique,
-    `password` VARCHAR(255) NOT NULL,
+    `username` VARCHAR(50) NOT NULL ,
+    `password` VARCHAR(100) NOT NULL,
     `user_id` BIGINT NOT NULL,
+    UNIQUE INDEX `idx_username` (`username`),
     CONSTRAINT `fk_user_auth_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 BEGIN;
-INSERT INTO `user_auth` (id, username, password, user_id) VALUES (1, 'system', 'system', 1);
-INSERT INTO `user_auth` (id, username, password, user_id) VALUES (2, 'ch', '123', 2);
-INSERT INTO `user_auth` (id, username, password, user_id) VALUES (3, 'user1', '123', 3);
-INSERT INTO `user_auth` (id, username, password, user_id) VALUES (4, 'user2', '123', 4);
+INSERT INTO `user_auth` (id, username, password, user_id) VALUES (1, 'system', '$2a$12$INikHM1koKshHvxzyBwzYuV4JRA3aafoCs/Qte04POvZg6vdU66ne', 1);
+INSERT INTO `user_auth` (id, username, password, user_id) VALUES (2, 'ch', '$2a$12$INikHM1koKshHvxzyBwzYuV4JRA3aafoCs/Qte04POvZg6vdU66ne', 2);
+INSERT INTO `user_auth` (id, username, password, user_id) VALUES (3, 'user1', '$2a$12$INikHM1koKshHvxzyBwzYuV4JRA3aafoCs/Qte04POvZg6vdU66ne', 3);
+INSERT INTO `user_auth` (id, username, password, user_id) VALUES (4, 'user2', '1$2a$12$INikHM1koKshHvxzyBwzYuV4JRA3aafoCs/Qte04POvZg6vdU66ne', 4);
 COMMIT;
 
 DROP TABLE IF EXISTS `orders`;
@@ -80,8 +81,9 @@ CREATE TABLE IF NOT EXISTS `orders` (
     `create_time` DATETIME NOT NULL,
     `address` TEXT NOT NULL,
     `addressee` VARCHAR(255) NOT NULL,
-    `phone` VARCHAR(255) NOT NULL,
-    CONSTRAINT `fk_order_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+    `phone` VARCHAR(20) NOT NULL,
+    CONSTRAINT `fk_order_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+    INDEX `idx_user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 BEGIN;
@@ -94,21 +96,20 @@ COMMIT;
 DROP TABLE IF EXISTS `order_item`;
 CREATE TABLE IF NOT EXISTS `order_item` (
     `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
-    `user_id` BIGINT NOT NULL,
     `order_id` BIGINT NOT NULL,
-    `number` BIGINT DEFAULT 0 NOT NULL,
+    `number` INT DEFAULT 0 NOT NULL,
     `title` VARCHAR(255) NOT NULL,
     `cover` VARCHAR(255) NOT NULL,
-    CONSTRAINT `fk_order_item_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-    CONSTRAINT `fk_order_item_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`)
+    CONSTRAINT `fk_order_item_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
+    INDEX `idx_order_id` (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 BEGIN;
-INSERT INTO `order_item` (id, user_id, order_id, number, title, cover) VALUES (1, 2, 1, 1, 'C++ Primer 中文版(第5版)', 'book1.png');
-INSERT INTO `order_item` (id, user_id, order_id, number, title, cover) VALUES (2, 2, 1, 1, '穆斯林的葬礼', 'book4.jpg');
-INSERT INTO `order_item` (id, user_id, order_id, number, title, cover) VALUES (3, 2, 2, 2, '福尔摩斯探案全集', 'book7.jpg');
-INSERT INTO `order_item` (id, user_id, order_id, number, title, cover) VALUES (4, 2, 3, 1, 'C++ Primer 中文版(第5版)', 'book1.png');
-INSERT INTO `order_item` (id, user_id, order_id, number, title, cover) VALUES (5, 1, 4, 1, 'C++ Primer 中文版(第5版)', 'book1.png');
+INSERT INTO `order_item` (id, order_id, number, title, cover) VALUES (1, 1, 1, 'C++ Primer 中文版(第5版)', 'book1.png');
+INSERT INTO `order_item` (id, order_id, number, title, cover) VALUES (2, 1, 1, '穆斯林的葬礼', 'book4.jpg');
+INSERT INTO `order_item` (id, order_id, number, title, cover) VALUES (3, 2, 2, '福尔摩斯探案全集', 'book7.jpg');
+INSERT INTO `order_item` (id, order_id, number, title, cover) VALUES (4, 3, 1, 'C++ Primer 中文版(第5版)', 'book1.png');
+INSERT INTO `order_item` (id, order_id, number, title, cover) VALUES (5, 4, 1, 'C++ Primer 中文版(第5版)', 'book1.png');
 COMMIT;
 
 DROP TABLE IF EXISTS `cart_item`;
@@ -116,9 +117,11 @@ CREATE TABLE IF NOT EXISTS `cart_item` (
     `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
     `user_id` BIGINT NOT NULL,
     `book_id` BIGINT NOT NULL,
-    `number` BIGINT DEFAULT 0 NOT NULL,
+    `number` INT DEFAULT 0 NOT NULL,
     CONSTRAINT `fk_cart_item_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-    CONSTRAINT `fk_cart_item_book` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`)
+    CONSTRAINT `fk_cart_item_book` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`),
+    INDEX `idx_user_id` (`user_id`),
+    INDEX `idx_book_id` (`book_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 BEGIN;
