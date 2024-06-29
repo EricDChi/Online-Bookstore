@@ -31,7 +31,7 @@ export function SignUpBox ({ onMutate }){
             return;
         }
 
-        let res = await signup(username, password);
+        let res = await signup(username, password, email);
         handleBaseApiResponse(res, messageApi, onMutate);
     }
 
@@ -83,7 +83,7 @@ export function SignUpBox ({ onMutate }){
                     prefix={<LockOutlined />}
                     onChange={handleRepeatPassword}
                 /> 
-                <Input size='large'
+                <Input size='large' 
                     placeholder="请输入邮箱" 
                     status={((email === '') || !IsEmail(email)) && "error"}
                     prefix={<MailOutlined />}

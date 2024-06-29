@@ -13,16 +13,6 @@ public class UserAuthDaoImpl implements UserAuthDao {
     private UserAuthRepository userAuthRepository;
 
     @Override
-    public UserAuth checkUser(String username, String password) {
-        return userAuthRepository.findByUsernameAndPassword(username, password);
-    }
-
-    @Override
-    public UserAuth findByUsername(String username) {
-        return userAuthRepository.findByUsername(username);
-    }
-
-    @Override
     public boolean existsByUsername(String username) {
         return userAuthRepository.existsByUsername(username);
     }
@@ -30,5 +20,10 @@ public class UserAuthDaoImpl implements UserAuthDao {
     @Override
     public void save(UserAuth userAuth) {
         userAuthRepository.save(userAuth);
+    }
+
+    @Override
+    public Long GetUserIdByUsernameAndPassword(String username, String password) {
+        return userAuthRepository.getUserIdByUsernameAndPassword(username, password);
     }
 }

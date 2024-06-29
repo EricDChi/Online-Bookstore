@@ -1,11 +1,11 @@
 import { PREFIX, put } from "./common";
 
-export async function signup(username, password) {
+export async function signup(username, password, email) {
     const url = `${PREFIX}/signup`;
     let result;
 
     try {
-        result = await put(url, { username, password });
+        result = await put(url, { username, password, email });
     } catch (e) {
         console.log(e);
         result = {

@@ -1,5 +1,6 @@
 package com.bookstore.backendbookstore.controller;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.bookstore.backendbookstore.service.UserService;
 import com.bookstore.backendbookstore.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,10 @@ public class SignupController {
     }
 
     @PutMapping("/api/signup")
-    public Msg signup(@RequestBody Map<String, String> params) {
-        String username = params.get("username");
-        String password = params.get("password");
-        return userService.checkSignup(username, password);
+    public Msg signup(@RequestBody JSONObject object) {
+        String username = object.getString("username");
+        String password = object.getString("password");
+        String email = object.getString("email");
+        return userService.checkSignup(username, password, email);
     }
 }

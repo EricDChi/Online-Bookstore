@@ -24,7 +24,7 @@ public class CartItem {
     @Column(name = "number")
     private Integer number;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "book_id", insertable = false, updatable = false)
     private Book book;
 

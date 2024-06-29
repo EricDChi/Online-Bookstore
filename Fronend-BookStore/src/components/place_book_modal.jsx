@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal, Upload } from "antd";
+import { Button, Form, Input, InputNumber, Modal, Upload } from "antd";
 import useMessage from "antd/es/message/useMessage";
 import { handleBaseApiResponse } from "../utils/message";
 import { UploadOutlined } from '@ant-design/icons';
@@ -22,7 +22,8 @@ export default function PlaceBookModal ({
     };
 
     const handleSubmit = async (values) => {
-        if (!values.title || !values.cover || !values.author) {
+        values.price = values.price * 100;
+        if (!values.title || !values.cover || !values.isbn || !values.price || !values.stock) {
             messageApi.error("请填写完整信息！");
             return;
         }
@@ -45,7 +46,7 @@ export default function PlaceBookModal ({
                 layout="vertical"
                 onFinish={handleSubmit}
                 preserve={false}
-                initialValues={{id: book?.id, title: book?.title, cover: book?.cover, author: book?.author, isbn: book?.isbn, price: book?.price, publisher: book?.publisher, stock: book?.stock, bookDescription: book?.bookDescription, authorDescription: book?.authorDescription}}
+                initialValues={{id: book?.id, title: book?.title, cover: book?.cover, author: book?.author, isbn: book?.isbn, price: book?.price / 100, publisher: book?.publisher, stock: book?.stock, bookDescription: book?.bookDescription, authorDescription: book?.authorDescription}}
             >
                 {contextHolder}
                 <Form.Item
@@ -76,7 +77,6 @@ export default function PlaceBookModal ({
                 <Form.Item
                     name="author"
                     label="作者"
-                    required
                 >
                     <Input key={book?.author}/>
                 </Form.Item>
@@ -92,12 +92,11 @@ export default function PlaceBookModal ({
                     label="价格"
                     required
                 >
-                    <TextArea rows={2} maxLength={817} key={book?.price}/>
+                    <InputNumber precision={2} key={book?.price}/>
                 </Form.Item>
                 <Form.Item
                     name="publisher"
                     label="出版社"
-                    required
                 >
                     <TextArea rows={2} maxLength={817} key={book?.publisher}/>
                 </Form.Item>
@@ -106,19 +105,17 @@ export default function PlaceBookModal ({
                     label="库存"
                     required
                 >
-                    <TextArea rows={2} maxLength={817} key={book?.stock}/>
+                    <InputNumber key={book?.stock}/>
                 </Form.Item>
                 <Form.Item
                     name="bookDescription"
                     label="书籍描述"
-                    required
                 >
                     <TextArea rows={2} maxLength={817} key={book?.bookDescription}/>
                 </Form.Item>
                 <Form.Item
                     name="authorDescription"
                     label="作者描述"
-                    required
                 >
                     <TextArea rows={2} maxLength={817} key={book?.authorDescription}/>
                 </Form.Item>

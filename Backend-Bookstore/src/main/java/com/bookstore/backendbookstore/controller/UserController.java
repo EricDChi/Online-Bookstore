@@ -1,5 +1,6 @@
 package com.bookstore.backendbookstore.controller;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.bookstore.backendbookstore.service.UserService;
 import com.bookstore.backendbookstore.utils.Msg;
 import jakarta.servlet.http.HttpSession;
@@ -27,7 +28,7 @@ public class UserController {
         return userService.getUser(session);
     }
 
-    @GetMapping("/api/users")
+    @GetMapping("/api/user")
     public List<User> getUsers(HttpSession session) {
         if (userService.getUserRole(session).equals(1)) {
             return userService.getAllUsers();
@@ -49,5 +50,11 @@ public class UserController {
             return userService.unbanUser(id);
         }
         return new Msg(false, "权限不足", null);
+    }
+
+    @GetMapping("api/users")
+    public JSONObject getUsers(@RequestParam("pageIndex") Integer pageIndex,
+                               @RequestParam("pageSize") Integer pageSize) {
+        return userService.getPagedUsers(pageIndex, pageSize);
     }
 }

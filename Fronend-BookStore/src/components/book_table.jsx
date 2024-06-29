@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Input, InputNumber, Pagination, Popconfirm, Table, Typography, Upload, message } from 'antd';
-import { render } from '@testing-library/react';
 import { IMAGE_PREFIX } from '../service/common';
 import { handleBaseApiResponse } from '../utils/message';
 import { deleteBook, updateBook } from '../service/book';
@@ -15,7 +14,7 @@ const EditableCell = ({
     children,
     ...restProps
 }) => {
-    const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
+    const inputNode = inputType === 'number' ? <InputNumber min={0} /> : <Input />;
     return (
         <td {...restProps}>
             {editing ? (
@@ -57,6 +56,7 @@ export default function BookTable({ books, onMutate, onOpenBookModal, current, p
             title: '',
             author: '',
             ISBN: '',
+            stock: 0,
             ...record,
         });
         setNewCover(record.cover);
@@ -71,19 +71,26 @@ export default function BookTable({ books, onMutate, onOpenBookModal, current, p
         if (Array.isArray(e)) {
             return e;
         }
-        setNewCover(e?.fileList[0]);
-        return e?.fileList;
+        setNewCover(e?.fileList[0].response?.data.name);
     }
 
-    const saveBook = async (book) => {
+    const saveBook = async (book, newItems) => {
+        console.log(book);
         let res = await updateBook(book);
         handleBaseApiResponse(res, messageApi);
+        if (res.ok) {
+            setItems(newItems);
+            setEditingKey('');
+        }
+        else {
+            setEditingKey('');
+        }
     }
 
     const save = async (id) => {
         try {
             let row = await form.validateFields();
-            row.cover = newCover.response.data.name;
+            row.cover = newCover;
             const newItems = [...items];
             const index = newItems.findIndex((item) => id === item.id);
             
@@ -98,13 +105,10 @@ export default function BookTable({ books, onMutate, onOpenBookModal, current, p
                     ...item,
                     ...row,
                 });
-                saveBook(newItems.at(index));
-                setItems(newItems);
-                setEditingKey('');
+                saveBook(newItems.at(index), newItems, items);
             } else {
                 newItems.push(row);
                 setItems(newItems);
-                setEditingKey('');
             }
         } catch (errInfo) {
             console.log('Validate Failed:', errInfo);
@@ -127,14 +131,14 @@ export default function BookTable({ books, onMutate, onOpenBookModal, current, p
             title: '书名',
             dataIndex: 'title',
             key: 'book_title',
-            width: '20%',
+            width: '15%',
             editable: true,
         },
         {
             title: '封面',
             dataIndex: 'cover',
             key: 'book_cover',
-            width: '20%',
+            width: '15%',
             render: (cover, record) => {
                 const editable = isEditing(record);
                 return editable ? (
@@ -150,7 +154,7 @@ export default function BookTable({ books, onMutate, onOpenBookModal, current, p
             title: '作者',
             dataIndex: 'author',
             key: 'book_author',
-            width: '20%',
+            width: '15%',
             editable: true,
         },
         {
@@ -161,7 +165,14 @@ export default function BookTable({ books, onMutate, onOpenBookModal, current, p
             editable: true,
         },
         {
-            title: 'operation',
+            title: '库存',
+            dataIndex: 'stock',
+            key: 'stock',
+            width: '15%',
+            editable: true,
+        },
+        {
+            title: '操作',
             dataIndex: 'operation',
             key: 'book_operation',
             render: (_, record) => {
@@ -220,7 +231,7 @@ export default function BookTable({ books, onMutate, onOpenBookModal, current, p
             ...col,
             onCell: (record) => ({
                 record,
-                inputType: col.dataIndex === 'age' ? 'number' : 'text',
+                inputType: col.dataIndex === 'stock' ? 'number' : 'text',
                 dataIndex: col.dataIndex,
                 title: col.title,
                 editing: isEditing(record),

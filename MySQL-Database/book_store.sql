@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `book` (
     `author_description` TEXT NULL,
     `book_description` TEXT NULL,
     `cover` VARCHAR(255) NOT NULL,
-    `ISBN` VARCHAR(20) NULL unique,
+    `ISBN` VARCHAR(20) NOT NULL unique,
     `stock` INT DEFAULT 0 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -36,14 +36,15 @@ COMMIT;
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
     `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
+    `email` VARCHAR(255) NULL,
     `address` TEXT NULL,
     `addressee` VARCHAR(255) NULL,
     `avatar` VARCHAR(255) NULL,
     `balance` INT DEFAULT 0 NOT NULL,
     `birthday` VARCHAR(255) NULL,
-    `nickname` VARCHAR(255) NULL,
+    `nickname` VARCHAR(40) NULL,
     `phone` VARCHAR(20) NULL,
-    `sex` VARCHAR(255) NULL,
+    `sex` VARCHAR(20) NULL,
     `signature` TEXT NULL,
     `status` BOOLEAN DEFAULT FALSE NOT NULL,
     `role` INT DEFAULT 0 NOT NULL,
@@ -51,10 +52,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 BEGIN;
-INSERT INTO `user` (id, address, addressee, avatar, balance, birthday, nickname, phone, sex, signature, status, role) VALUES (1, null, null, null, 0, null, null, null, null, null, FALSE, 1);
-INSERT INTO `user` (id, address, addressee, avatar, balance, birthday, nickname, phone, sex, signature, status, role) VALUES (2, '上海市闵行区 东川路800号 上海交通大学', '池昊', '143873758.jpg', 200000000, '2014-12-31T16:00:00.000Z', 'admin', '15517597867', 'male', '这人是个懒狗，什么都没有写', FALSE, 0);
-INSERT INTO `user` (id, address, addressee, avatar, balance, birthday, nickname, phone, sex, signature, status, role) VALUES (3, null, null, null, 0, null, null, null, null, null, TRUE, 0);
-INSERT INTO `user` (id, address, addressee, avatar, balance, birthday, nickname, phone, sex, signature, status, role) VALUES (4, null, null, null, 0, null, null, null, null, null, TRUE, 0);
+INSERT INTO `user` (id, email, address, addressee, avatar, balance, birthday, nickname, phone, sex, signature, status, role) VALUES (1, '191451774@qq.com', null, null, null, 0, null, 'admin', null, null, null, FALSE, 1);
+INSERT INTO `user` (id, email, address, addressee, avatar, balance, birthday, nickname, phone, sex, signature, status, role) VALUES (2, '137012867@qq.com', '上海市闵行区 东川路800号 上海交通大学', '池昊', '143873758.jpg', 200000000, '2014-12-31T16:00:00.000Z', 'Yoshi', '15517597867', 'male', '这人是个懒狗，什么都没有写', FALSE, 0);
+INSERT INTO `user` (id, email, address, addressee, avatar, balance, birthday, nickname, phone, sex, signature, status, role) VALUES (3, '137012866@qq.com', null, null, null, 0, null, 'user1', null, null, null, TRUE, 0);
+INSERT INTO `user` (id, email, address, addressee, avatar, balance, birthday, nickname, phone, sex, signature, status, role) VALUES (4, '137012865@qq.com', null, null, null, 0, null, 'user2', null, null, null, TRUE, 0);
 COMMIT;
 
 DROP TABLE IF EXISTS `user_auth`;
@@ -68,10 +69,10 @@ CREATE TABLE IF NOT EXISTS `user_auth` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 BEGIN;
-INSERT INTO `user_auth` (id, username, password, user_id) VALUES (1, 'system', '$2a$12$INikHM1koKshHvxzyBwzYuV4JRA3aafoCs/Qte04POvZg6vdU66ne', 1);
-INSERT INTO `user_auth` (id, username, password, user_id) VALUES (2, 'ch', '$2a$12$INikHM1koKshHvxzyBwzYuV4JRA3aafoCs/Qte04POvZg6vdU66ne', 2);
-INSERT INTO `user_auth` (id, username, password, user_id) VALUES (3, 'user1', '$2a$12$INikHM1koKshHvxzyBwzYuV4JRA3aafoCs/Qte04POvZg6vdU66ne', 3);
-INSERT INTO `user_auth` (id, username, password, user_id) VALUES (4, 'user2', '1$2a$12$INikHM1koKshHvxzyBwzYuV4JRA3aafoCs/Qte04POvZg6vdU66ne', 4);
+INSERT INTO `user_auth` (id, username, password, user_id) VALUES (1, 'system', '123', 1);
+INSERT INTO `user_auth` (id, username, password, user_id) VALUES (2, 'ch', '123', 2);
+INSERT INTO `user_auth` (id, username, password, user_id) VALUES (3, 'user1', '123', 3);
+INSERT INTO `user_auth` (id, username, password, user_id) VALUES (4, 'user2', '123', 4);
 COMMIT;
 
 DROP TABLE IF EXISTS `orders`;
@@ -87,10 +88,10 @@ CREATE TABLE IF NOT EXISTS `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 BEGIN;
-INSERT INTO `orders` (id, user_id, create_time, address, addressee, phone) VALUES (1, 4, '2024-4-28 14:11:32', '系统订单', 'system', '0');
-INSERT INTO `orders` (id, user_id, create_time, address, addressee, phone) VALUES (2, 2, '2024-4-28 14:15:32', 'test_address', '池昊', '15517597867');
-INSERT INTO `orders` (id, user_id, create_time, address, addressee, phone) VALUES (3, 2, '2024-4-29 08:05:12', 'test_address', 'chihao', '15517597867');
-INSERT INTO `orders` (id, user_id, create_time, address, addressee, phone) VALUES (4, 3, '2024-5-12 05:23:14', '东川路800号', 'test_addressee', '15517597867');
+INSERT INTO `orders` (id, user_id, create_time, address, addressee, phone) VALUES (1, 4, '2024-6-27 14:11:32', '系统订单', 'system', '0');
+INSERT INTO `orders` (id, user_id, create_time, address, addressee, phone) VALUES (2, 2, '2024-6-27 14:15:32', 'test_address', '池昊', '15517597867');
+INSERT INTO `orders` (id, user_id, create_time, address, addressee, phone) VALUES (3, 2, '2024-6-27 08:05:12', 'test_address', 'chihao', '15517597867');
+INSERT INTO `orders` (id, user_id, create_time, address, addressee, phone) VALUES (4, 3, '2024-6-28 05:23:14', '东川路800号', 'test_addressee', '15517597867');
 COMMIT;
 
 DROP TABLE IF EXISTS `order_item`;
@@ -100,16 +101,17 @@ CREATE TABLE IF NOT EXISTS `order_item` (
     `number` INT DEFAULT 0 NOT NULL,
     `title` VARCHAR(255) NOT NULL,
     `cover` VARCHAR(255) NOT NULL,
+    `price` BIGINT NOT NULL,
     CONSTRAINT `fk_order_item_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
     INDEX `idx_order_id` (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 BEGIN;
-INSERT INTO `order_item` (id, order_id, number, title, cover) VALUES (1, 1, 1, 'C++ Primer 中文版(第5版)', 'book1.png');
-INSERT INTO `order_item` (id, order_id, number, title, cover) VALUES (2, 1, 1, '穆斯林的葬礼', 'book4.jpg');
-INSERT INTO `order_item` (id, order_id, number, title, cover) VALUES (3, 2, 2, '福尔摩斯探案全集', 'book7.jpg');
-INSERT INTO `order_item` (id, order_id, number, title, cover) VALUES (4, 3, 1, 'C++ Primer 中文版(第5版)', 'book1.png');
-INSERT INTO `order_item` (id, order_id, number, title, cover) VALUES (5, 4, 1, 'C++ Primer 中文版(第5版)', 'book1.png');
+INSERT INTO `order_item` (id, order_id, number, title, cover, price) VALUES (1, 1, 1, 'C++ Primer 中文版(第5版)', 'book1.png', 5750);
+INSERT INTO `order_item` (id, order_id, number, title, cover, price) VALUES (2, 1, 1, '穆斯林的葬礼', 'book4.jpg', 4900);
+INSERT INTO `order_item` (id, order_id, number, title, cover, price) VALUES (3, 2, 2, '福尔摩斯探案全集', 'book7.jpg', 32800);
+INSERT INTO `order_item` (id, order_id, number, title, cover, price) VALUES (4, 3, 1, 'C++ Primer 中文版(第5版)', 'book1.png', 5750);
+INSERT INTO `order_item` (id, order_id, number, title, cover, price) VALUES (5, 4, 1, 'C++ Primer 中文版(第5版)', 'book1.png', 5750);
 COMMIT;
 
 DROP TABLE IF EXISTS `cart_item`;

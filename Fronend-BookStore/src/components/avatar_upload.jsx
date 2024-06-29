@@ -21,7 +21,7 @@ const beforeUpload = (file) => {
     return isJpgOrPng && isLt2M;
 };
 
-export default function AvatarUploader({user}) {
+export default function AvatarUploader({ user }) {
     const [loading, setLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState();
     const handleChange = (info) => {

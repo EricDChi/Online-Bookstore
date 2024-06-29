@@ -1,4 +1,4 @@
-import { del, getJson, post, PREFIX, put } from "./common";
+import { del, getJson, PREFIX, put } from "./common";
 
 export async function searchBooks(keyword, pageIndex, pageSize) {
     let url;
@@ -82,4 +82,36 @@ export async function addBook(book) {
         res = null;
     }
     return res;
+}
+
+export async function analyzeBooks(pageIndex, pageSize, startDate, endDate) {
+    const url = `${PREFIX}/book/analyze?pageIndex=${pageIndex}&pageSize=${pageSize}&startDate=${startDate}&endDate=${endDate}`;
+    let books;
+
+    try {
+        books = await getJson(url);
+    } catch (e) {
+        console.log(e);
+        books = {
+            total: 0,
+            items: []
+        };
+    }
+    return books;
+}
+
+export async function rankBooks(startDate, endDate) {
+    const url = `${PREFIX}/book/rank?startDate=${startDate}&endDate=${endDate}`;
+    let books;
+
+    try {
+        books = await getJson(url);
+    } catch (e) {
+        console.log(e);
+        books = {
+            number: 0,
+            items: []
+        };
+    }
+    return books;
 }

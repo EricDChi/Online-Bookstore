@@ -1,5 +1,7 @@
 package com.bookstore.backendbookstore.serviceimpl;
 
+import com.alibaba.fastjson2.JSONObject;
+import com.bookstore.backendbookstore.entity.Book;
 import com.bookstore.backendbookstore.service.UserService;
 import com.bookstore.backendbookstore.utils.Msg;
 import jakarta.servlet.http.HttpSession;
@@ -9,7 +11,6 @@ import com.bookstore.backendbookstore.dao.UserDao;
 import com.bookstore.backendbookstore.dao.UserAuthDao;
 import com.bookstore.backendbookstore.entity.User;
 import com.bookstore.backendbookstore.entity.UserAuth;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
 
@@ -28,15 +29,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Msg checkLogin(String username, String password, HttpSession session) {
-        UserAuth userAuth = userAuthDao.findByUsername(username);
-        if (userAuth == null) {
+        if (!userAuthDao.existsByUsername(username)) {
             return new Msg(false, "用户名不存在", null);
         }
-        if (password == null || !BCrypt.checkpw(password, userAuth.getPassword())) {
+        Long userId = userAuthDao.GetUserIdByUsernameAndPassword(username, password);
+        if (password == null || userId == null) {
             return new Msg(false, "密码错误", null);
         }
-        Long id = userAuth.getUser_id();
-        User user = userDao.findById(id);
+        User user = userDao.findById(userId);
         if (user != null) {
             if (user.getStatus() == Boolean.TRUE) {
                 return new Msg(false, "用户已被禁用", null);
@@ -104,15 +104,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Msg checkSignup(String username, String password) {
+    public Msg checkSignup(String username, String password, String email) {
         if (userAuthDao.existsByUsername(username)) {
             return new Msg(false, "用户名已存在", null);
         }
-        User newUser = new User();
+        if (userDao.existsByEmail(email)) {
+            return new Msg(false, "邮箱已存在", null);
+        }
+        User newUser = new User(username);
+        newUser.setEmail(email);
         userDao.save(newUser);
         Long userId = newUser.getId();
-        String encodedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));  // 加密密码
-        UserAuth newUserAuth = new UserAuth(username, encodedPassword, userId);
+        UserAuth newUserAuth = new UserAuth(username, password, userId);
         userAuthDao.save(newUserAuth);
         return new Msg(true, "注册成功", null);
     }
@@ -120,5 +123,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateBalance(Long id, Integer price) {
         userDao.updateBalanceById(id, price);
+    }
+
+    @Override
+    public JSONObject getPagedUsers(Integer pageIndex, Integer pageSize) {
+        List<User> items = userDao.getPagedUsers(pageIndex, pageSize);
+        int total = (userDao.count() - 1) / pageSize + 1;
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("total", total);
+        jsonObject.put("items", items);
+        return jsonObject;
     }
 }

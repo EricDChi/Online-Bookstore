@@ -70,6 +70,7 @@ public class BookServiceImpl implements BookService {
     public Msg addBook(JSONObject bookJson) {
         Book book = new Book();
         boolean isAdd = bookJson.getLong("id") == null;
+        String msg = isAdd ? "添加成功" : "更新成功";
         if (!isAdd) {
             book.setId(bookJson.getLong("id"));
         }
@@ -88,11 +89,18 @@ public class BookServiceImpl implements BookService {
         book.setBookDescription(bookJson.getString("bookDescription"));
         book.setAuthorDescription(bookJson.getString("authorDescription"));
         bookDao.save(book);
-        return new Msg(true, "添加成功", null);
+        return new Msg(true, msg, null);
     }
 
     @Override
     public Msg updateBook(Book book) {
+        Book bookByIsbn = bookDao.findByISBN(book.getIsbn());
+        if (bookByIsbn != null && !bookByIsbn.getId().equals(book.getId())) {
+            return new Msg(false, "ISBN已存在", null);
+        }
+        if (book.getId() == null) {
+            return new Msg(false, "更新失败", null);
+        }
         bookDao.save(book);
         return new Msg(true, "更新成功", null);
     }

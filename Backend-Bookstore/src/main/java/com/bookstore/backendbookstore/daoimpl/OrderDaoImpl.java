@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -26,6 +27,18 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public List<Order> findByUserId(Long userId) {
         return orderRepository.findByUserId(userId);
+    }
+
+    @Override
+    public List<Order> findByCreateTimeBetween(LocalDateTime startDate, LocalDateTime endDate) {
+        List<Order> orders = orderRepository.findByCreateTimeBetween(startDate, endDate);
+        return orders;
+    }
+
+    @Override
+    public List<Order> findByUserIdAndCreateTimeBetween(Long userId, LocalDateTime startDate, LocalDateTime endDate) {
+        List<Order> orders = orderRepository.findByUserIdAndCreateTimeBetween(userId, startDate, endDate);
+        return orders;
     }
 
     @Override

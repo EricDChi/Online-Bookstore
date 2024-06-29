@@ -21,7 +21,7 @@ public class UserAuth {
     private String password;
 
     @Column(name = "user_id")
-    private Long user_id;
+    private Long userId;
 
     public UserAuth() {
     }
@@ -29,6 +29,6 @@ public class UserAuth {
     public UserAuth(String username, String password, Long user_id) {
         this.username = username;
         this.password = password;
-        this.user_id = user_id;
+        this.userId = user_id;
     }
 }

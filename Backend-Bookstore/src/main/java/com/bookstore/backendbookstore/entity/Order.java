@@ -2,6 +2,7 @@ package com.bookstore.backendbookstore.entity;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.bookstore.backendbookstore.serviceimpl.OrderServiceImpl;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +38,11 @@ public class Order {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "order_id")
     private List<OrderItem> items;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private User user;
 
     // 构造函数
     public Order(Long userId, JSONObject orderRequest, LocalDateTime createTime) {

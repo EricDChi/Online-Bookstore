@@ -113,7 +113,7 @@ export function CartTable ({ cartItems, onMutate }) {
                     setSelectedItems(selectedRows);
                 },
                 getCheckboxProps: (item) => ({
-                    disabled: item.book.title === '该书籍已失效',
+                    disabled: item.book.stock <= 0,
                     name: item.book.title,
                 }),
             }}

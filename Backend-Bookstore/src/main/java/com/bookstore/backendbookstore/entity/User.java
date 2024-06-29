@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
 
 @Getter
 @Setter
@@ -16,6 +15,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "balance")
     private Long balance;
@@ -51,12 +53,15 @@ public class User {
     private Integer role;
 
     public User() {
+    }
+
+    public User(String uesrname) {
         this.balance = 0L;
         this.address = "";
         this.addressee = "";
         this.avatar = "";
         this.birthday = "";
-        this.nickname = "";
+        this.nickname = uesrname;
         this.phone = 0L;
         this.sex = "secrecy";
         this.signature = "";

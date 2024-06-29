@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 const { Paragraph } = Typography;
 const { TextArea } = Input;
 
-export default function UserHome ({user}) {
+export default function UserHome ({ user }) {
     const [userName, setUserName] = useState('');
     const [userSignature, setUserSignature] = useState('');
     const [userSex, setUserSex] = useState('');
@@ -56,7 +56,6 @@ export default function UserHome ({user}) {
             type = "button"
             onClick={setUserInfo}
         >
-
             保存
         </Button>
     );

@@ -1,5 +1,6 @@
 package com.bookstore.backendbookstore.service;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.bookstore.backendbookstore.entity.User;
 import com.bookstore.backendbookstore.utils.Msg;
 import jakarta.servlet.http.HttpSession;
@@ -19,7 +20,9 @@ public interface UserService {
 
     Msg unbanUser(Long id);
 
-    Msg checkSignup(String username, String password);
+    Msg checkSignup(String username, String password, String email);
 
     void updateBalance(Long id, Integer price);
+
+    JSONObject getPagedUsers(Integer pageIndex, Integer pageSize);
 }

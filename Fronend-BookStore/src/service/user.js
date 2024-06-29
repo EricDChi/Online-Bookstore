@@ -8,14 +8,31 @@ export async function getMe() {
     } catch(e) {
         console.log(e);
     }
-    if (me.id === null) {
+    if (me && me.id === null) {
         return null;
     }
     return me;
 }
 
+export async function getPagedUsers(pageIndex, pageSize) {
+    let url;
+    let users;
+    url = `${PREFIX}/users?pageIndex=${pageIndex}&pageSize=${pageSize}`;
+
+    try {
+        users = await getJson(url);
+    } catch (e) {
+        console.log(e);
+        users = {
+            total: 0,
+            items: []
+        };
+    }
+    return users;
+}
+
 export async function getAllUsers() {
-    const url = `${PREFIX}/users`;
+    const url = `${PREFIX}/user`;
     let users = null;
     try {
         users = await getJson(url);
@@ -53,4 +70,20 @@ export async function forbidUser(id, forbidden) {
         response = DUMMY_RESPONSE;
     }
     return response;
+}
+
+export async function rankUsers(startDate, endDate) {
+    const url = `${PREFIX}/user/rank?startDate=${startDate}&endDate=${endDate}`;
+    let users;
+
+    try {
+    users = await getJson(url);
+    } catch (e) {
+        console.log(e);
+        users = {
+            number: 0,
+            items: []
+        };
+    }
+    return users;
 }

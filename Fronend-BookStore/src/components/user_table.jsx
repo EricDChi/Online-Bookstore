@@ -1,9 +1,9 @@
-import { Table, Checkbox, message, Popconfirm } from "antd";
+import { Table, Checkbox, message, Popconfirm, Pagination } from "antd";
 import { useEffect, useState } from "react";
 import { forbidUser } from "../service/user";
 import { handleBaseApiResponse } from "../utils/message";
 
-export function UserTable ({ users }) {
+export function UserTable ({ users, current, pageSize, total, onPageChange }) {
     const [checked, setChecked] = useState([true]);
     const [messageApi, contextHolder] = message.useMessage();
 
@@ -86,6 +86,14 @@ export function UserTable ({ users }) {
                 ...item,
                 key: item.id
             }))}
+            pagination={false}
+        />
+        <Pagination
+            current={current} 
+            pageSize={pageSize} 
+            total={total} 
+            onChange={onPageChange}
+            style={{ marginTop: "20px", float: "right"}}
         />
     </>
 }

@@ -6,7 +6,8 @@ import { PrivateLayout } from "../components/layout";
 import { searchBooks } from "../service/book";
 import BookTable from "../components/book_table";
 import PlaceBookModal from "../components/place_book_modal";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { getMe } from "../service/user";
 const { Search } = Input;
 
 const ManageBookPage = () => {
@@ -15,10 +16,18 @@ const ManageBookPage = () => {
     const [showModal, setShowModal] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams();
     const [totalPage, setTotalPage] = useState(0);
+    const navigate = useNavigate();
 
     const keyword = searchParams.get("keyword") || "";
     const pageSize = searchParams.get("pageSize") ? parseInt(searchParams.get("pageSize")) : 10;
     const pageIndex = searchParams.get("pageIndex") ? parseInt(searchParams.get("pageIndex")) : 0;
+
+    const checkLogin = async() => {
+        let me = await getMe();
+        if (me && me.role !== 1) {
+            navigate("/");
+        }
+    }
 
     const getBooks = async () => {
         let pagedBooks = await searchBooks(keyword, pageIndex, pageSize);
@@ -31,7 +40,6 @@ const ManageBookPage = () => {
         setBooks(books);
         setTotalPage(totalPage);
     }
-
 
     const handleOpenModal = () => {
         setShowModal(true);
@@ -66,6 +74,7 @@ const ManageBookPage = () => {
     };
 
     useEffect(() => {
+        checkLogin();
         getBooks();
     }, [pageIndex, pageSize, keyword]);
 

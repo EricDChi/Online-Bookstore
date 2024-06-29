@@ -73,8 +73,8 @@ export default function BookDetails({ book, onMutate }) {
                     <Paragraph>销量：{book.sales}</Paragraph>
                     <Paragraph>库存：{book.stock}</Paragraph>
                     <Row style={{ marginTop:'30px' }}>
-                        <Button className='button-buy' onClick={handleOpenModal}>立即购买</Button>
-                        <Button className='button-cart'  onClick={handleAddCart}>加入购物车</Button>
+                        <Button className='button-buy' onClick={handleOpenModal} disabled={book.stock <= 0}>立即购买</Button>
+                        <Button className='button-cart'  onClick={handleAddCart} disabled={book.stock <= 0}>加入购物车</Button>
                     </Row>
                 </Col>
             </Row>

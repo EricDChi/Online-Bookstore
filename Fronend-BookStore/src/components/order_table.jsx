@@ -22,7 +22,7 @@ export function OrderTable ({ orders, current, pageSize, total, onPageChange }) 
                     <List.Item.Meta
                         avatar={<Avatar shape="square" size={80} src={IMAGE_PREFIX + "/" + item.cover} />}
                         title={item.title}
-                        description={`数量：${item.number}`}
+                        description={<span>数量：{item.number}<br/>总价：¥{item.price / 100}</span>}
                     />
                 </List.Item>
             )}

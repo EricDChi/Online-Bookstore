@@ -24,7 +24,7 @@ export function Navbar({ user }) {
     const selectedKey = '/' + parts[parts.length - 1];
     const navItems = [
         { label: "首页", value: "/" },
-        { label: "排行", value: "/rank" },
+        { label: "统计", value: "/statistics" },
     ];
     const navMenuItems = navItems.map(item => ({
         key: item.value,
@@ -33,13 +33,27 @@ export function Navbar({ user }) {
 
     const administratorNavItems = [
         { label: "首页", value: "/" },
-        { label: "排行", value: "/rank" },
-        { label: "管理账户", value: "/admin"},
-        { label: "管理图书", value: "/book"},
+        { label: "统计", 
+            children: [
+                { label: "用户统计", value: "/rank/user" },
+                { label: "书籍统计", value: "/rank/book" },
+            ]
+        },
+        { label: "管理", 
+            children: [
+                { label: "用户管理", value: "/manage/user" },
+                { label: "书籍管理", value: "/manage/book"},
+            ]
+        },
     ];
+
     const administratorNavMenuItems = administratorNavItems.map(item => ({
         key: item.value,
-        label: <Link to={item.value}>{item.label}</Link>
+        label: <Link to={item.value} style={{color:'white'}} >{item.label}</Link>,
+        children: item.children && item.children.map(child => ({
+            key: child.value,
+            label: <Link to={child.value} style={{color:'white'}} >{child.label}</Link>
+        }))
     }));
 
     const usernavItems = [
