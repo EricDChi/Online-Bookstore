@@ -69,6 +69,8 @@ export function Navbar({ user }) {
     const handleMenuClick = async (event) => {
         if (event.key === "/logout") {
             let res = await logout();
+            let time = res.data.time;
+            console.log("已登录" + time / 1000 + "s");
             handleBaseApiResponse(res, messageApi, () => navigate("/login"));
             return;
         }

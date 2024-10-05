@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.web.bind.annotation.*;
 import com.bookstore.backendbookstore.entity.User;
+import org.springframework.kafka.core.KafkaTemplate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,6 +30,9 @@ public class OrderController {
         this.orderService = orderService;
         this.userService = userService;
     }
+
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     @GetMapping("/api/order")
     public JSONObject getOrder(@RequestParam("keyword") String keyword,
@@ -65,6 +69,23 @@ public class OrderController {
         }
         userService.updateBalance(user.getId(), price);
         return orderService.addOrder(user.getId(), orderRequest);
+    }
+
+    @RequestMapping("api/async_order")
+    public Msg placeOrder_async(@RequestBody JSONObject orderRequest, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        Integer price = orderRequest.getInteger("price");
+        if (user.getBalance() < price) {
+            return new Msg(false, "余额不足", null);
+        }
+        if (!orderService.judgeOrder(orderRequest)) {
+            return new Msg(false, "库存不足", null);
+        }
+        orderRequest.put("userId", user.getId());
+        kafkaTemplate.send("order", "key", orderRequest.toJSONString());
+        userService.updateBalance(user.getId(), price);
+        System.out.println(orderRequest.toJSONString());
+        return new Msg(true, "下单成功", null);
     }
 
     @GetMapping("/api/book/analyze")

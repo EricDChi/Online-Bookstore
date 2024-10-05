@@ -1,7 +1,8 @@
 import { DUMMY_RESPONSE, PREFIX, getJson, post } from "./common";
 
 export async function placeOrder(orderInfo) {
-    const url = `${PREFIX}/order`;
+    // const url = `${PREFIX}/order`;
+    const url = `${PREFIX}/async_order`;
     console.log(orderInfo);
     let res;
     try {
