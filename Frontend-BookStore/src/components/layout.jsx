@@ -73,49 +73,49 @@ export function PrivateLayout ({ children }) {
     );
 }
 
-export function VerticalLayout ({children}) {
-    const [user, setUser] = useState(null);
-    const navigate = useNavigate();
+// export function VerticalLayout ({children}) {
+//     const [user, setUser] = useState(null);
+//     const navigate = useNavigate();
 
-    const checkLogin = async() => {
-        let me = await getMe();
-        if (!me) {
-            navigate("/login");
-        }
-        else {
-            setUser(me);
-        }
-    }
+//     const checkLogin = async() => {
+//         let me = await getMe();
+//         if (!me) {
+//             navigate("/login");
+//         }
+//         else {
+//             setUser(me);
+//         }
+//     }
 
-    useEffect(() => {
-        checkLogin();
-    }, []);
+//     useEffect(() => {
+//         checkLogin();
+//     }, []);
 
-    return (
-        <Layout className="basic-layout">
-            <Layout>
-                <Sider style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0, top: 0, bottom: 0 }}>
-                    <VerticalNavbar />
-                </Sider>
-                <Layout style={{ marginLeft: 190 }}>
-                    <Header className="header"
-                        style={{
-                            position: 'sticky',
-                            top: 0,
-                            zIndex: 1,
-                        }}
-                    >
-                        <VerticalHeader user={user}/>
-                    </Header>
-                    <Content className="content">
-                        {children}
-                    </Content>
-                    <Footer className="footer">
-                            <a href="https://github.com/EricDChi/Online-Bookstore">github仓库</a>
-                            <div>电子书城</div>  
-                    </Footer>
-                </Layout>
-            </Layout>
-        </Layout>
-    );
-}
+//     return (
+//         <Layout className="basic-layout">
+//             <Layout>
+//                 <Sider style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0, top: 0, bottom: 0 }}>
+//                     <VerticalNavbar />
+//                 </Sider>
+//                 <Layout style={{ marginLeft: 190 }}>
+//                     <Header className="header"
+//                         style={{
+//                             position: 'sticky',
+//                             top: 0,
+//                             zIndex: 1,
+//                         }}
+//                     >
+//                         <VerticalHeader user={user}/>
+//                     </Header>
+//                     <Content className="content">
+//                         {children}
+//                     </Content>
+//                     <Footer className="footer">
+//                             <a href="https://github.com/EricDChi/Online-Bookstore">github仓库</a>
+//                             <div>电子书城</div>  
+//                     </Footer>
+//                 </Layout>
+//             </Layout>
+//         </Layout>
+//     );
+// }

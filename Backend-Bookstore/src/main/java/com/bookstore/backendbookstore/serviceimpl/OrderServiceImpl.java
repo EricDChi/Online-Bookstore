@@ -7,7 +7,7 @@ import com.bookstore.backendbookstore.service.OrderService;
 import com.bookstore.backendbookstore.entity.Order;
 import com.bookstore.backendbookstore.entity.OrderItem;
 import com.bookstore.backendbookstore.utils.Msg;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
@@ -217,9 +217,10 @@ public class OrderServiceImpl implements OrderService {
             cartItemDao.deleteByBookIdAndUserId(bookId, userId);
             bookDao.updateSalesAndStockById(bookId, number);
             orderItemDao.save(orderItem);
+            System.out.println("OrderItem saved");
         }
 
-        return new Msg(true, "下单成功", null);
+        return new Msg(true, "订单处理中", null);
     }
 
     @Override

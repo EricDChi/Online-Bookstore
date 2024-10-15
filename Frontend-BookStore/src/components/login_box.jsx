@@ -8,12 +8,20 @@ import { Button, Input, Space, message } from 'antd';
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../service/login.js";
 import { handleBaseApiResponse } from '../utils/message.js';
+import { getMe } from '../service/user.js';
+import { connectSocket } from '../utils/websocket.js';
 
 export function LoginBox ({ onMutate }){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [messageApi, contextHolder] = message.useMessage();
     const navigate = useNavigate();
+
+    const loginSuccess = async () => {
+        let me = await getMe();
+        connectSocket(me.id);
+        navigate("/");
+    }
 
     const onSubmit = async() => {
         if (username === '' || password === '') {
@@ -22,7 +30,7 @@ export function LoginBox ({ onMutate }){
         }
 
         let res = await login(username, password);
-        handleBaseApiResponse(res, messageApi, () => navigate("/"));
+        handleBaseApiResponse(res, messageApi, () => loginSuccess());
     }
 
     const handleUsername = (event) => {

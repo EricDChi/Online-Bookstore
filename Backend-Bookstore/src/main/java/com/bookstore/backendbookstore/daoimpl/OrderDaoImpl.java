@@ -4,6 +4,7 @@ import com.bookstore.backendbookstore.dao.OrderDao;
 import com.bookstore.backendbookstore.entity.Order;
 import com.bookstore.backendbookstore.repository.OrderRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -63,6 +64,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    @Transactional
     public void save(Order order) {
         orderRepository.save(order);
     }
