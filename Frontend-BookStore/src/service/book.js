@@ -1,4 +1,4 @@
-import { del, getJson, PREFIX, put } from "./common";
+import { BASEURL, del, getJson, post, PREFIX, put } from "./common";
 
 export async function searchBooks(keyword, pageIndex, pageSize) {
     let url;
@@ -114,4 +114,17 @@ export async function rankBooks(startDate, endDate) {
         };
     }
     return books;
+}
+
+export async function getTotalPrice(num, price) {
+    const url = `${BASEURL}/function/totalPrice`;
+    let res;
+
+    try {
+        res = await post(url, [[ num, price ]]);
+    } catch (e) {
+        console.log(e);
+        res = null;
+    }
+    return res;
 }

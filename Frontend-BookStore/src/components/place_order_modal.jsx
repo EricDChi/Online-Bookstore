@@ -7,6 +7,7 @@ import { getSocket } from "../utils/websocket";
 import { useState, useEffect } from "react";
 import { CheckCircleOutlined, LoadingOutlined } from "@ant-design/icons";
 import { wait } from "@testing-library/user-event/dist/utils";
+import { getTotalPrice } from "../service/book";
 
 const { TextArea } = Input;
 
@@ -58,9 +59,10 @@ export default function PlaceOrderModal({
         }
     }, [socket, messageApi]);
 
-    const computeTotalPrice = () => {
+    const computeTotalPrice = async() => {
         return selectedItems.reduce((total, item) => {
-            return total + item.book.price * item.number;
+            // return total + item.book.price * item.number;
+            return total + getTotalPrice(item.number, item.book.price);
         }, 0);
     };
 
