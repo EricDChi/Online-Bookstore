@@ -6,6 +6,7 @@ import { getMe } from "../service/user";
 import { changeCartItemNumber, deleteCartItem } from "../service/cart";
 import { IMAGE_PREFIX } from "../service/common";
 import { handleBaseApiResponse } from "../utils/message";
+import { getTotalPrice } from "../service/book";
 const { Paragraph } = Typography;
 
 export function CartTable ({ cartItems, onMutate }) {
@@ -14,6 +15,7 @@ export function CartTable ({ cartItems, onMutate }) {
     const [selectedItems, setSelectedItems] = useState([]);
     const [messageApi, contextHolder] = message.useMessage();
     const [user, setUser] = useState(null);
+    const [totalPrice, setTotalPrice] = useState(0);
 
     const checkLogin = async() => {
         let me = await getMe();
@@ -24,6 +26,10 @@ export function CartTable ({ cartItems, onMutate }) {
         setItems(cartItems);
         checkLogin();
     },[cartItems]);
+
+    useEffect(() => {
+        computeTotalPrice();
+    }, [selectedItems]);
 
     const handleOpenModal = () => {
         setShowModal(true);
@@ -39,11 +45,16 @@ export function CartTable ({ cartItems, onMutate }) {
         onMutate();
     }
 
-    const computeTotalPrice = () => {
-        const prices = selectedItems.map(item => item.book.price * item.number);
-        return prices.length > 0 ?
-            prices.reduce((prev, cur) => prev + cur) / 100 : 0;
-    }
+    const computeTotalPrice = async () => {
+        const calculateItemPrice = async (item) => {
+            const price = await getTotalPrice(item.book.price, item.number);
+            return parseInt(price);
+        };
+        const prices = await Promise.all(selectedItems.map(calculateItemPrice));
+        const total = prices.reduce((prev, cur) => prev + cur, 0);
+        setTotalPrice(total);
+    };
+    
 
     const handleNumberChange = async (id, number) => {
         changeCartItemNumber(id, number);
@@ -105,7 +116,7 @@ export function CartTable ({ cartItems, onMutate }) {
 
     return <>
         {contextHolder}
-        {showModal && <PlaceOrderModal onCancel={handleCloseModal} user={user} selectedItems={selectedItems} onOk={handleOrderSubmit} />}
+        {showModal && <PlaceOrderModal onCancel={handleCloseModal} user={user} totalPrice={totalPrice} selectedItems={selectedItems} onOk={handleOrderSubmit} />}
         <Table
             columns={columns}
             rowSelection={{
@@ -143,7 +154,7 @@ export function CartTable ({ cartItems, onMutate }) {
                     }
                     <Paragraph className='text'>合计:</Paragraph>
                     <Paragraph className='price symbol'>¥</Paragraph>
-                    <Paragraph className='price'>{computeTotalPrice()}</Paragraph>
+                    <Paragraph className='price'>{totalPrice / 100}</Paragraph>
                 </Row>
             </Col>
             <Col span={12}>

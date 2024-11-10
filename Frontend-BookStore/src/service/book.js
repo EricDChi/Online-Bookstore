@@ -1,4 +1,4 @@
-import { BASEURL, del, getJson, post, PREFIX, put } from "./common";
+import { BASEURL, del, FUNC_PREFIX, get, getJson, MICROSERVICE_PREFIX, post, PREFIX, put } from "./common";
 
 export async function searchBooks(keyword, pageIndex, pageSize) {
     let url;
@@ -117,7 +117,7 @@ export async function rankBooks(startDate, endDate) {
 }
 
 export async function getTotalPrice(num, price) {
-    const url = `${BASEURL}/function/totalPrice`;
+    const url = `${FUNC_PREFIX}/totalPrice`;
     let res;
 
     try {
@@ -127,4 +127,17 @@ export async function getTotalPrice(num, price) {
         res = null;
     }
     return res;
+}
+
+export async function getAuthorByTitle(title) {
+    const url = `${MICROSERVICE_PREFIX}/bookAuthor/${title}`;
+    let author;
+
+    try {
+        author = await get(url);
+    } catch (e) {
+        console.log(e);
+        author = null;
+    }
+    return author;
 }

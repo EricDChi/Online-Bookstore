@@ -1,4 +1,4 @@
-//package com.bookstore.backendbookstore.config;
+//package com.bookstore.gateway.config;
 //
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;

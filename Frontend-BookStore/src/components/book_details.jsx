@@ -53,7 +53,7 @@ export default function BookDetails({ book, onMutate }) {
 
 
     return <>
-        {showModal && <PlaceOrderModal onCancel={handleCloseModal} user={user} selectedItems={selectedItems} onOk={handleOrderSubmit} />}
+        {showModal && <PlaceOrderModal onCancel={handleCloseModal} user={user} totalPrice={book.price} selectedItems={selectedItems} onOk={handleOrderSubmit} />}
         <Space direction="vertical">
             {contextHolder}
             <Row>

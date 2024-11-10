@@ -13,6 +13,7 @@ const { TextArea } = Input;
 
 export default function PlaceOrderModal({
     selectedItems,
+    totalPrice,
     user,
     onOk,
     onCancel,
@@ -59,10 +60,10 @@ export default function PlaceOrderModal({
         }
     }, [socket, messageApi]);
 
-    const computeTotalPrice = async() => {
+    const computeTotalPrice = () => {
         return selectedItems.reduce((total, item) => {
-            // return total + item.book.price * item.number;
-            return total + getTotalPrice(item.number, item.book.price);
+            return total + item.book.price * item.number;
+            // return total + getTotalPrice(item.number, item.book.price);
         }, 0);
     };
 
@@ -76,7 +77,7 @@ export default function PlaceOrderModal({
             address,
             addressee,
             phone,
-            price: computeTotalPrice(),
+            price: totalPrice,
             items: selectedItems,
         };
 
@@ -118,7 +119,7 @@ export default function PlaceOrderModal({
                 <>
                     <BillTable
                         selectedItems={selectedItems}
-                        total_price={computeTotalPrice()}
+                        total_price={totalPrice}
                     />
                     <Form
                         form={form}
