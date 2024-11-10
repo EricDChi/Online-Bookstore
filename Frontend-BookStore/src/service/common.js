@@ -5,7 +5,8 @@ export async function getJson(url) {
 
 export async function get(url) {
     let res = await fetch(url, {method: 'GET', credentials: "include"});
-    return res;
+    let data = await res.text();
+    return data;
 }
 
 export async function put(url, data) {
@@ -39,8 +40,12 @@ export async function post(url, data) {
     return res.json();
 }
 
+
+
 export const BASEURL = 'http://localhost:8080';
-export const PREFIX = `${BASEURL}/api`;
+export const PREFIX = `${BASEURL}/api`; 
+export const MICROSERVICE_PREFIX = `${BASEURL}/microservice/api`;
+export const FUNC_PREFIX = `${BASEURL}/function`;
 export const IMAGE_PREFIX = `${BASEURL}/images`;
 export const DUMMY_RESPONSE = {
     ok: false,

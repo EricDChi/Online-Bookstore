@@ -19,6 +19,9 @@ public class BookServiceImpl implements BookService {
     @Override
     public String getAuthorByTitle(String title) {
         Book book = bookDao.findByTitle(title);
+        if (book == null) {
+            return "Book not found";
+        }
         return book.getAuthor();
     }
 }
