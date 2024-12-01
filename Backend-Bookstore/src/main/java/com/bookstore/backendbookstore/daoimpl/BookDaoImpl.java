@@ -3,30 +3,45 @@ package com.bookstore.backendbookstore.daoimpl;
 import com.alibaba.fastjson2.JSON;
 import com.bookstore.backendbookstore.dao.BookDao;
 import com.bookstore.backendbookstore.entity.Book;
+import com.bookstore.backendbookstore.entity.BookCover;
+import com.bookstore.backendbookstore.repository.BookCoverRepository;
 import com.bookstore.backendbookstore.repository.BookRepository;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-@Transactional
 public class BookDaoImpl implements BookDao {
     @Autowired
     private BookRepository bookRepositoy;
 
     @Autowired
+    private BookCoverRepository bookCoverRepository;
+
+    @Autowired
     private EntityManager entityManager;
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private StringRedisTemplate redisTemplate;
 
     @Override
     public List<Book> findByTitle(String keyword) {
-        return bookRepositoy.findByTitle(keyword);
+        List<Book> books = bookRepositoy.findByTitle(keyword);
+        for (Book book : books) {
+            Optional<BookCover> bookCover = bookCoverRepository.findById(book.getId());
+            if (bookCover.isPresent()) {
+                book.setCover(bookCover.get().getCover());
+            }
+            else {
+                book.setCover(null);
+            }
+        }
+        return books;
     }
 
     @Override
@@ -41,6 +56,15 @@ public class BookDaoImpl implements BookDao {
                 .setFirstResult(pageSize * pageIndex)
                 .setMaxResults(pageSize)
                 .getResultList();
+        for (Book book : items) {
+            Optional<BookCover> bookCover = bookCoverRepository.findById(book.getId());
+            if (bookCover.isPresent()) {
+                book.setCover(bookCover.get().getCover());
+            }
+            else {
+                book.setCover(null);
+            }
+        }
         return items;
     }
 
@@ -56,6 +80,13 @@ public class BookDaoImpl implements BookDao {
                 System.out.println("Book: " + id + " is not in Redis");
                 System.out.println("Searching Book: " + id + " in DB");
                 book = bookRepositoy.findById(id).orElse(null);
+                Optional<BookCover> bookCover = bookCoverRepository.findById(id);
+                if (bookCover.isPresent()) {
+                    book.setCover(bookCover.get().getCover());
+                }
+                else {
+                    book.setCover(null);
+                }
                 redisTemplate.opsForValue().set("book" + id, JSON.toJSONString(book));
             } else {
                 book = JSON.parseObject(p, Book.class);
@@ -65,13 +96,28 @@ public class BookDaoImpl implements BookDao {
         catch (Exception e) {
             System.err.println("Redis is unavailable. Fallback to database.");
             book = bookRepositoy.findById(id).orElse(null);
+            Optional<BookCover> bookCover = bookCoverRepository.findById(id);
+            if (bookCover.isPresent()) {
+                book.setCover(bookCover.get().getCover());
+            }
+            else {
+                book.setCover(null);
+            }
         }
         return book;
     }
 
     @Override
     public Book findByISBN(String ISBN) {
-        return bookRepositoy.findByIsbn(ISBN);
+        Book book = bookRepositoy.findByIsbn(ISBN);
+        Optional<BookCover> bookCover = bookCoverRepository.findById(book.getId());
+        if (bookCover.isPresent()) {
+            book.setCover(bookCover.get().getCover());
+        }
+        else {
+            book.setCover(null);
+        }
+        return book;
     }
 
     @Override
@@ -119,6 +165,7 @@ public class BookDaoImpl implements BookDao {
     @Override
     public void save(Book book) {
         bookRepositoy.save(book);
+        bookCoverRepository.save(new BookCover(book.getId(), book.getCover()));
         try {
             redisTemplate.opsForValue().set("book" + book.getId(), JSON.toJSONString(book));
         }
@@ -141,5 +188,6 @@ public class BookDaoImpl implements BookDao {
         }
 
         bookRepositoy.deleteById(id);
+        bookCoverRepository.deleteById(id);
     }
 }

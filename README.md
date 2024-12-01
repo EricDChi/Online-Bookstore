@@ -14,6 +14,7 @@
 mysql -u root -p
 // 输入密码
 source book_store.sql路径
+// source F:\online-book-store\MySQL-Database\book_store.sql
 ```
 
 修改后端工程中Backend-Bookstore/src/main/resources/application.properties中password一行

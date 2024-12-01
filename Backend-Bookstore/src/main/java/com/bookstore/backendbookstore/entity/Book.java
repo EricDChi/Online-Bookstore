@@ -28,8 +28,11 @@ public class Book implements Serializable {
     @Column(name = "price")
     private Integer price;
 
-    @Column(name = "cover")
     private String cover;
+    @Transient
+    public String getCover() {
+        return cover;
+    }
 
     @Column(name = "sales")
     private Integer sales;

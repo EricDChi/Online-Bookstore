@@ -50,6 +50,11 @@ public class BookController {
         return bookService.getPagedBooks(pageIndex, pageSize);
     }
 
+    @GetMapping("api/book/label/{label}")
+    public JSONObject getBooksByLabel(@PathVariable("label") String label) {
+        return bookService.findBooksByLabel(label);
+    }
+
     @DeleteMapping("/api/book/{id}")
     public Msg deleteBookByID(@PathVariable("id") Long id) {
         if (id > 0) {
