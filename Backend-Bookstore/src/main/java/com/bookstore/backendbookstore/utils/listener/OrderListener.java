@@ -22,21 +22,21 @@ public class OrderListener {
     @Autowired
     private WebSocketServer webSocketServer;
 
-    @KafkaListener(topics = "order", groupId = "group_topic_order")
-    public void addOrder(ConsumerRecord<String, String> record) {
-        System.out.println("Order received");
-        JSONObject jsonObject = JSONObject.parseObject(record.value());
-        Long userId = jsonObject.getLong("userId");
-        orderService.addOrder(userId, jsonObject);
-        System.out.println("下单成功");
-        kafkaTemplate.send("orderFinished", String.valueOf(userId), "下单成功");
-    }
-
-    @KafkaListener(topics = "orderFinished", groupId = "group_topic_orderFinished")
-    public void orderFinished(ConsumerRecord<String, String> record) {
-        System.out.println("Order finished");
-        Msg msg = new Msg(true, record.value(), null);
-        webSocketServer.sendMsgToUser(record.key(), msg);
-        System.out.println("Order finished, send message to user " + record.key());
-    }
+//    @KafkaListener(topics = "order", groupId = "group_topic_order")
+//    public void addOrder(ConsumerRecord<String, String> record) {
+//        System.out.println("Order received");
+//        JSONObject jsonObject = JSONObject.parseObject(record.value());
+//        Long userId = jsonObject.getLong("userId");
+//        orderService.addOrder(userId, jsonObject);
+//        System.out.println("下单成功");
+//        kafkaTemplate.send("orderFinished", String.valueOf(userId), "下单成功");
+//    }
+//
+//    @KafkaListener(topics = "orderFinished", groupId = "group_topic_orderFinished")
+//    public void orderFinished(ConsumerRecord<String, String> record) {
+//        System.out.println("Order finished");
+//        Msg msg = new Msg(true, record.value(), null);
+//        webSocketServer.sendMsgToUser(record.key(), msg);
+//        System.out.println("Order finished, send message to user " + record.key());
+//    }
 }

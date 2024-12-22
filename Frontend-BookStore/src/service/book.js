@@ -22,6 +22,51 @@ export async function searchBooks(keyword, pageIndex, pageSize) {
     return books;
 }
 
+export async function searchBookByTitle(title) {
+    const url = `${BASEURL}/graphql`;
+    console.log(title);
+    let body = {
+        query: `
+            query ($bookTitle: String) {
+                bookByTitle(title: $bookTitle) {
+                    id
+                    title
+                    author
+                }
+            }
+        `,
+        variables: {
+            bookTitle: title
+        }
+    };
+
+    try {
+        let res = await post(url, body);
+        console.log(res.data);
+        return res.data;
+    } catch (e) {
+        console.log(e);
+        return
+    }
+}
+
+export async function searchBookByLabel(label) {
+    const url = `${PREFIX}/book/label/${label}`;
+    let books;
+
+    try {
+        books = await getJson(url);
+        console.log(books);
+    } catch (e) {
+        console.log(e);
+        books = {
+            total: 0,
+            items: []
+        };
+    }
+    return books;
+}
+
 export async function getBookById(id) {
     const url = `${PREFIX}/book/${id}`;
     let book;

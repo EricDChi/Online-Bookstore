@@ -81,8 +81,9 @@ public class OrderController {
         if (!orderService.judgeOrder(orderRequest)) {
             return new Msg(false, "库存不足", null);
         }
-        orderRequest.put("userId", user.getId());
-        kafkaTemplate.send("order", "key", orderRequest.toJSONString());
+        orderService.addOrder(user.getId(), orderRequest);
+//        orderRequest.put("userId", user.getId());
+//        kafkaTemplate.send("order", "key", orderRequest.toJSONString());
         userService.updateBalance(user.getId(), price);
         System.out.println(orderRequest.toJSONString());
         return new Msg(true, "下单成功", null);

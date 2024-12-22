@@ -6,7 +6,7 @@ import BookList from "../components/book_list";
 import { Col, Row, Space } from 'antd'; 
 import { useSearchParams, useParams } from "react-router-dom";
 import { PrivateLayout } from "../components/layout";
-import { getAuthorByTitle, searchBooks } from "../service/book";
+import { getAuthorByTitle, searchBookByLabel, searchBookByTitle, searchBooks } from "../service/book";
 
 const SearchPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -21,6 +21,8 @@ const SearchPage = () => {
 
     const getBooks = async () => {
         let pagedBooks = await searchBooks(keyword, pageIndex, pageSize);
+        await searchBookByTitle(keyword);
+        await searchBookByLabel(keyword);
         let books = pagedBooks.items;
         let totalPage = pagedBooks.total;
         setBooks(books);
@@ -28,9 +30,9 @@ const SearchPage = () => {
     }
 
     const getAuthor = async () => {
-        let author = await getAuthorByTitle(keyword);
-        console.log(author);
-        setAuthor(author);
+        // let author = await getAuthorByTitle(keyword);
+        // console.log(author);
+        // setAuthor(author);
     }
 
     useEffect(() => {
