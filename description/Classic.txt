@@ -1,0 +1,42 @@
+Title: War and Peace
+Description: Leo Tolstoy's monumental novel intertwines the lives of aristocratic families against the backdrop of the Napoleonic Wars. It is a profound exploration of love, ambition, and the human condition.
+
+Title: Pride and Prejudice
+Description: Jane Austen's masterpiece is a witty critique of social norms and marriage in 19th-century England. The romance between Elizabeth Bennet and Mr. Darcy has captivated readers for over two centuries.
+
+Title: Great Expectations
+Description: Charles Dickens' coming-of-age story follows Pip, an orphan, as he navigates ambition, love, and betrayal. Set in Victorian England, it remains a timeless tale of personal growth and morality.
+
+Title: Moby-Dick
+Description: Herman Melville's epic novel chronicles Captain Ahab's obsessive quest to hunt the white whale, Moby-Dick. A profound meditation on fate, revenge, and humanity.
+
+Title: Wuthering Heights
+Description: Emily Brontë's gothic masterpiece tells the tale of the intense and tumultuous love between Heathcliff and Catherine Earnshaw. Set on the Yorkshire moors, it explores themes of passion, revenge, and social class.
+
+Title: Jane Eyre
+Description: Charlotte Brontë's groundbreaking novel follows the life of Jane Eyre, an orphaned governess, as she navigates independence, love, and societal expectations. A story of resilience and self-discovery.
+
+Title: Anna Karenina
+Description: Leo Tolstoy's tragic tale of love and infidelity follows Anna, a woman torn between her duties and her desires. It is a profound exploration of society, family, and passion.
+
+Title: The Scarlet Letter
+Description: Nathaniel Hawthorne's novel set in Puritan New England tells the story of Hester Prynne, a woman ostracized for bearing an illegitimate child. It is a powerful exploration of guilt, sin, and redemption.
+
+Title: The Adventures of Huckleberry Finn
+Description: Mark Twain's classic follows Huck Finn and Jim, a runaway slave, as they journey down the Mississippi River. It is a sharp critique of racism and social hypocrisy in pre-Civil War America.
+
+Title: Don Quixote
+Description: Miguel de Cervantes' satirical tale follows the misadventures of Don Quixote, a knight-errant, and his loyal squire, Sancho Panza. Widely regarded as one of the greatest works of literature, it is a profound and humorous critique of chivalry.
+
+Title: Les Misérables
+Description: Victor Hugo's epic novel explores themes of justice, mercy, and redemption through the lives of characters such as Jean Valjean and Inspector Javert. Set against the backdrop of 19th-century France, it is a story of hope and resilience.
+
+Title: The Picture of Dorian Gray
+Description: Oscar Wilde's only novel tells the story of Dorian Gray, a man whose portrait ages while he remains youthful. A dark exploration of vanity, morality, and the consequences of unchecked desires.
+
+Title: Crime and Punishment
+Description: Fyodor Dostoevsky's psychological novel follows Raskolnikov, a student who commits murder, as he wrestles with guilt and redemption. It is a profound exploration of morality and the human psyche.
+
+Title: The Iliad
+Description: Homer's epic poem recounts the events of the Trojan War, focusing on the hero Achilles. A cornerstone of Western literature, it explores themes of honor, wrath, and the human cost of conflict.
+

@@ -1,0 +1,42 @@
+Title: The Girl with the Dragon Tattoo
+Description: Stieg Larsson's international bestseller is a gripping tale of murder, corruption, and family secrets. Journalist Mikael Blomkvist and hacker Lisbeth Salander team up to solve a decades-old mystery.
+
+Title: Gone Girl
+Description: Gillian Flynn's psychological thriller explores a toxic marriage and the disappearance of Amy Dunne. With twists and unreliable narrators, it keeps readers guessing until the very end.
+
+Title: The Da Vinci Code
+Description: Dan Brown's fast-paced novel combines art, history, and cryptography as symbologist Robert Langdon unravels a conspiracy hidden within famous artworks and ancient secrets.
+
+Title: Big Little Lies
+Description: Liane Moriarty's novel weaves together the lives of three women whose seemingly perfect lives unravel after a shocking death. It's a sharp exploration of secrets, lies, and the complexities of friendship.
+
+Title: The Silent Patient
+Description: Alex Michaelides' psychological thriller tells the story of Alicia Berenson, a woman who stops speaking after a shocking act of violence. A therapist's obsession with uncovering her story leads to unexpected revelations.
+
+Title: The Woman in the Window
+Description: A.J. Finn's suspenseful tale follows an agoraphobic woman who believes she witnessed a crime in a neighboring house. Inspired by classic thrillers, it blurs the lines between reality and paranoia.
+
+Title: The Couple Next Door
+Description: Shari Lapena's domestic thriller begins with the disappearance of a baby during a dinner party. As secrets unravel, the truth becomes more shocking than anyone imagined.
+
+Title: Sharp Objects
+Description: In Gillian Flynn's debut novel, journalist Camille Preaker returns to her hometown to cover a series of murders. As she investigates, she confronts dark secrets from her own past.
+
+Title: Before I Go to Sleep
+Description: S.J. Watson's psychological thriller revolves around Christine Lucas, who loses her memory every night. As she pieces together her life, she discovers unsettling truths about those around her.
+
+Title: The Girl on the Train
+Description: Paula Hawkins' bestseller is a gripping tale of obsession, deception, and murder. Rachel, a troubled woman, becomes entangled in the lives of a couple she observes from her daily train ride.
+
+Title: The Wife Between Us
+Description: Greer Hendricks and Sarah Pekkanen's twist-filled novel explores a complex love triangle. What appears to be a simple story of jealousy hides deeper, more shocking truths.
+
+Title: In the Woods
+Description: Tana French's literary thriller follows Detective Rob Ryan as he investigates a murder in the same woods where his childhood friends disappeared years earlier. A haunting tale of memory and loss.
+
+Title: Behind Closed Doors
+Description: B.A. Paris' chilling thriller reveals the perfect facade of Jack and Grace's marriage, which hides a dark and twisted reality behind closed doors.
+
+Title: The Chestnut Man
+Description: Søren Sveistrup's Nordic noir is a dark and gripping tale of a serial killer leaving chestnut figurines at his crime scenes. Detectives must unravel the clues before more lives are lost.
+

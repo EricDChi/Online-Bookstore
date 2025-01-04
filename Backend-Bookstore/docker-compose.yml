@@ -1,0 +1,24 @@
+services:
+  springboot-app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    volumes:
+      - .:/app
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.3
+    environment:
+      MYSQL_ROOT_PASSWORD: chihao123
+      MYSQL_DATABASE: book_store
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - "3306:3306"
+    command:
+      --lower_case_table_names=1
+    volumes:
+      - /c/ProgramData/Data:/var/lib/mysql

@@ -1,0 +1,45 @@
+Title: The Waste Land and Other Poems
+Description: T.S. Eliot's collection includes some of the most influential modernist poetry of the 20th century. The title poem, 'The Waste Land,' is a fragmented, haunting exploration of cultural decay and renewal.
+
+Title: Leaves of Grass
+Description: Walt Whitman's groundbreaking collection celebrates the individual, nature, and democracy. Its free verse style and themes of transcendence and humanity have inspired generations.
+
+Title: The Complete Poems of Emily Dickinson
+Description: This collection gathers the introspective and deeply personal poems of Emily Dickinson, exploring themes of love, death, faith, and nature. Her unique voice remains timeless.
+
+Title: Milk and Honey
+Description: Rupi Kaur's bestselling poetry collection delves into themes of love, loss, trauma, and healing. Written in a raw and minimalist style, it resonates deeply with contemporary readers.
+
+Title: The Sun and Her Flowers
+Description: Rupi Kaur's follow-up to 'Milk and Honey' is a celebration of growth, healing, and self-love. Through vivid imagery and heartfelt words, it captures the beauty of transformation.
+
+Title: Ariel
+Description: Sylvia Plath's posthumously published collection showcases her poetic genius. With themes of identity, struggle, and rebirth, it is a powerful exploration of the human condition.
+
+Title: The Collected Poems of W.B. Yeats
+Description: This definitive collection brings together the mystical and symbolic poetry of W.B. Yeats. His works reflect on Irish identity, love, and the spiritual world.
+
+Title: Paradise Lost
+Description: John Milton's epic poem recounts the biblical story of the Fall of Man. With its grand scale and profound exploration of free will, it is a cornerstone of English literature.
+
+Title: Divine Comedy
+Description: Dante Alighieri's epic poem takes readers on a journey through Hell, Purgatory, and Paradise. It is a profound allegory of the soul's journey toward God, filled with vivid imagery and timeless themes.
+
+Title: The Odyssey
+Description: Homer's epic poem recounts the adventures of Odysseus as he struggles to return home after the Trojan War. It is a timeless tale of perseverance, cunning, and the human spirit.
+
+Title: Selected Poems of Langston Hughes
+Description: This collection captures the voice of the Harlem Renaissance through Langston Hughes' lyrical and poignant poetry. His works celebrate African American culture and confront social injustices.
+
+Title: The Essential Rumi
+Description: A collection of the ecstatic poetry of Rumi, the 13th-century Persian mystic. His verses explore themes of love, spirituality, and the divine with profound simplicity.
+
+Title: Beowulf
+Description: An Old English epic poem, 'Beowulf' tells the story of a hero's battles with monsters and a dragon. It is one of the earliest and most important works in English literature.
+
+Title: The Poetry of Pablo Neruda
+Description: This comprehensive collection showcases the romantic, political, and deeply emotional works of Pablo Neruda. His poems explore love, nature, and the human condition with profound beauty.
+
+Title: The Cantos of Ezra Pound
+Description: Ezra Pound's ambitious and complex poetic work spans history, literature, and philosophy. It is a cornerstone of modernist poetry, challenging and inspiring readers with its depth.
+

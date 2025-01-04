@@ -1,0 +1,42 @@
+Title: To Kill a Mockingbird
+Description: Harper Lee's Pulitzer Prize-winning novel is a timeless exploration of racial injustice and moral growth. Set in the American South, it follows young Scout Finch as her father, Atticus, defends a Black man wrongly accused of a crime.
+
+Title: 1984
+Description: George Orwell's dystopian masterpiece presents a chilling vision of a totalitarian future where surveillance, propaganda, and thought control dominate. The story of Winston Smith's rebellion against the Party remains hauntingly relevant.
+
+Title: Pride and Prejudice
+Description: Jane Austen's beloved novel is a witty and insightful exploration of love, class, and social expectations in 19th-century England. Elizabeth Bennet's sparring with Mr. Darcy has captivated readers for generations.
+
+Title: The Great Gatsby
+Description: F. Scott Fitzgerald's classic tale of ambition, love, and the American Dream is set in the roaring 1920s. The enigmatic Jay Gatsby's obsession with Daisy Buchanan leads to both romance and tragedy.
+
+Title: Moby-Dick
+Description: Herman Melville's epic novel follows Captain Ahab's obsessive quest to hunt the white whale, Moby-Dick. A profound exploration of fate, vengeance, and the human condition, it remains a cornerstone of American literature.
+
+Title: The Catcher in the Rye
+Description: J.D. Salinger's iconic novel captures the disillusionment and alienation of adolescence. Through the eyes of Holden Caulfield, readers experience a raw and honest portrayal of teenage angst.
+
+Title: The Lord of the Rings
+Description: J.R.R. Tolkien's fantasy epic is a timeless adventure of good versus evil. Following Frodo Baggins and his companions, the story explores courage, friendship, and the enduring power of hope in the face of darkness.
+
+Title: Jane Eyre
+Description: Charlotte Brontë's groundbreaking novel tells the story of Jane Eyre, an orphaned governess who navigates love, independence, and societal expectations. Her relationship with the enigmatic Mr. Rochester is a highlight.
+
+Title: The Hobbit
+Description: In this prelude to 'The Lord of the Rings,' J.R.R. Tolkien introduces readers to Bilbo Baggins, a reluctant adventurer. Bilbo's journey to reclaim treasure guarded by the dragon Smaug is filled with humor, danger, and wonder.
+
+Title: Crime and Punishment
+Description: Fyodor Dostoevsky's psychological masterpiece delves into the mind of Raskolnikov, a young man who commits murder. The novel explores themes of guilt, redemption, and the moral dilemmas of human existence.
+
+Title: Wuthering Heights
+Description: Emily Brontë's dark and passionate tale of love and revenge is set on the wild Yorkshire moors. The tumultuous relationship between Heathcliff and Catherine Earnshaw remains a literary classic.
+
+Title: The Alchemist
+Description: Paulo Coelho's allegorical novel follows Santiago, a shepherd boy, on his journey to find treasure. Through his quest, he learns about following one's dreams and discovering personal legends.
+
+Title: Brave New World
+Description: Aldous Huxley's dystopian novel envisions a world dominated by technology, consumerism, and genetic engineering. It questions the cost of utopia and the sacrifices made for stability.
+
+Title: Frankenstein
+Description: Mary Shelley's groundbreaking work of science fiction tells the story of Victor Frankenstein, a scientist who creates life. The novel explores themes of ambition, ethics, and the consequences of unchecked innovation.
+

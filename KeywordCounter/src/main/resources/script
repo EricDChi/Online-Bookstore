@@ -1,0 +1,3 @@
+spark-class.cmd org.apache.spark.deploy.master.Master
+spark-class.cmd org.apache.spark.deploy.worker.Worker spark://10.181.136.69:7077
+spark-submit --class "com.bookstore.Counter" --master spark://10.181.136.69:7077 F:\online-book-store\KeywordCounter\target\KeywordCounter-1.0-SNAPSHOT.jar

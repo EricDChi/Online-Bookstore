@@ -1,0 +1,31 @@
+Total Keyword Counts Across All Files:
+=====================================
+AI: 1
+adventure: 2
+beauty: 3
+betrayal: 1
+compiler: 1
+composition: 1
+conflict: 1
+creativity: 1
+crime: 3
+disappearance: 2
+fantasy: 1
+freedom: 1
+friendship: 4
+hero: 1
+humor: 5
+life: 4
+love: 16
+murder: 5
+mystery: 1
+performance: 4
+programming: 4
+psychological: 6
+psychology: 1
+romance: 3
+secrets: 5
+society: 2
+systems: 4
+thriller: 6
+tragedy: 1
